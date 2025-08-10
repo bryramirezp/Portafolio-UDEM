@@ -1,0 +1,86 @@
+/* --- Reseteo Básico y Estilos Generales --- */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* --- Encabezado --- */
+.header {
+    background-color: #2c3e50;
+    color: #ffffff;
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 4px solid #3498db;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.header p {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #bdc3c7;
+}
+
+/* --- Contenido Principal --- */
+.content {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.content h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+/* --- Cuadrícula de Tareas --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- Cajas de Tarea Individuales --- */
+.box {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.box h3 {
+    margin-top: 0;
+    color: #3498db;
+}
+
+.box p {
+    flex-grow: 1; /* Empuja el texto para alinear las cajas */
+}
+
+
+/* --- Pie de Página --- */
+.footer {
+    background-color: #34495e;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+}
