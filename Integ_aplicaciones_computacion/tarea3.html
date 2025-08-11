@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflexión y Proceso: Arquitectura de Banca Móvil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lora', serif;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Estilo para los bloques de pasos */
+        .step-block {
+            border-left: 3px solid #4f46e5; /* indigo-600 */
+            transition: background-color 0.3s ease;
+        }
+        .step-block:hover {
+            background-color: #f5f3ff; /* indigo-50 */
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <div class="container mx-auto max-w-4xl px-4 py-8 sm:py-12 lg:py-16">
+        <article class="bg-white rounded-lg shadow-xl p-8 sm:p-10 lg:p-12">
+            
+            <!-- Título Principal -->
+            <header class="text-center border-b border-gray-200 pb-6 mb-8">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-900">
+                    Diseño de Arquitectura con IA
+                </h1>
+                <p class="mt-2 text-lg text-gray-500">Una Reflexión sobre Co-creación y Proceso Estructurado</p>
+            </header>
+
+            <!-- Sección de Reflexión -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">Reflexión Inicial</h2>
+                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-4">
+                    <p>
+                        Mi primera reflexión es que el prompt se podía mejorar mucho más para tener un mejor resultado. Para eso utilicé mi GPT que mejora los prompts definiendo tarea, rol, contexto, referencia y output. También, que no tiene sentido colocar un prompt con el objetivo de que cree una aplicación de la nada. Al igual que cuando uno construye una casa, debe ir por capas: primero el suelo, luego los cimientos, el techo, la pintura y finalmente los detalles.
+                    </p>
+                    <p>
+                        Una cosa que pienso es que apps como Cursor son tus 'obreros', los cuales no tienen consciencia propia, y tú debes de dar esa consciencia. Es decir, una co-creación entre <strong>consciencia y propósito (Ser humano)</strong> y <strong>acción (máquina)</strong>. Si no tienes consciencia de las diferentes capas de complejidad que tiene una app, no serás capaz de canalizar la acción a un resultado integral.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Sección del Proceso Estructurado -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">El Enfoque Estructurado por Pasos</h2>
+                <p class="text-gray-600 mb-8">Sabiendo que no podía colocar un solo prompt y tener todo, le pregunté a la IA cómo dividirlo para que la construcción fuera correcta. Me recomendó 4 pasos:</p>
+
+                <div class="space-y-8">
+                    <!-- Paso 1 -->
+                    <div class="step-block bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-3">Paso 1: Crear la Estructura del Proyecto</h3>
+                        <p class="text-gray-700 mb-4">Crea la estructura de carpetas y archivos para un proyecto de MVP de banca móvil usando AWS CDK en Python. La estructura debe incluir:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Un directorio principal para el stack de CDK.</li>
+                            <li>Un directorio llamado <code class="bg-gray-200 text-sm font-mono p-1 rounded">app_lambdas</code> para el código de las funciones Lambda.</li>
+                            <li>Dentro de <code class="bg-gray-200 text-sm font-mono p-1 rounded">app_lambdas</code>, dos subdirectorios: <code class="bg-gray-200 text-sm font-mono p-1 rounded">consulta_saldo</code> e <code class="bg-gray-200 text-sm font-mono p-1 rounded">historial_movimientos</code>, cada uno con un <code class="bg-gray-200 text-sm font-mono p-1 rounded">main.py</code> y un <code class="bg-gray-200 text-sm font-mono p-1 rounded">requirements.txt</code> vacío.</li>
+                            <li>Un archivo <code class="bg-gray-200 text-sm font-mono p-1 rounded">README.md</code> a nivel raíz.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Paso 2 -->
+                    <div class="step-block bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-3">Paso 2: Diseñar y Documentar la Arquitectura</h3>
+                        <p class="text-gray-700 mb-4">Actuando como Arquitecto de Soluciones AWS, pobla el archivo README. Describe la arquitectura de un MVP de banca móvil con un modelo híbrido.</p>
+                        <h4 class="font-semibold text-gray-800">Contexto:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 mt-2">
+                            <li><strong>Funciones:</strong> Consulta de saldo e historial de movimientos.</li>
+                            <li><strong>Restricción Híbrida:</strong> La base de datos de clientes está on-premise. La conexión se hará vía AWS Site-to-Site VPN.</li>
+                            <li><strong>Componentes AWS:</strong> Usa API Gateway (HTTP API), AWS Lambda y roles de IAM.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Paso 3 -->
+                    <div class="step-block bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-3">Paso 3: Generar el Código de Infraestructura (CDK)</h3>
+                        <p class="text-gray-700 mb-4">Usando el contexto del README, escribe el código completo del stack de AWS CDK en Python.</p>
+                        <h4 class="font-semibold text-gray-800">Requisitos:</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600 mt-2">
+                            <li>Define un <code class="bg-gray-200 text-sm font-mono p-1 rounded">HttpApi</code> de API Gateway.</li>
+                            <li>Define los roles y políticas de IAM necesarios para las Lambdas.</li>
+                            <li>Crea las dos funciones Lambda leyendo el código desde sus directorios.</li>
+                            <li>Integra las funciones con API Gateway en las rutas <code class="bg-gray-200 text-sm font-mono p-1 rounded">/saldo</code> y <code class="bg-gray-200 text-sm font-mono p-1 rounded">/historial</code>.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Paso 4 -->
+                    <div class="step-block bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-bold text-indigo-700 mb-3">Paso 4: Generar el Código de las Funciones Lambda</h3>
+                        <p class="text-gray-700 mb-4">Escribe el handler de la función Lambda en Python. La función debe:</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>Recibir el evento de API Gateway y extraer un <code class="bg-gray-200 text-sm font-mono p-1 rounded">user_id</code>.</li>
+                            <li>Simular una llamada a un servicio on-premise y devolver un diccionario de ejemplo.</li>
+                            <li>Incluir logging y manejo de errores.</li>
+                            <li>Devolver la respuesta en el formato que espera API Gateway v2.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conclusión -->
+            <footer class="mt-12 border-t border-gray-200 pt-8 text-center">
+                <p class="text-gray-600 text-lg">
+                    Todo el resultado de este proceso puede ser encontrado en el repositorio: <strong class="text-gray-800">tarea3_cursor</strong>.
+                </p>
+            </footer>
+
+        </article>
+    </div>
+
+</body>
+</html>
