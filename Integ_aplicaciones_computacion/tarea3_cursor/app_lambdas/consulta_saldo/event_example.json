@@ -1,0 +1,38 @@
+{
+  "version": "2.0",
+  "routeKey": "GET /saldo",
+  "rawPath": "/saldo",
+  "rawQueryString": "user_id=12345",
+  "cookies": [],
+  "headers": {
+    "accept": "application/json",
+    "content-length": "0",
+    "host": "abc123.execute-api.us-east-1.amazonaws.com",
+    "user-agent": "curl/7.68.0",
+    "x-forwarded-proto": "https",
+    "x-forwarded-port": "443"
+  },
+  "queryStringParameters": {
+    "user_id": "12345"
+  },
+  "requestContext": {
+    "accountId": "123456789012",
+    "apiId": "abc123",
+    "domainName": "abc123.execute-api.us-east-1.amazonaws.com",
+    "domainPrefix": "abc123",
+    "http": {
+      "method": "GET",
+      "path": "/saldo",
+      "protocol": "HTTP/1.1",
+      "sourceIp": "192.168.1.1",
+      "userAgent": "curl/7.68.0"
+    },
+    "requestId": "request-id-123",
+    "routeKey": "GET /saldo",
+    "stage": "$default",
+    "time": "12/Mar/2024:19:03:58 +0000",
+    "timeEpoch": 1583348638390
+  },
+  "body": "",
+  "isBase64Encoded": false
+}
