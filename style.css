@@ -86,5 +86,61 @@ body {
 
 /* --- Secciones de Contenido --- */
 .entregas-seccion + .entregas-seccion {
-    margin-top: 4rem; /* Añade un buen espacio entre la sección de ejercicios y la de tareas */
+    margin-top: 4rem;
+}
+
+/* --- Estilos para las Páginas de Artículos --- */
+.article-content {
+    background-color: #ffffff;
+    color: #333;
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 2rem auto;
+}
+
+.article-content h2 {
+    color: #3498db;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.article-content h3 {
+    color: #2c3e50;
+    margin-top: 1.5rem;
+}
+
+pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.image-caption {
+    text-align: center;
+    font-style: italic;
+    color: #777;
+    margin-bottom: 2rem;
+}
+
+/* --- REGLA MODIFICADA PARA IMÁGENES --- */
+.article-image {
+    max-width: 100%;      /* La imagen nunca será más ancha que el contenedor */
+    height: auto;         /* Mantiene la proporción de la imagen */
+    display: block;       /* Permite usar márgenes automáticos para centrar */
+    margin-left: auto;    /* Centra la imagen horizontalmente */
+    margin-right: auto;   /* Centra la imagen horizontalmente */
+    border-radius: 8px;
+    margin-top: 1rem;
+    border: 1px solid #ddd;
 }
