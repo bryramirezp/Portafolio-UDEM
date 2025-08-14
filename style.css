@@ -75,7 +75,6 @@ body {
     flex-grow: 1; /* Empuja el texto para alinear las cajas */
 }
 
-
 /* --- Pie de Página --- */
 .footer {
     background-color: #34495e;
@@ -83,4 +82,9 @@ body {
     text-align: center;
     padding: 1.5rem;
     margin-top: 3rem;
+}
+
+/* --- Secciones de Contenido --- */
+.entregas-seccion + .entregas-seccion {
+    margin-top: 4rem; /* Añade un buen espacio entre la sección de ejercicios y la de tareas */
 }
