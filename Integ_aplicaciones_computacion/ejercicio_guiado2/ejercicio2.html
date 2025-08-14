@@ -102,7 +102,7 @@ COPY ./app.js /usr/local/apache2/htdocs/</code></pre>
             <p>Con el `Dockerfile` en nuestro directorio, ejecutamos el comando `docker build` para crear la imagen, a la que llamamos `mi-apache-chat`.</p>
             <pre><code>docker build -t mi-apache-chat .</code></pre>
             
-            <img src="Integ_aplicaciones_computacion/ejercicio_guiado2/docker_build_vscode.png" alt="Construcción de la imagen Docker en Visual Studio Code" class="article-image">
+            <img src="https://raw.githubusercontent.com/bryramirezp/Portafolio-UDEM/main/Integ_aplicaciones_computacion/ejercicio_guiado2/docker_build_vscode.png" alt="Construcción de la imagen Docker en Visual Studio Code" class="article-image">
             <p class="image-caption">Captura del proceso de `docker build` en la terminal de VS Code.</p>
 
 
@@ -118,7 +118,7 @@ COPY ./app.js /usr/local/apache2/htdocs/</code></pre>
             <pre><code>docker network connect mi-red ollama
 # (El contenedor de apache se conectará al crearlo)</code></pre>
             
-            <img src="Integ_aplicaciones_computacion/ejercicio_guiado2/docker_network_commands.png" alt="Comandos para gestionar la red de Docker" class="article-image">
+            <img src="https://raw.githubusercontent.com/bryramirezp/Portafolio-UDEM/main/Integ_aplicaciones_computacion/ejercicio_guiado2/docker_network_commands.png" alt="Comandos para gestionar la red de Docker" class="article-image">
             <p class="image-caption">Ejecución de los comandos `docker network` en la terminal.</p>
 
 
@@ -129,7 +129,7 @@ COPY ./app.js /usr/local/apache2/htdocs/</code></pre>
             <h2>Paso 5: Resultado Final</h2>
             <p>Al acceder a `http://localhost:8080` en el navegador, la interfaz de chat se carga y es completamente funcional. Las solicitudes del usuario viajan desde el frontend en el contenedor de Apache hasta el backend de IA en el contenedor de Ollama a través de la red interna de Docker.</p>
 
-            <img src="Integ_aplicaciones_computacion/ejercicio_guiado2/chat_resultado_final.png" alt="Aplicación de chat funcionando" class="article-image">
+            <img src="https://raw.githubusercontent.com/bryramirezp/Portafolio-UDEM/main/Integ_aplicaciones_computacion/ejercicio_guiado2/chat_resultado_final.png" alt="Aplicación de chat funcionando" class="article-image">
             <p class="image-caption">La aplicación final interactuando con el modelo Deepseek-Coder.</p>
             
             <a href="../index.html" class="back-link" style="display: inline-block; margin-top: 2rem; color: #3498db; text-decoration: none;">&larr; Volver al Portafolio</a>
