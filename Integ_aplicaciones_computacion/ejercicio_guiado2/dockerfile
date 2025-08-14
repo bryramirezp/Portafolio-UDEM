@@ -1,0 +1,7 @@
+# Usa la imagen oficial de Apache httpd
+FROM httpd:latest
+
+# Copia los archivos de tu página web al directorio por defecto de Apache
+COPY ./index.html /usr/local/apache2/htdocs/
+COPY ./style.css /usr/local/apache2/htdocs/
+COPY ./app.js /usr/local/apache2/htdocs/
