@@ -59,6 +59,11 @@ h1 {
     font-size: 1.1em;
 }
 
+.book-box .individual-discount {
+    color: #E67E22;
+    font-style: italic;
+}
+
 .totals {
     text-align: center;
     max-width: 600px;
@@ -82,4 +87,5 @@ h1 {
     font-size: 1.4em;
     font-weight: bold;
     color: #d93025;
+
 }
