@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-stylesheet type="text/xsl" href="libros3.xsl"?>
+<?xml-stylesheet type="text/xsl" href="stylesheet.xsl"?>
 <catalogue>
   <book isbn="978-0321765723">
     <title>The C++ Programming Language</title>
@@ -183,3 +183,4 @@
   </book>
 
 </catalogue>
+
