@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalogue>
+  <book isbn="978-0321765723">
+    <title>The C++ Programming Language</title>
+    <author>Bjarne Stroustrup</author>
+    <year>2013</year>
+    <genre>Programming</genre>
+    <price>65.50</price>
+    <stock>Available</stock>
+    <format>Hardcover</format>
+  </book>
+  <book isbn="978-0132350884">
+    <title>Clean Code</title>
+    <author>Robert C. Martin</author>
+    <year>2008</year>
+    <genre>Software Development</genre>
+    <price>42.99</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0201633610">
+    <title>Design Patterns</title>
+    <author>Erich Gamma</author>
+    <year>1994</year>
+    <genre>Software Design</genre>
+    <price>55.00</price>
+    <stock>Out of Stock</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-1982137984">
+    <title>Dune</title>
+    <author>Frank Herbert</author>
+    <year>1965</year>
+    <genre>Science Fiction</genre>
+    <price>18.00</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0553801477">
+    <title>A Game of Thrones</title>
+    <author>George R.R. Martin</author>
+    <year>1996</year>
+    <genre>Fantasy</genre>
+    <price>25.00</price>
+    <stock>Available</stock>
+    <format>eBook</format>
+  </book>
+  <book isbn="978-0743273565">
+    <title>The Da Vinci Code</title>
+    <author>Dan Brown</author>
+    <year>2003</year>
+    <genre>Mystery</genre>
+    <price>15.99</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0061120084">
+    <title>To Kill a Mockingbird</title>
+    <author>Harper Lee</author>
+    <year>1960</year>
+    <genre>Classic</genre>
+    <price>14.99</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0451524935">
+    <title>1984</title>
+    <author>George Orwell</author>
+    <year>1949</year>
+    <genre>Dystopian</genre>
+    <price>12.50</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0743273565">
+    <title>The Hitchhiker's Guide to the Galaxy</title>
+    <author>Douglas Adams</author>
+    <year>1979</year>
+    <genre>Science Fiction</genre>
+    <price>10.00</price>
+    <stock>Available</stock>
+    <format>eBook</format>
+  </book>
+  <book isbn="978-0679783268">
+    <title>Pride and Prejudice</title>
+    <author>Jane Austen</author>
+    <year>1813</year>
+    <genre>Romance</genre>
+    <price>9.99</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0316769488">
+    <title>The Catcher in the Rye</title>
+    <author>J.D. Salinger</author>
+    <year>1951</year>
+    <genre>Classic</genre>
+    <price>11.00</price>
+    <stock>Out of Stock</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-1451673319">
+    <title>Fahrenheit 451</title>
+    <author>Ray Bradbury</author>
+    <year>1953</year>
+    <genre>Dystopian</genre>
+    <price>17.00</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0307594002">
+    <title>The Girl with the Dragon Tattoo</title>
+    <author>Stieg Larsson</author>
+    <year>2005</year>
+    <genre>Thriller</genre>
+    <price>20.50</price>
+    <stock>Available</stock>
+    <format>Hardcover</format>
+  </book>
+  <book isbn="978-0439023528">
+    <title>The Hunger Games</title>
+    <author>Suzanne Collins</author>
+    <year>2008</year>
+    <genre>Young Adult</genre>
+    <price>12.99</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0446310789">
+    <title>To Kill a Mockingbird</title>
+    <author>Harper Lee</author>
+    <year>1960</year>
+    <genre>Classic</genre>
+    <price>14.99</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0743273566">
+    <title>The Great Gatsby</title>
+    <author>F. Scott Fitzgerald</author>
+    <year>1925</year>
+    <genre>Classic</genre>
+    <price>10.00</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0618640157">
+    <title>The Lord of the Rings</title>
+    <author>J.R.R. Tolkien</author>
+    <year>1954</year>
+    <genre>Fantasy</genre>
+    <price>35.00</price>
+    <stock>Available</stock>
+    <format>Box Set</format>
+  </book>
+  <book isbn="978-1400033423">
+    <title>The Road</title>
+    <author>Cormac McCarthy</author>
+    <year>2006</year>
+    <genre>Post-apocalyptic</genre>
+    <price>16.00</price>
+    <stock>Available</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-0142437209">
+    <title>The Fault in Our Stars</title>
+    <author>John Green</author>
+    <year>2012</year>
+    <genre>Young Adult</genre>
+    <price>12.99</price>
+    <stock>Out of Stock</stock>
+    <format>Paperback</format>
+  </book>
+  <book isbn="978-1594633669">
+    <title>The Girl on the Train</title>
+    <author>Paula Hawkins</author>
+    <year>2015</year>
+    <genre>Thriller</genre>
+    <price>18.00</price>
+    <stock>Available</stock>
+    <format>Hardcover</format>
+  </book>
+</catalogue>
