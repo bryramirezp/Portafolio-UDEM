@@ -6,7 +6,7 @@
         <html>
             <head>
                 <title>Guided Exercise 3: XML Book Catalogue</title>
-                <link rel="stylesheet" href="libros3.css" />
+                <link rel="stylesheet" href="style.css" />
             </head>
             <body>
                 <h1>Book Catalogue</h1>
@@ -46,3 +46,4 @@
         </html>
     </xsl:template>
 </xsl:stylesheet>
+
