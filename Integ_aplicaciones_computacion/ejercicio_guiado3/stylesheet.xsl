@@ -19,19 +19,20 @@
                             <p><strong>Year:</strong> <xsl:value-of select="year"/></p>
                             <p><strong>Genre:</strong> <xsl:value-of select="genre"/></p> 
                             <p class="price"><strong>Price:</strong> $<xsl:value-of select="price"/></p>
-                            
+                    
                             <p class="individual-discount">
                                 <strong>Price with 10% off:</strong> 
                                 $<xsl:value-of select="format-number(price * 0.90, '#,##0.00')"/>
                             </p>
 
-                            <p><strong>Format:</strong> <xsl:value-of select="format"/></p> [cite: 3]
-                            <p><strong>Stock:</strong> <xsl:value-of select="stock"/></p> [cite: 3]
+                            <p><strong>Format:</strong> <xsl:value-of select="format"/></p> 
+                            <p><strong>Stock:</strong> <xsl:value-of select="stock"/></p> 
                         </div>
                     </xsl:for-each>
             </body>
         </html>
     </xsl:template>
 </xsl:stylesheet>
+
 
 
