@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcial 1: Sistema de Microservicios para Joyería</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 20px;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+        header, footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 8px;
+        }
+        h1, h2, h3 {
+            color: #34495e;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: "Courier New", Courier, monospace;
+            margin: 20px 0;
+        }
+        .code-block pre {
+            margin: 0;
+        }
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .image-container figcaption {
+            margin-top: 10px;
+            font-style: italic;
+            color: #555;
+        }
+        ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Parcial 1: Sistema de Microservicios para una Joyería</h1>
+        <p><strong>Autor:</strong> Bryan Ramirez</p>
+    </header>
+
+    <div class="container">
+        <h2>Descripción General del Proyecto</h2>
+        <p>
+            Este proyecto implementa un sistema de comercio electrónico para una joyería llamada "El Brillo", utilizando una <strong>arquitectura de microservicios</strong>. El sistema está compuesto por un frontend interactivo y tres servicios backend independientes, cada uno responsable de una lógica de negocio específica: gestión de productos, procesamiento de pedidos y generación de facturas.
+        </p>
+
+        <h2>Arquitectura de Microservicios</h2>
+        <p>
+            La aplicación se divide en los siguientes componentes, cada uno ejecutándose de forma independiente:
+        </p>
+        <ul>
+            <li><strong>Servidor Web (Frontend):</strong> Sirve la interfaz de usuario (HTML, CSS, JavaScript) al cliente. Se encarga de detectar dinámicamente las IPs de los microservicios para facilitar la configuración.</li>
+            <li><strong>Microservicio de Productos:</strong> Gestiona el catálogo de productos. Expone un endpoint <code>/api/products</code> que devuelve la lista de productos en formato XML.</li>
+            <li><strong>Microservicio de Pedidos:</strong> Procesa las compras. Recibe los datos del carrito en formato JSON y crea un nuevo pedido en la base de datos.</li>
+            <li><strong>Microservicio de Facturas:</strong> Genera las facturas. A partir de un ID de pedido, crea una factura y la devuelve en formato XML, lista para ser transformada y mostrada al usuario.</li>
+        </ul>
+
+        <h2>Demostración Visual</h2>
+
+        <div class="image-container">
+            <h3>Interfaz Principal de la Aplicación</h3>
+            <figure>
+                <img src="https://raw.githubusercontent.com/bryramirezp/Portafolio-UDEM/main/Integ_aplicaciones_computacion/Parcial_1/Interfaz%20Principal%20de%20la%20Aplicaci%C3%B3n.png" alt="Interfaz principal de la joyería">
+                <figcaption>Vista del catálogo de productos, el panel de configuración de URLs y el carrito de compras.</figcaption>
+            </figure>
+        </div>
+
+        <div class="image-container">
+            <h3>Resultado Final - Factura Generada</h3>
+            <figure>
+                <img src="https://raw.githubusercontent.com/bryramirezp/Portafolio-UDEM/main/Integ_aplicaciones_computacion/Parcial_1/Resultado%20Final%20-%20Factura%20Generada.png" alt="Factura generada en la interfaz">
+                <figcaption>La factura se muestra en el frontend después de procesar un pedido, gracias a una transformación XSLT del XML recibido.</figcaption>
+            </figure>
+        </div>
+
+        <div class="image-container">
+            <h3>Verificación en la Base de Datos</h3>
+            <figure>
+                <img src="https://raw.githubusercontent.com/bryramirezp/Portafolio-UDEM/main/Integ_aplicaciones_computacion/Parcial_1/Verificaci%C3%B3n%20en%20la%20Base%20de%20Datos.png" alt="Consulta a la base de datos mostrando la última factura">
+                <figcaption>Confirmación de que la factura fue creada correctamente en la base de datos MariaDB.</figcaption>
+            </figure>
+        </div>
+        
+        <h2>Componentes del Proyecto</h2>
+        
+        <h3>1. Frontend (index.html, estilo.css, factura.js)</h3>
+        <p>La interfaz de usuario es una Single Page Application (SPA) que interactúa con los microservicios de forma asíncrona. Las características clave incluyen:</p>
+        <ul>
+            <li><strong>Detección Automática de URLs:</strong> El archivo <code>factura.js</code> detecta automáticamente el hostname para construir las URLs de los microservicios, facilitando el despliegue.</li>
+            <li><strong>Carga Dinámica de Productos:</strong> Los productos se obtienen del servicio correspondiente y se renderizan en el DOM.</li>
+            <li><strong>Procesamiento de Pedidos y Facturas:</strong> El frontend orquesta las llamadas a los microservicios: primero crea el pedido y, si tiene éxito, solicita la factura asociada.</li>
+        </ul>
+
+        <h3>2. Microservicios (Python + Flask)</h3>
+        <p>Cada microservicio está construido con Flask y se conecta a una base de datos MariaDB.</p>
+        
+        <h4>Servicio de Productos (`products_service.py`)</h4>
+        <p>Responsable de consultar y exponer el catálogo de productos.</p>
+        <div class="code-block">
+<pre>
+@app.route('/api/products', methods=['GET'])
+def get_products():
+    # ... Lógica para conectar a la BD ...
+    cur.execute("SELECT ... FROM products")
+    products = cur.fetchall()
+    # ... Construye una respuesta XML con los productos ...
+    return Response(xml_output, mimetype='application/xml')
+</pre>
+        </div>
+
+        <h4>Servicio de Pedidos (`pedidos_service.py`)</h4>
+        <p>Maneja la lógica de negocio para crear un pedido a partir de los ítems del carrito.</p>
+        <div class="code-block">
+<pre>
+@app.route('/api/pedidos', methods=['POST'])
+def create_pedido():
+    data = request.get_json()
+    # ... Valida datos y calcula subtotal, impuestos y total ...
+    cur.execute("INSERT INTO pedidos (...) VALUES (...)")
+    pedido_id = cur.lastrowid
+    # ... Inserta los detalles del pedido ...
+    mysql.connection.commit()
+    return jsonify({'status': 'success', 'pedido_id': pedido_id})
+</pre>
+        </div>
+
+        <h4>Servicio de Facturas (`facturas_service.py`)</h4>
+        <p>Genera el documento XML final de la factura basado en un pedido existente.</p>
+        <div class="code-block">
+<pre>
+@app.route('/api/facturas', methods=['POST'])
+def create_factura():
+    data = request.get_json()
+    pedido_id = data.get('pedido_id')
+    # ... Consulta datos del pedido, cliente y detalles ...
+    cur.execute("INSERT INTO facturas (...) VALUES (...)")
+    # ... Construye una respuesta XML detallada de la factura ...
+    return Response(xml_output, mimetype='application/xml')
+</pre>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; 2025 - Portafolio de Proyectos</p>
+    </footer>
+
+</body>
+</html>
