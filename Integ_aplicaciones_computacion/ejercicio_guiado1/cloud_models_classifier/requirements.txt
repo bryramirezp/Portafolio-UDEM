@@ -1,4 +1,0 @@
-# No se requieren dependencias externas
-# Este proyecto solo utiliza módulos estándar de Python:
-# - re (expresiones regulares)
-# - typing (anotaciones de tipo)

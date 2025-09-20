@@ -1,0 +1,50 @@
+[
+  {
+    "text": "Amazon EC2 proporciona servidores virtuales",
+    "classification": "IaaS",
+    "confidence": 100.0,
+    "scores": {
+      "IaaS": 1.0,
+      "PaaS": 0.0,
+      "SaaS": 0.0,
+      "FaaS": 0.0
+    },
+    "is_cloud_service": true
+  },
+  {
+    "text": "Heroku es una plataforma de desarrollo",
+    "classification": "PaaS",
+    "confidence": 100.0,
+    "scores": {
+      "IaaS": 0.0,
+      "PaaS": 4.0,
+      "SaaS": 0.0,
+      "FaaS": 0.0
+    },
+    "is_cloud_service": true
+  },
+  {
+    "text": "Salesforce es una aplicación CRM",
+    "classification": "SaaS",
+    "confidence": 100.0,
+    "scores": {
+      "IaaS": 0.0,
+      "PaaS": 0.0,
+      "SaaS": 3.0,
+      "FaaS": 0.0
+    },
+    "is_cloud_service": true
+  },
+  {
+    "text": "AWS Lambda ejecuta funciones serverless",
+    "classification": "FaaS",
+    "confidence": 100.0,
+    "scores": {
+      "IaaS": 0.0,
+      "PaaS": 0.0,
+      "SaaS": 0.0,
+      "FaaS": 4.0
+    },
+    "is_cloud_service": true
+  }
+]

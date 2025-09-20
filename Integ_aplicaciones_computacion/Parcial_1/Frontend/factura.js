@@ -21,7 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function autoDetectUrls() {
-        const detectedHost = window.location.hostname;
+        let detectedHost = window.location.hostname;
+        
+        // Si no hay hostname (archivo abierto directamente), usar localhost
+        if (!detectedHost || detectedHost === '') {
+            detectedHost = 'localhost';
+        }
         
         if (ipDetectSpan) {
             ipDetectSpan.textContent = `IP Detectada: ${detectedHost}`;
@@ -42,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadProducts() {
         productsList.innerHTML = '<p>Cargando productos...</p>';
         try {
+            console.log(`Intentando conectar a: ${apiConfig.products}/api/products`);
             const response = await fetch(`${apiConfig.products}/api/products`);
             if (!response.ok) {
                 throw new Error(`El servidor respondió con el estado: ${response.status}`);
@@ -77,7 +83,23 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } catch (error) {
             console.error('Error al cargar productos:', error);
-            productsList.innerHTML = `<p style="color: red;">Error al cargar productos: ${error.message}. Revisa la consola (F12) para más detalles.</p>`;
+            let errorMessage = error.message;
+            
+            // Proporcionar mensajes más específicos según el tipo de error
+            if (error.message.includes('Failed to parse URL')) {
+                errorMessage = `URL mal formada: ${apiConfig.products}/api/products. Verifica que los servicios estén ejecutándose.`;
+            } else if (error.message.includes('fetch')) {
+                errorMessage = `No se puede conectar al servidor en ${apiConfig.products}. Asegúrate de que el servicio de productos esté ejecutándose en el puerto 5001.`;
+            }
+            
+            productsList.innerHTML = `
+                <div style="color: red; padding: 1rem; border: 2px solid red; border-radius: 4px; background: #ffe6e6;">
+                    <h4>Error al cargar productos</h4>
+                    <p><strong>Mensaje:</strong> ${errorMessage}</p>
+                    <p><strong>URL intentada:</strong> ${apiConfig.products}/api/products</p>
+                    <p><strong>Solución:</strong> Ejecuta el script start.sh para iniciar los servicios o verifica que estén corriendo en los puertos correctos.</p>
+                </div>
+            `;
         }
     }
 
@@ -210,6 +232,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         createOrderBtn.addEventListener('click', handleCreateOrder);
+        
+        // Agregar listener para el botón de guardar configuración
+        const saveConfigBtn = document.getElementById('save-config');
+        if (saveConfigBtn) {
+            saveConfigBtn.addEventListener('click', () => {
+                apiConfig.products = productsUrlInput.value || apiConfig.products;
+                apiConfig.pedidos = pedidosUrlInput.value || apiConfig.pedidos;
+                apiConfig.facturas = facturasUrlInput.value || apiConfig.facturas;
+                
+                console.log("Configuración actualizada:", apiConfig);
+                alert("Configuración guardada. Recargando productos...");
+                loadProducts();
+            });
+        }
     }
     
     initialize();

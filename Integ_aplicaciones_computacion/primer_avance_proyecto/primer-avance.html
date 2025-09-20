@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primer Avance: PredictHealth</title>
+    <link rel="stylesheet" href="../../assets/css/neo-brutalist.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body style="min-height: 100vh; display: flex; flex-direction: column;">
+    
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../proyecto-final.html" class="neo-button neo-button--secondary">← Volver</a>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Primer Avance</h1>
+            <p class="neo-header__subtitle">PredictHealth - Plataforma de Predicción de Riesgos de Salud</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0; flex: 1;">
+        
+        <!-- Introducción -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">🏥 PredictHealth</div>
+            <div class="neo-card__content">
+                <p>Una plataforma web para la predicción de riesgos de salud que permite a los usuarios monitorear y predecir riesgos de diabetes e hipertensión basándose en datos médicos y registros diarios.</p>
+            </div>
+        </div>
+
+        <!-- Características -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">📋 Características Principales</div>
+            <div class="neo-card__content">
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Dashboard Interactivo</strong>: Visualización en tiempo real de datos de salud con gráficos dinámicos
+                    </li>
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Predicción de Riesgos</strong>: Análisis predictivo para diabetes e hipertensión
+                    </li>
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Gestión de Usuarios</strong>: Sistema de autenticación con roles de usuario y administrador
+                    </li>
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Historial Médico</strong>: Almacenamiento y seguimiento de datos médicos históricos
+                    </li>
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Registros Diarios</strong>: Capacidad de registrar métricas diarias de salud
+                    </li>
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Exportación de Datos</strong>: Funcionalidad para exportar reportes en formato JSON
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Stack Tecnológico -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">🛠️ Stack Tecnológico</div>
+            <div class="neo-card__content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.5rem;">Backend</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>Python 3.x</strong>
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>Flask</strong> - Framework web
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>SQLAlchemy</strong> - ORM para base de datos
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>PostgreSQL</strong> - Base de datos principal
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.5rem;">Frontend</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>HTML5/CSS3</strong>
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>JavaScript (Vanilla)</strong>
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>Bootstrap 5</strong> - Framework CSS
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>Chart.js</strong> - Librería de gráficos
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <strong>Tailwind CSS</strong> - Utilidades CSS
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estructura del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">📁 Estructura del Proyecto</div>
+            <div class="neo-card__content">
+                <pre style="background: var(--bg-secondary); padding: 1.5rem; border: 2px solid var(--border-color); border-radius: var(--border-radius); overflow-x: auto; font-family: 'Roboto Mono', monospace; font-size: 0.9rem;"><code>predicthealth/
+├── app.py # Aplicación principal Flask (skeleton)
+├── requirements.txt # Dependencias pip
+├── init.sql # Script de inicialización de BD (tablas)
+├── stored_procedures.sql # Procedimientos almacenados / funciones SQL
+├── data/ # CSVs y datos de carga inicial
+│   ├── usuarios.csv
+│   ├── datos_historial_medico.csv
+│   ├── registros_salud_diario.csv
+│   ├── predicciones_riesgo.csv
+│   └── datos_wearable.csv
+├── templates/
+│   ├── log_in.html
+│   ├── sign_up.html
+│   ├── user_dashboard.html
+│   └── admin_dashboard.html
+├── static/
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   └── app.js
+│   └── images/
+│       ├── logo.jpg
+│       └── background.jpg
+└── README.md</code></pre>
+            </div>
+        </div>
+
+        <!-- Instalación y Configuración -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">🚀 Instalación y Configuración</div>
+            <div class="neo-card__content">
+                <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.5rem;">Prerrequisitos</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        Python 3.7+
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        PostgreSQL 12+
+                    </li>
+                    <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        pip (gestor de paquetes de Python)
+                    </li>
+                </ul>
+
+                <h3 style="color: var(--text-primary); margin: 2rem 0 1rem 0; font-size: 1.5rem;">Pasos de Instalación</h3>
+                <ol style="padding-left: 0;">
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Clonar el repositorio</strong>
+                        <pre style="background: var(--bg-primary); padding: 0.5rem; margin-top: 0.5rem; border-radius: var(--border-radius); font-size: 0.8rem;"><code>git clone https://github.com/tu-usuario/predicthealth.git
+cd predicthealth</code></pre>
+                    </li>
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Crear entorno virtual</strong>
+                        <pre style="background: var(--bg-primary); padding: 0.5rem; margin-top: 0.5rem; border-radius: var(--border-radius); font-size: 0.8rem;"><code>python -m venv venv
+source venv/bin/activate  # En Windows: venv\Scripts\activate</code></pre>
+                    </li>
+                    <li style="margin-bottom: 1rem; padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <strong>Instalar dependencias</strong>
+                        <pre style="background: var(--bg-primary); padding: 0.5rem; margin-top: 0.5rem; border-radius: var(--border-radius); font-size: 0.8rem;"><code>pip install flask flask-sqlalchemy psycopg2-binary</code></pre>
+                    </li>
+                </ol>
+
+                <h3 style="color: var(--text-primary); margin: 2rem 0 1rem 0; font-size: 1.5rem;">Ejecución</h3>
+                <div style="padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                    <pre style="background: var(--bg-primary); padding: 0.5rem; margin: 0; border-radius: var(--border-radius); font-size: 0.8rem;"><code>python app.py</code></pre>
+                    <p style="margin-top: 0.5rem; margin-bottom: 0;">La aplicación estará disponible en <code>http://localhost:5000</code></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Usuarios de Prueba -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">👥 Usuarios de Prueba</div>
+            <div class="neo-card__content">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div style="padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Usuario Regular</h4>
+                        <p style="margin: 0.25rem 0;"><strong>Email:</strong> <code>bryan@example.com</code></p>
+                        <p style="margin: 0.25rem 0;"><strong>Contraseña:</strong> <code>bryanpass</code></p>
+                        <p style="margin: 0.25rem 0;"><strong>Rol:</strong> Usuario</p>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Usuario Regular</h4>
+                        <p style="margin: 0.25rem 0;"><strong>Email:</strong> <code>margarita@example.com</code></p>
+                        <p style="margin: 0.25rem 0;"><strong>Contraseña:</strong> <code>margaritapass</code></p>
+                        <p style="margin: 0.25rem 0;"><strong>Rol:</strong> Usuario</p>
+                    </div>
+                    <div style="padding: 1rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Administrador</h4>
+                        <p style="margin: 0.25rem 0;"><strong>Email:</strong> <code>mariana@example.com</code></p>
+                        <p style="margin: 0.25rem 0;"><strong>Contraseña:</strong> <code>marianapass</code></p>
+                        <p style="margin: 0.25rem 0;"><strong>Rol:</strong> Admin</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Endpoints -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">🔧 API Endpoints</div>
+            <div class="neo-card__content">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.5rem;">Rutas de Autenticación</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <code>GET /</code> - Redirección al login
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <code>GET|POST /log_in</code> - Inicio de sesión
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <code>GET|POST /sign_up</code> - Registro de usuarios
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <code>GET /logout</code> - Cerrar sesión
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.5rem;">Dashboards</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <code>GET /user_dashboard</code> - Dashboard del usuario
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <code>GET /admin_dashboard</code> - Dashboard del administrador
+                            </li>
+                            <li style="margin-bottom: 0.5rem; padding: 0.5rem; background: var(--bg-secondary); border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                                <code>GET /api/dashboard_data</code> - Datos del dashboard en JSON
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consideraciones de Seguridad -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">⚠️ Consideraciones de Seguridad</div>
+            <div class="neo-card__content">
+                <div style="padding: 1.5rem; background: #f8d7da; border: 3px solid #721c24; border-radius: var(--border-radius);">
+                    <p style="margin-bottom: 1rem; font-weight: bold; color: #721c24;"><strong>IMPORTANTE</strong>: Esta es una versión de prototipo que incluye las siguientes vulnerabilidades conocidas:</p>
+                    <ul style="margin-bottom: 1rem; color: #721c24;">
+                        <li>❌ Contraseñas almacenadas en texto plano</li>
+                        <li>❌ Sin validación robusta de entrada</li>
+                        <li>❌ Sin protección CSRF</li>
+                        <li>❌ Sin rate limiting</li>
+                    </ul>
+                    <p style="margin: 0; font-weight: bold; color: #721c24;"><strong>NO utilizar en producción sin implementar medidas de seguridad apropiadas.</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screenshots -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">📸 Screenshots del Proyecto</div>
+            <div class="neo-card__content">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div style="text-align: center;">
+                        <img src="Creacion_usuario_front.jpg" alt="Interfaz de registro de usuario" style="max-width: 100%; height: auto; border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);"><strong>Registro de Usuario</strong><br>Interfaz de registro con diseño limpio y moderno</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="dashboard.jpg" alt="Dashboard principal del usuario" style="max-width: 100%; height: auto; border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);"><strong>Dashboard Principal</strong><br>Dashboard interactivo con métricas de salud y gráficos dinámicos</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <img src="Creacion_usuario_db.jpg" alt="Vista de la base de datos" style="max-width: 100%; height: auto; border: 2px solid var(--border-color); border-radius: var(--border-radius);">
+                        <p style="margin-top: 1rem; font-style: italic; color: var(--text-secondary);"><strong>Base de Datos</strong><br>Vista de la base de datos PostgreSQL con usuarios registrados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Neo Brutalist -->
+    <footer class="neo-header" style="margin-top: auto; position: sticky; bottom: 0;">
+        <div class="neo-header__center">
+            <p class="neo-header__subtitle">⚕️ Desarrollado con el objetivo de mejorar el acceso a la información de salud predictiva</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/neo-brutalist.js"></script>
+    <script src="../../assets/js/main.js"></script>
+
+</body>
+</html>

@@ -3,80 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entregas - Arquitectura Cloud</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Portafolio de Tareas - Integración de Aplicaciones Computacionales</title>
+    <link rel="stylesheet" href="assets/css/neo-brutalist.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-    <header class="header">
-        <h1>Portafolio de Tareas</h1>
-        <p>Integración de Aplicaciones Computacionales</p>
+    
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <span class="neo-button neo-button--primary">#UDEM</span>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Portafolio de Tareas</h1>
+            <p class="neo-header__subtitle">Integración de Aplicaciones Computacionales</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
     </header>
 
-    <main class="content">
-        <section class="entregas-seccion">
-            <h2>Ejercicios Guiados 🧑‍🏫</h2>
-            <div class="grid">
-                <a href="Integ_aplicaciones_computacion/ejercicio_guiado1/ejercicio1.html" class="box">
-                    <h3>Ejercicio Guiado 1: Mi Primer Contenedor</h3>
-                    <p>Creación y gestión de un contenedor Docker básico para una aplicación web.</p>
-                </a>
-                <a href="Integ_aplicaciones_computacion/ejercicio_guiado2/ejercicio2.html" class="box">
-                    <h3>Ejercicio Guiado 2: Chat con IA Local</h3>
-                    <p>Creación de una app de chat con Ollama y Apache, orquestada con contenedores Docker.</p>
-                </a>
-                <a href="Integ_aplicaciones_computacion/ejercicio_guiado3/index.html" class="box">
-                    <h3>Ejercicio Guiado 3: Catálogo de Libros XML</h3>
-                    <p>Visualización de un Catálogo de Libros XML con Transformaciones XSLT y Estilos CSS.</p>
-                </a>
-            </div>
-        </section>
-
-        <section class="entregas-seccion">
-            <h2>Tareas 🚀</h2>
-            <div class="grid">
-                <a href="Integ_aplicaciones_computacion/tarea1.html" class="box">
-                    <h3>Tarea 1: Mapa Conceptual Comparativo</h3>
-                    <p>Análisis visual de los modelos IaaS, PaaS, SaaS y FaaS con ejemplos de proveedores reales.</p>
-                </a>
-                <a href="Integ_aplicaciones_computacion/tarea2.html" class="box">
-                    <h3>Tarea 2: Miniensayo (600 palabras)</h3>
-                    <p>Discusión sobre las diferencias y aplicaciones de arquitecturas Cloud-Native vs. Cloud-Enabled.</p>
-                </a>
-                <a href="Integ_aplicaciones_computacion/tarea3.html" class="box">
-                    <h3>Tarea 3: Ejercicio con Prompt Engineering</h3>
-                    <p>Diseño de una arquitectura serverless para banca móvil usando IA y una reflexión de 500 palabras.</p>
-                </a>
-            </div>
-        </section>
-
-        <section class="entregas-seccion">
-            <h2>Parciales 🧑‍⚖️</h2>
-            <div class="grid">
-                <a href="Integ_aplicaciones_computacion/Parcial_1/index.html" class="box">
-                    <h3>Parcial 1: Sistema de Microservicios para Joyería</h3>
-                    <p>Despliegue de una arquitectura de microservicios (Frontend, Productos, Pedidos, Facturas) con Flask y MariaDB.</p>
-                </a>
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+        
+        <div class="neo-grid neo-grid--2" style="max-width: 900px; margin: 0 auto;">
+            
+            <!-- Ejercicios Guiados -->
+            <div class="neo-card" onclick="openFolder('ejercicios-guiados')" style="cursor: pointer;">
+                <div class="neo-card__title">Ejercicios Guiados</div>
+                <div class="neo-card__content">
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span style="font-size: 2rem;">🐳</span>
+                        <span style="font-size: 2rem;">💬</span>
+                        <span style="font-size: 2rem;">📚</span>
+                    </div>
+                    <p>Explora los ejercicios prácticos de Docker, IA y XML/XSLT</p>
                 </div>
-        </section>
+            </div>
 
-        <section class="entregas-seccion">
-            <h2>Proyecto Final 🏆</h2>
-            <div class="grid">
-                <a href="Integ_aplicaciones_computacion/primer_avance_proyecto/index.html" class="box">
-                    <h3>Primer Avance: PredictHealth</h3>
-                    <p>Plataforma web para la predicción de riesgos de salud como diabetes e hipertensión, usando Flask y PostgreSQL.</p>
-                </a>
+            <!-- Tareas -->
+            <div class="neo-card" onclick="openFolder('tareas')" style="cursor: pointer;">
+                <div class="neo-card__title">Tareas</div>
+                <div class="neo-card__content">
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span style="font-size: 2rem;">📊</span>
+                        <span style="font-size: 2rem;">📝</span>
+                        <span style="font-size: 2rem;">🤖</span>
+                    </div>
+                    <p>Mapas conceptuales, ensayos y proyectos de Cloud Computing</p>
                 </div>
-        </section>
-        </main>
+            </div>
 
-    <footer class="footer">
-        <p>© 2025 Bryan Andrés Ramírez Palacios </p>
+            <!-- Parciales -->
+            <div class="neo-card" onclick="openFolder('parciales')" style="cursor: pointer;">
+                <div class="neo-card__title">Parciales</div>
+                <div class="neo-card__content">
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span style="font-size: 2rem;">⚖️</span>
+                        <span style="font-size: 2rem;">🏪</span>
+                        <span style="font-size: 2rem;">🔧</span>
+                    </div>
+                    <p>Sistemas de microservicios y arquitecturas escalables</p>
+                </div>
+            </div>
+
+            <!-- Proyecto Final -->
+            <div class="neo-card" onclick="openFolder('proyecto-final')" style="cursor: pointer;">
+                <div class="neo-card__title">Proyecto Final</div>
+                <div class="neo-card__content">
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
+                        <span style="font-size: 2rem;">🏥</span>
+                        <span style="font-size: 2rem;">📈</span>
+                        <span style="font-size: 2rem;">💊</span>
+                    </div>
+                    <p>PredictHealth - Plataforma de predicción de riesgos de salud</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Neo Brutalist -->
+    <footer class="neo-footer">
+        <div class="neo-footer__center">
+            <p class="neo-footer__text">Bryan Ramírez Palacios</p>
+        </div>
     </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/neo-brutalist.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        function openFolder(folderName) {
+            window.location.href = `Integ_aplicaciones_computacion/${folderName}.html`;
+        }
+    </script>
 
 </body>
 </html>

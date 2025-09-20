@@ -1,0 +1,1089 @@
+/* ========================================
+   NEO BRUTALIST DESIGN SYSTEM - OVERRIDES
+   ======================================== */
+
+/* Importar el sistema Neo Brutalist */
+@import url('neo-brutalist.css');
+
+/* ========================================
+   COMPATIBILIDAD CON ESTILOS EXISTENTES
+   ======================================== */
+
+/* Mantener funcionalidad de elementos existentes */
+.file-system-body,
+.folder-page-body {
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* Convertir headers existentes */
+.file-system-header,
+.folder-page-header {
+  background-color: var(--bg-secondary);
+  border-bottom: var(--border-width) solid var(--border-color);
+  box-shadow: 0 var(--shadow-offset) 0 var(--shadow-color);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Convertir elementos de navegación */
+.header-left,
+.folder-page-header > a:first-child {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  background-color: var(--neo-yellow);
+  color: var(--neo-black);
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  font-weight: 700;
+  font-size: 1.2rem;
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  transition: all var(--transition-speed) var(--transition-easing);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.logo:hover {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+  background-color: #FFC107;
+}
+
+.back-btn {
+  background-color: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-color);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-speed) var(--transition-easing);
+  font-weight: 600;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.back-btn:hover {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+  background-color: var(--neo-yellow);
+  color: var(--neo-black);
+}
+
+.folder-title {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 2px;
+}
+
+/* ========================================
+   CONVERSIÓN DE CARPETAS Y ARCHIVOS
+   ======================================== */
+
+/* Convertir carpetas a cards Neo Brutalist */
+.folder-item {
+  background-color: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+  position: relative;
+  overflow: hidden;
+}
+
+.folder-item:hover {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+}
+
+/* Ocultar iconos de carpeta antiguos */
+.folder-icon {
+  display: none;
+}
+
+.folder-icons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.mini-icon {
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+.folder-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-top: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}
+
+/* Convertir archivos a cards Neo Brutalist */
+.file-item {
+  background-color: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.file-item:hover {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+}
+
+.file-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.file-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}
+
+.file-description {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* ========================================
+   CONTENIDO DE ARTÍCULOS
+   ======================================== */
+
+.article-content {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 32px;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border: var(--border-width) solid var(--border-color);
+  max-width: 900px;
+  margin: 32px auto;
+}
+
+.article-content h2 {
+  color: var(--text-primary);
+  border-bottom: 3px solid var(--neo-yellow);
+  padding-bottom: 8px;
+  margin-top: 32px;
+  font-weight: 600;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 2px;
+}
+
+.article-content h3 {
+  color: var(--text-primary);
+  margin-top: 24px;
+  font-weight: 600;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 1px;
+}
+
+pre {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 24px;
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  border-left: 4px solid var(--neo-yellow);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border: var(--border-width) solid var(--border-color);
+}
+
+code {
+  font-family: 'Roboto Mono', monospace;
+  background-color: var(--neo-yellow);
+  color: var(--neo-black);
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  border: 2px solid var(--border-color);
+}
+
+/* Estilo específico para code dentro de pre */
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  border: none;
+  font-weight: normal;
+}
+
+.image-caption {
+  text-align: center;
+  font-style: italic;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.article-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: var(--border-radius);
+  margin-top: 16px;
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.article-image:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+}
+
+/* ========================================
+   LAYOUTS Y CONTENEDORES
+   ======================================== */
+
+.file-system-main,
+.folder-page-main {
+  padding: 48px 24px;
+}
+
+.file-system-container,
+.files-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ========================================
+   ESTILOS ESPECÍFICOS PARA MAPAS CONCEPTUALES
+   ======================================== */
+
+.mapa-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px;
+}
+
+.mapa-card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border: var(--border-width) solid var(--border-color);
+  transition: all var(--transition-speed) var(--transition-easing);
+  z-index: 10;
+  position: relative;
+  min-height: 400px;
+}
+
+.mapa-card:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+}
+
+.central-card {
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  padding: 32px 48px;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border: var(--border-width) solid var(--neo-yellow);
+  display: inline-block;
+}
+
+.central-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--neo-yellow);
+  margin: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 3px;
+}
+
+.modelos-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  position: relative;
+}
+
+.modelo-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 2px;
+}
+
+.modelo-iaas .modelo-title { color: #0ea5e9; }
+.modelo-paas .modelo-title { color: #10b981; }
+.modelo-saas .modelo-title { color: #8b5cf6; }
+.modelo-faas .modelo-title { color: #f97316; }
+
+.control-bar {
+  width: 100%;
+  background-color: var(--bg-primary);
+  border-radius: 10px;
+  height: 8px;
+  margin: 8px 0;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+}
+
+.control-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.control-iaas { background-color: #ef4444; width: 90%; }
+.control-paas { background-color: #eab308; width: 50%; }
+.control-saas { background-color: #22c55e; width: 15%; }
+.control-faas { background-color: #3b82f6; width: 25%; }
+
+.ejemplos-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.ejemplos-list li {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  padding: 4px 0;
+  position: relative;
+  padding-left: 16px;
+}
+
+.ejemplos-list li::before {
+  content: "•";
+  color: var(--neo-yellow);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1200px) {
+  .modelos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .file-system-header,
+  .folder-page-header {
+    padding: 12px 16px;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .file-system-container,
+  .files-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .central-title {
+    font-size: 2rem;
+  }
+  
+  .modelos-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .mapa-container {
+    padding: 16px;
+  }
+  
+  .article-content {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    padding: 6px 12px;
+    font-size: 1rem;
+  }
+  
+  .back-btn {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .folder-item,
+  .file-item {
+    padding: 16px;
+  }
+  
+  .central-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ========================================
+   ANIMACIONES Y EFECTOS ESPECIALES
+   ======================================== */
+
+@keyframes neo-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.neo-fade-in {
+  animation: neo-fade-in 0.5s ease-out;
+}
+
+/* Efecto de carga */
+.neo-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.neo-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--border-color);
+  border-top: 2px solid var(--neo-yellow);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- Estilos del Sistema de Archivos --- */
+.file-system-body {
+    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+.file-system-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.header-left .logo {
+    background: #16232A; /* Mirage */
+    color: #E4EEF0; /* Wild Sand */
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    border: 2px solid #FF5B04; /* Blaze Orange border */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(22, 35, 42, 0.3);
+}
+
+.header-left .logo:hover {
+    background: #FF5B04; /* Blaze Orange */
+    color: #E4EEF0; /* Wild Sand */
+    border-color: #16232A; /* Mirage */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(22, 35, 42, 0.4);
+}
+
+.header-right {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.language-selector {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+
+.icon-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.file-system-main {
+    padding: 3rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px);
+}
+
+.file-system-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    max-width: 900px;
+    width: 100%;
+}
+
+.folder-item {
+    background: rgba(228, 238, 240, 0.95); /* Wild Sand with opacity */
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(22, 35, 42, 0.2); /* Mirage shadow */
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 91, 4, 0.3); /* Blaze Orange border */
+    position: relative;
+    overflow: hidden;
+}
+
+.folder-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(22, 35, 42, 0.3); /* Mirage shadow */
+    background: rgba(228, 238, 240, 1); /* Wild Sand */
+    border-color: rgba(255, 91, 4, 0.6); /* Blaze Orange border */
+}
+
+.folder-icon {
+    position: relative;
+    width: 80px;
+    height: 60px;
+    margin: 0 auto 1rem;
+}
+
+.folder-top {
+    width: 80px;
+    height: 45px;
+    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
+    border-radius: 5px 5px 0 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.folder-bottom {
+    width: 80px;
+    height: 50px;
+    background: #E4EEF0; /* Wild Sand */
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.folder-tab {
+    width: 20px;
+    height: 15px;
+    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
+    border-radius: 0 0 5px 5px;
+    position: absolute;
+    top: 0;
+    left: 10px;
+}
+
+.folder-icons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.mini-icon {
+    font-size: 1.2rem;
+    opacity: 0.8;
+}
+
+.folder-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #16232A; /* Mirage */
+    margin-top: 0.5rem;
+}
+
+/* --- Estilos para páginas de carpetas --- */
+.folder-page-body {
+    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+}
+
+.folder-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-btn {
+    background: #16232A; /* Mirage */
+    border: 1px solid #16232A; /* Mirage */
+    color: #E4EEF0; /* Wild Sand */
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.back-btn:hover {
+    background: #FF5B04; /* Blaze Orange */
+    border-color: #FF5B04; /* Blaze Orange */
+    color: #E4EEF0; /* Wild Sand */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(22, 35, 42, 0.3);
+}
+
+.folder-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.folder-page-main {
+    padding: 3rem 2rem;
+}
+
+.files-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.file-item {
+    background: rgba(228, 238, 240, 0.95); /* Wild Sand with opacity */
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(22, 35, 42, 0.2); /* Mirage shadow */
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(228, 238, 240, 0.3); /* Wild Sand border */
+    text-decoration: none;
+    color: inherit;
+}
+
+.file-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(22, 35, 42, 0.3); /* Mirage shadow */
+    background: rgba(228, 238, 240, 1); /* Wild Sand */
+    border-color: rgba(255, 91, 4, 0.6); /* Blaze Orange border */
+}
+
+.file-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.file-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #16232A; /* Mirage */
+    margin-bottom: 0.5rem;
+}
+
+.file-description {
+    font-size: 0.9rem;
+    color: #16232A; /* Mirage - texto negro */
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+/* --- Encabezado --- */
+.header {
+    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
+    color: #E4EEF0; /* Wild Sand */
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 4px solid #FF5B04; /* Blaze Orange */
+    box-shadow: 0 4px 20px rgba(22, 35, 42, 0.3); /* Mirage shadow */
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.header p {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #E4EEF0;
+    opacity: 0.9;
+}
+
+/* --- Contenido Principal --- */
+.content {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.content h2 {
+    text-align: center;
+    color: #16232A; /* Mirage */
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    position: relative;
+}
+
+.content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #FF5B04, #E4EEF0); /* Blaze Orange to Wild Sand */
+    border-radius: 2px;
+}
+
+/* --- Cuadrícula de Tareas --- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- Cajas de Tarea Individuales --- */
+.box {
+    background: linear-gradient(145deg, #E4EEF0 0%, #f8f9fa 100%); /* Wild Sand gradient */
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 6px 20px rgba(22, 35, 42, 0.1); /* Mirage shadow */
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(228, 238, 240, 0.1); /* Wild Sand border */
+    position: relative;
+    overflow: hidden;
+}
+
+.box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #FF5B04, #E4EEF0); /* Blaze Orange to Wild Sand */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(22, 35, 42, 0.2); /* Mirage shadow */
+    border-color: rgba(255, 91, 4, 0.3); /* Blaze Orange border */
+}
+
+.box:hover::before {
+    transform: scaleX(1);
+}
+
+.box h3 {
+    margin-top: 0;
+    color: #16232A; /* Mirage */
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.box p {
+    flex-grow: 1; /* Empuja el texto para alinear las cajas */
+}
+
+/* --- Pie de Página --- */
+.footer {
+    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
+    color: #E4EEF0; /* Wild Sand */
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    border-top: 3px solid #FF5B04; /* Blaze Orange */
+}
+
+/* --- Secciones de Contenido --- */
+.entregas-seccion + .entregas-seccion {
+    margin-top: 4rem;
+}
+
+/* --- Estilos para las Páginas de Artículos --- */
+.article-content {
+    background: linear-gradient(145deg, #E4EEF0 0%, #f8f9fa 100%); /* Wild Sand gradient */
+    color: #16232A; /* Mirage */
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(22, 35, 42, 0.1); /* Mirage shadow */
+    max-width: 900px;
+    margin: 2rem auto;
+    border: 1px solid rgba(228, 238, 240, 0.1); /* Wild Sand border */
+}
+
+.article-content h2 {
+    color: #16232A; /* Mirage */
+    border-bottom: 3px solid #FF5B04; /* Blaze Orange */
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+    font-weight: 600;
+}
+
+.article-content h3 {
+    color: #E4EEF0; /* Wild Sand */
+    margin-top: 1.5rem;
+    font-weight: 600;
+}
+
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba(255, 91, 4, 0.1); /* Blaze Orange background */
+    color: #16232A; /* Mirage */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.image-caption {
+    text-align: center;
+    font-style: italic;
+    color: #E4EEF0; /* Wild Sand */
+    margin-bottom: 2rem;
+    font-weight: 500;
+}
+
+/* --- REGLA MODIFICADA PARA IMÁGENES --- */
+.article-image {
+    max-width: 100%;      /* La imagen nunca será más ancha que el contenedor */
+    height: auto;         /* Mantiene la proporción de la imagen */
+    display: block;       /* Permite usar márgenes automáticos para centrar */
+    margin-left: auto;    /* Centra la imagen horizontalmente */
+    margin-right: auto;   /* Centra la imagen horizontalmente */
+    border-radius: 12px;
+    margin-top: 1rem;
+    border: 2px solid rgba(255, 91, 4, 0.2); /* Blaze Orange border */
+    box-shadow: 0 6px 20px rgba(22, 35, 42, 0.15); /* Mirage shadow */
+    transition: all 0.3s ease;
+}
+
+.article-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(22, 35, 42, 0.25); /* Mirage shadow */
+    border-color: rgba(255, 91, 4, 0.4); /* Blaze Orange border */
+}
+
+/* ========================================
+   FOOTER NEO BRUTALIST
+   ======================================== */
+.neo-footer {
+  background-color: var(--bg-secondary);
+  border-top: var(--border-width) solid var(--border-color);
+  box-shadow: 0 calc(-1 * var(--shadow-offset)) 0 var(--shadow-color);
+  padding: 20px 32px;
+  margin-top: auto;
+  position: relative;
+  z-index: 100;
+}
+
+.neo-footer__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.neo-footer__text {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 0;
+  opacity: 0.8;
+}
+
+/* Asegurar que el body tenga altura mínima completa */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* ========================================
+   TOGGLE SWITCH NEO BRUTALIST - DISEÑO ELEGANTE CON EMOJIS
+   ======================================== */
+.neo-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background-color: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-speed) var(--transition-easing);
+  cursor: pointer;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-primary);
+  user-select: none;
+  min-width: 140px;
+  justify-content: space-between;
+}
+
+.neo-toggle:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+}
+
+.neo-toggle:active {
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.neo-toggle__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.neo-toggle__slider {
+  position: relative;
+  width: 44px;
+  height: 22px;
+  background-color: var(--bg-primary);
+  border: 2px solid var(--border-color);
+  border-radius: 11px;
+  transition: all var(--transition-speed) var(--transition-easing);
+  overflow: hidden;
+}
+
+.neo-toggle__slider:before {
+  content: '🌙';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background-color: var(--neo-white);
+  border-radius: 50%;
+  transition: all var(--transition-speed) var(--transition-easing);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+}
+
+.neo-toggle__input:checked + .neo-toggle__slider {
+  background-color: var(--neo-yellow);
+  border-color: var(--neo-black);
+}
+
+.neo-toggle__input:checked + .neo-toggle__slider:before {
+  content: '☀️';
+  transform: translateX(22px);
+  background-color: var(--neo-white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.neo-toggle__text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guided Exercise 3: XML Book Catalogue</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .back-btn {
+            background: #16232A;
+            border: 1px solid #16232A;
+            color: #E4EEF0;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin: 1rem;
+        }
+
+        .back-btn:hover {
+            background: #FF5B04;
+            border-color: #FF5B04;
+            color: #E4EEF0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(22, 35, 42, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <a href="../ejercicios-guiados.html" class="back-btn">
+        ← Volver a Ejercicios Guiados
+    </a>
+
+    <div id="catalogue-container"></div>
+
+    <script>
+        // Función para cargar los archivos y realizar la transformación XSLT
+        function loadAndTransform() {
+            // Cargar el archivo XML
+            fetch('books.xml')
+                .then(response => response.text())
+                .then(xmlString => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+
+                    // Cargar el archivo XSL
+                    fetch('stylesheet.xsl')
+                        .then(response => response.text())
+                        .then(xslString => {
+                            const xslDoc = parser.parseFromString(xslString, "application/xml");
+
+                            // Crear el procesador XSLT
+                            const xsltProcessor = new XSLTProcessor();
+                            xsltProcessor.importStylesheet(xslDoc);
+
+                            // Transformar el XML con el XSL
+                            const resultDocument = xsltProcessor.transformToFragment(xmlDoc, document);
+
+                            // Mostrar el resultado en la página
+                            const container = document.getElementById('catalogue-container');
+                            container.innerHTML = ''; // Limpiar el contenedor
+                            container.appendChild(resultDocument);
+                        })
+                        .catch(error => console.error('Error loading XSL file:', error));
+                })
+                .catch(error => console.error('Error loading XML file:', error));
+        }
+
+        // Ejecutar la función cuando la página se haya cargado
+        window.onload = loadAndTransform;
+    </script>
+
+</body>
+</html>

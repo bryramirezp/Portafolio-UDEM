@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 3: Catálogo de Libros XML</title>
+    <link rel="stylesheet" href="../../assets/css/neo-brutalist.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver a Ejercicios</a>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 3</h1>
+            <p class="neo-header__subtitle">Catálogo de Libros XML - Transformaciones XSLT y CSS</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+        
+        <!-- Introducción -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">📚 Catálogo de Libros XML</div>
+            <div class="neo-card__content">
+                <p>Este ejercicio demuestra cómo trabajar con datos XML, transformaciones XSLT y estilos CSS para crear un catálogo interactivo de libros.</p>
+                
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">XML Data</div>
+                        <div class="neo-card__content">
+                            <p>Estructura de datos semántica para libros</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">XSLT Transform</div>
+                        <div class="neo-card__content">
+                            <p>Transformación de XML a HTML</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">CSS Styling</div>
+                        <div class="neo-card__content">
+                            <p>Presentación visual Neo Brutalist</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estructura XML -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Estructura XML de Datos</div>
+            <div class="neo-card__content">
+                <p>Los datos de libros están estructurados en XML con información completa sobre cada publicación:</p>
+                
+                <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;catalogue&gt;
+    &lt;book isbn="978-0321765723"&gt;
+        &lt;title&gt;The C++ Programming Language&lt;/title&gt;
+        &lt;author&gt;Bjarne Stroustrup&lt;/author&gt;
+        &lt;year&gt;2013&lt;/year&gt;
+        &lt;genre&gt;Programming&lt;/genre&gt;
+        &lt;price&gt;65.50&lt;/price&gt;
+        &lt;stock&gt;Available&lt;/stock&gt;
+        &lt;format&gt;Hardcover&lt;/format&gt;
+    &lt;/book&gt;
+    &lt;book isbn="978-0132350884"&gt;
+        &lt;title&gt;Clean Code&lt;/title&gt;
+        &lt;author&gt;Robert C. Martin&lt;/author&gt;
+        &lt;year&gt;2008&lt;/year&gt;
+        &lt;genre&gt;Programming&lt;/genre&gt;
+        &lt;price&gt;45.99&lt;/price&gt;
+        &lt;stock&gt;Available&lt;/stock&gt;
+        &lt;format&gt;Paperback&lt;/format&gt;
+    &lt;/book&gt;
+&lt;/catalogue&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- Transformación XSLT -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Transformación XSLT</div>
+            <div class="neo-card__content">
+                <p>La hoja de estilo XSLT convierte los datos XML en HTML estructurado:</p>
+                
+                <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+    &lt;xsl:template match="/"&gt;
+        &lt;html&gt;
+            &lt;head&gt;
+                &lt;title&gt;Catálogo de Libros&lt;/title&gt;
+                &lt;link rel="stylesheet" href="style.css"/&gt;
+            &lt;/head&gt;
+            &lt;body&gt;
+                &lt;h1&gt;Catálogo de Libros&lt;/h1&gt;
+                &lt;div class="books-grid"&gt;
+                    &lt;xsl:for-each select="catalogue/book"&gt;
+                        &lt;div class="book-card"&gt;
+                            &lt;h3&gt;&lt;xsl:value-of select="title"/&gt;&lt;/h3&gt;
+                            &lt;p class="author"&gt;Autor: &lt;xsl:value-of select="author"/&gt;&lt;/p&gt;
+                            &lt;p class="year"&gt;Año: &lt;xsl:value-of select="year"/&gt;&lt;/p&gt;
+                            &lt;p class="genre"&gt;Género: &lt;xsl:value-of select="genre"/&gt;&lt;/p&gt;
+                            &lt;p class="price"&gt;Precio: $&lt;xsl:value-of select="price"/&gt;&lt;/p&gt;
+                            &lt;p class="stock"&gt;Stock: &lt;xsl:value-of select="stock"/&gt;&lt;/p&gt;
+                        &lt;/div&gt;
+                    &lt;/xsl:for-each&gt;
+                &lt;/div&gt;
+            &lt;/body&gt;
+        &lt;/html&gt;
+    &lt;/xsl:template&gt;
+&lt;/xsl:stylesheet&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- Catálogo Interactivo -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Catálogo Interactivo</div>
+            <div class="neo-card__content">
+                <div id="catalogue-container" class="neo-grid neo-grid--3">
+                    <!-- Los libros se cargarán dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades JavaScript -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Funcionalidades JavaScript</div>
+            <div class="neo-card__content">
+                <p>El JavaScript maneja la carga dinámica de datos y la interactividad del catálogo:</p>
+                
+                <h3>Datos de Libros</h3>
+                <pre><code>const booksData = [
+    {
+        isbn: "978-0321765723",
+        title: "The C++ Programming Language",
+        author: "Bjarne Stroustrup",
+        year: "2013",
+        genre: "Programming",
+        price: "65.50",
+        stock: "Available",
+        format: "Hardcover"
+    },
+    {
+        isbn: "978-0132350884",
+        title: "Clean Code",
+        author: "Robert C. Martin",
+        year: "2008",
+        genre: "Programming",
+        price: "45.99",
+        stock: "Available",
+        format: "Paperback"
+    }
+    // ... más libros
+];</code></pre>
+                
+                <h3>Renderizado Dinámico</h3>
+                <pre><code>function renderBooks() {
+    const container = document.getElementById('catalogue-container');
+    container.innerHTML = '';
+    
+    booksData.forEach(book => {
+        const bookCard = document.createElement('div');
+        bookCard.className = 'neo-card';
+        bookCard.innerHTML = `
+            <div class="neo-card__title">${book.title}</div>
+            <div class="neo-card__content">
+                <p><strong>Autor:</strong> ${book.author}</p>
+                <p><strong>Año:</strong> ${book.year}</p>
+                <p><strong>Género:</strong> ${book.genre}</p>
+                <p><strong>Precio:</strong> $${book.price}</p>
+                <p><strong>Stock:</strong> ${book.stock}</p>
+                <p><strong>Formato:</strong> ${book.format}</p>
+            </div>
+        `;
+        container.appendChild(bookCard);
+    });
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Filtros y Búsqueda -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Filtros y Búsqueda</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Filtros Disponibles</h3>
+                        <ul>
+                            <li>✅ Por género (Programming, Fiction, etc.)</li>
+                            <li>✅ Por año de publicación</li>
+                            <li>✅ Por disponibilidad en stock</li>
+                            <li>✅ Por rango de precios</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Funciones de Búsqueda</h3>
+                        <ul>
+                            <li>🔍 Búsqueda por título</li>
+                            <li>🔍 Búsqueda por autor</li>
+                            <li>🔍 Búsqueda por ISBN</li>
+                            <li>🔍 Búsqueda combinada</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Resultados del Proyecto</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Características Implementadas</h3>
+                        <ul>
+                            <li>✅ Estructura XML semántica</li>
+                            <li>✅ Transformación XSLT funcional</li>
+                            <li>✅ Interfaz Neo Brutalist</li>
+                            <li>✅ Búsqueda y filtrado dinámico</li>
+                            <li>✅ Responsive design</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Beneficios</h3>
+                        <ul>
+                            <li>📊 Datos estructurados y reutilizables</li>
+                            <li>🎨 Presentación visual consistente</li>
+                            <li>⚡ Rendimiento optimizado</li>
+                            <li>🔧 Fácil mantenimiento</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Conclusión</div>
+            <div class="neo-card__content">
+                <p>Este ejercicio demuestra la potencia de combinar XML, XSLT y CSS para crear aplicaciones web robustas y mantenibles. La separación de datos, lógica de presentación y estilos permite escalabilidad y reutilización.</p>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/usuario/xml-book-catalogue" class="neo-button neo-button--primary" target="_blank">
+                        Ver Código en GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/neo-brutalist.js"></script>
+    <script src="../../assets/js/main.js"></script>
+    
+    <!-- Script específico para el catálogo -->
+    <script>
+        // Datos de libros (extraídos del XML original)
+        const booksData = [
+            {
+                isbn: "978-0321765723",
+                title: "The C++ Programming Language",
+                author: "Bjarne Stroustrup",
+                year: "2013",
+                genre: "Programming",
+                price: "65.50",
+                stock: "Available",
+                format: "Hardcover"
+            },
+            {
+                isbn: "978-0132350884",
+                title: "Clean Code",
+                author: "Robert C. Martin",
+                year: "2008",
+                genre: "Programming",
+                price: "45.99",
+                stock: "Available",
+                format: "Paperback"
+            },
+            {
+                isbn: "978-0596007126",
+                title: "Head First Design Patterns",
+                author: "Eric Freeman",
+                year: "2004",
+                genre: "Programming",
+                price: "52.99",
+                stock: "Available",
+                format: "Paperback"
+            }
+        ];
+
+        function renderBooks() {
+            const container = document.getElementById('catalogue-container');
+            container.innerHTML = '';
+            
+            booksData.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'neo-card';
+                bookCard.innerHTML = `
+                    <div class="neo-card__title">${book.title}</div>
+                    <div class="neo-card__content">
+                        <p><strong>Autor:</strong> ${book.author}</p>
+                        <p><strong>Año:</strong> ${book.year}</p>
+                        <p><strong>Género:</strong> ${book.genre}</p>
+                        <p><strong>Precio:</strong> $${book.price}</p>
+                        <p><strong>Stock:</strong> ${book.stock}</p>
+                        <p><strong>Formato:</strong> ${book.format}</p>
+                    </div>
+                `;
+                container.appendChild(bookCard);
+            });
+        }
+
+        // Renderizar libros cuando se carga la página
+        document.addEventListener('DOMContentLoaded', renderBooks);
+    </script>
+
+</body>
+</html>
