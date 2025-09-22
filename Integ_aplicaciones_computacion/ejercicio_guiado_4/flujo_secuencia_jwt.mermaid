@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant CW as Cliente Web
+    participant BF as Backend-Flask
+    participant SA as Servicio-Auth
+    participant SI as Servicio-Instituciones
+
+    Note over CW,SI: 🏥 FLUJO INSTITUCIONES
+
+    %% Registro
+    CW->>BF: 1. Registro institución (XML)
+    BF->>SI: 2. Crear institución (JSON)
+    SI->>BF: 3. Institución creada (JSON)
+    BF->>CW: 4. Registro exitoso (XML)
+
+    %% Login
+    CW->>BF: 5. Login institución (XML)
+    BF->>SA: 6. Validar credenciales (JSON)
+    SA->>BF: 7. JWT Token (JSON)
+    BF->>CW: 8. Login exitoso (XML)
+
+    %% Dashboard
+    CW->>BF: 9. Dashboard (XML + JWT)
+    BF->>SA: 10. Verificar JWT
+    SA->>BF: 11. User Info (JSON)
+    BF->>SI: 12. Datos institución (JWT)
+    SI->>BF: 13. Institution Data (JSON)
+    BF->>CW: 14. Dashboard Data (XML)i

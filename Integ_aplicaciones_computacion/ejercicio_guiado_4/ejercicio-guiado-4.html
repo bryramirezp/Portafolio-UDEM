@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 4 - Autenticación JWT - Portafolio UDEM</title>
+
+    <!-- CSS obligatorio - IMPORTANTE: Este orden -->
+    <link rel="stylesheet" href="../../assets/css/neo-brutalist.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+
+    <!-- Fuentes requeridas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Mermaid.js para diagramas -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <!-- D3.js para drag and zoom -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                background: '#ffffff',
+                primaryColor: '#FFD166',
+                primaryTextColor: '#073B4C',
+                primaryBorderColor: '#073B4C',
+                lineColor: '#073B4C',
+                secondaryColor: '#F5F5F5',
+                tertiaryColor: '#FFFFFF'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            stateDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            sequenceDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+
+    <style>
+        /* Mermaid container styling */
+        .mermaid-container {
+            position: relative;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 1200px; /* Increased from 100% to 1200px for larger diagrams */
+            background: #fff;
+        }
+
+        .mermaid {
+            overflow: hidden;
+        }
+
+        .mermaid svg {
+            cursor: grab;
+        }
+
+        .mermaid svg:active {
+            cursor: grabbing;
+        }
+
+
+        /* Control buttons */
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 5px;
+        }
+
+        .controls button {
+            background: #FFD166;
+            border: 2px solid #073B4C;
+            padding: 5px 8px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            color: #073B4C;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .controls button:hover {
+            background: #073B4C;
+            color: #FFD166;
+            transform: translate(-1px, -1px);
+        }
+
+        /* Fullscreen container */
+        .mermaid-container.fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important; /* Use viewport width */
+            height: 100vh !important; /* Use viewport height */
+            background: #ffffff; /* Changed to white */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: none !important;
+            margin: 0 !important;
+            padding: 20px !important;
+        }
+
+        .mermaid-container.fullscreen .controls {
+            top: 20px;
+            right: 20px;
+            color: black; /* Changed to black for contrast on white background */
+        }
+
+        /* Ensure the mermaid SVG inside the fullscreen container also expands */
+        .mermaid-container.fullscreen .mermaid {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: center;
+            transition: transform 0.2s ease;
+        }
+
+        .mermaid-container.fullscreen .mermaid svg {
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            object-fit: contain; /* Ensures diagram fits without distortion */
+            flex: 1;
+        }
+
+
+        /* Video container styling */
+        .video-container {
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 560px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            display: block;
+        }
+
+        /* Additional wrapper to ensure proper clipping */
+        .video-wrapper {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver</a>
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 4</h1>
+            <p class="neo-header__subtitle">Autenticación JWT en Microservicios</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Toggle se agrega automáticamente por JS -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+        <!-- Explicación de la actividad -->
+        <h2 style="text-align: center; margin-bottom: 2rem;">Descripción de la Actividad</h2>
+
+        <div class="neo-card" style="max-width: 900px; margin: 0 auto 3rem;">
+            <div class="neo-card__title">Microservicio Flask con JWT</div>
+            <div class="neo-card__content">
+                <p>La actividad consiste en desarrollar un microservicio en Flask que use JWT (JSON Web Token) para autenticar usuarios contra una base de datos. El sistema debe permitir:</p>
+                <ul>
+                    <li>Registrar usuarios y permitir inicio de sesión.</li>
+                    <li>Generar tokens JWT al autenticarse correctamente.</li>
+                    <li>Proteger rutas de la API para que solo se accedan con un token válido.</li>
+                    <li>Crear una aplicación web (HTML, CSS, JS) separada que consuma el microservicio, almacenando el token en el navegador y enviándolo en las cabeceras de cada petición.</li>
+                    <li>Incluir logs en el servidor y en el cliente para observar el flujo de autenticación.</li>
+                </ul>
+
+                <h3>Flujo General de JWT</h3>
+                <ol>
+                    <li>El usuario envía sus credenciales al servidor.</li>
+                    <li>El servidor, si son válidas, genera un JWT con información del usuario y lo firma.</li>
+                    <li>El JWT se envía al cliente.</li>
+                    <li>El cliente lo almacena (ej. localStorage).</li>
+                    <li>En cada petición a un recurso protegido, el cliente envía el JWT en la cabecera.</li>
+                    <li>El servidor verifica la firma del JWT.</li>
+                    <li>Si es válido, procesa la solicitud sin pedir credenciales de nuevo.</li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- Diagramas Mermaid -->
+        <h2 style="text-align: center; margin-bottom: 2rem;">Diagramas de Flujo</h2>
+
+        <div class="neo-grid neo-grid--2" style="max-width: 1200px; margin: 0 auto 3rem;">
+            <div class="neo-card">
+                <div class="neo-card__title">Flujo de Secuencia JWT</div>
+                <div class="neo-card__content">
+                    <div class="mermaid-container" id="diagramContainer1">
+                        <div class="mermaid" id="diagram1" data-mermaid-file="flujo_secuencia_jwt.mermaid">
+                            <!-- Content loaded from file -->
+                        </div>
+                        <div class="controls">
+                            <button id="fullscreenBtn1">⛶</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="neo-card">
+                <div class="neo-card__title">Expiración de Token</div>
+                <div class="neo-card__content">
+                    <div class="mermaid-container" id="diagramContainer2">
+                        <div class="mermaid" id="diagram2" data-mermaid-file="expiracion_token.mermaid">
+                            <!-- Content loaded from file -->
+                        </div>
+                        <div class="controls">
+                            <button id="fullscreenBtn2">⛶</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Video relacionado -->
+        <h2 style="text-align: center; margin-bottom: 2rem;">Recursos Adicionales</h2>
+
+        <div class="neo-card" style="max-width: 900px; margin: 0 auto 3rem;">
+            <div class="neo-card__title">Video Explicativo</div>
+            <div class="neo-card__content">
+                <p>Prueba en la aplicación mostrando el inicio de sesión, la generación y validación del token, y el manejo de la expiración del JWT.</p>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <div class="video-wrapper">
+                        <div class="video-container">
+                            <iframe src="https://www.youtube.com/embed/DgteVipuFPI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nota sobre PredictHealth -->
+        <div class="neo-card" style="max-width: 900px; margin: 0 auto;">
+            <div class="neo-card__title">Implementación en Proyecto PredictHealth</div>
+            <div class="neo-card__content">
+                <p>Esta actividad de autenticación JWT fue implementada en el proyecto PredictHealth, donde se desarrolló un sistema completo de microservicios con autenticación segura para la gestión de datos de salud predictiva.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Neo Brutalist -->
+    <footer class="neo-footer">
+        <div class="neo-footer__center">
+            <p class="neo-footer__text">Bryan Ramírez Palacios</p>
+        </div>
+    </footer>
+
+    <!-- Scripts obligatorios - IMPORTANTE: Este orden -->
+    <script src="../../assets/js/neo-brutalist.js"></script>
+    <script src="../../assets/js/main.js"></script>
+
+    <script>
+        // Load mermaid content - use embedded content since local file loading is blocked
+        function loadMermaidFromFile(containerId, filename) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                // Use embedded content directly
+                const content = getEmbeddedContent(filename);
+                container.textContent = content;
+            }
+        }
+
+        // Embedded content for diagrams
+        function getEmbeddedContent(filename) {
+            if (filename === 'flujo_secuencia_jwt.mermaid') {
+                return `%%{init: {'theme':'base', 'themeVariables':{'width':'1200'}}}%%
+sequenceDiagram
+    participant CW as Cliente Web
+    participant BF as Backend-Flask
+    participant SA as Servicio-Auth
+    participant SI as Servicio-Instituciones
+
+    Note over CW,SI: 🏥 FLUJO INSTITUCIONES
+
+    %% Registro
+    CW->>BF: 1. Registro institución (XML)
+    BF->>SI: 2. Crear institución (JSON)
+    SI->>BF: 3. Institución creada (JSON)
+    BF->>CW: 4. Registro exitoso (XML)
+
+    %% Login
+    CW->>BF: 5. Login institución (XML)
+    BF->>SA: 6. Validar credenciales (JSON)
+    SA->>BF: 7. JWT Token (JSON)
+    BF->>CW: 8. Login exitoso (XML)
+
+    %% Dashboard
+    CW->>BF: 9. Dashboard (XML + JWT)
+    BF->>SA: 10. Verificar JWT
+    SA->>BF: 11. User Info (JSON)
+    BF->>SI: 12. Datos institución (JWT)
+    SI->>BF: 13. Institution Data (JSON)
+    BF->>CW: 14. Dashboard Data (XML)`;
+            } else if (filename === 'expiracion_token.mermaid') {
+                return `%%{init: {'theme':'base', 'themeVariables':{'width':'1200'}}}%%
+stateDiagram-v2
+    [*] --> Login
+    Login --> TokenGenerado: Credenciales válidas
+    TokenGenerado --> SesionActiva: Token guardado
+
+    state SesionActiva {
+        [*] --> VerificacionPeriodica
+        VerificacionPeriodica --> VerificacionPeriodica: Cada 5s
+        VerificacionPeriodica --> TokenValido: Token válido
+        VerificacionPeriodica --> TokenExpirado: Token expirado
+        TokenValido --> OperacionNormal
+        OperacionNormal --> VerificacionPeriodica
+    }
+
+    TokenExpirado --> ModalSesionExpirada
+    ModalSesionExpirada --> LimpiarTokens: Usuario confirma
+    LimpiarTokens --> RedireccionLogin
+    RedireccionLogin --> Login
+
+    SesionActiva --> LogoutManual: Usuario hace logout
+    LogoutManual --> LimpiarTokens
+
+    state TokenExpirado {
+        [*] --> Deteccion401
+        Deteccion401 --> HTTPInterceptor
+        HTTPInterceptor --> ModalSesionExpirada
+    }
+
+    state ModalSesionExpirada {
+        [*] --> MostrarModal
+        MostrarModal --> Countdown3s
+        Countdown3s --> RedireccionAutomatica
+    }`;
+            }
+            return `graph TD\n    A[Error loading diagram] --> B[File: ${filename}]`;
+        }
+
+        // Initialize Mermaid and D3.js zoom functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            // Load mermaid content from embedded sources
+            loadMermaidFromFile('diagram1', 'flujo_secuencia_jwt.mermaid');
+            loadMermaidFromFile('diagram2', 'expiracion_token.mermaid');
+
+            // Initialize Mermaid with proper configuration
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: 'base',
+                    themeVariables: {
+                        background: '#ffffff',
+                        primaryColor: '#FFD166',
+                        primaryTextColor: '#073B4C',
+                        primaryBorderColor: '#073B4C',
+                        lineColor: '#073B4C',
+                        secondaryColor: '#F5F5F5',
+                        tertiaryColor: '#FFFFFF'
+                    },
+                    flowchart: {
+                        useMaxWidth: true, // Allow expansion to fill container
+                        htmlLabels: true
+                    },
+                    stateDiagram: {
+                        useMaxWidth: true, // Allow expansion to fill container
+                        htmlLabels: true
+                    },
+                    sequenceDiagram: {
+                        useMaxWidth: true, // Allow expansion to fill container
+                        htmlLabels: true
+                    }
+                });
+
+                // Re-initialize mermaid after loading content
+                setTimeout(() => {
+                    mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+                    // Apply D3.js drag and zoom to all mermaid SVGs
+                    setTimeout(() => {
+                        applyD3Zoom();
+                    }, 100);
+
+                    // Initialize controls for both diagrams
+                    initializeDiagramControls(1);
+                    initializeDiagramControls(2);
+                }, 100);
+            }
+        });
+
+        // Mapa para guardar los objetos de zoom por diagrama
+        const d3ZoomObjects = {};
+
+        // Apply D3.js drag and zoom to all mermaid SVGs
+        function applyD3Zoom() {
+            const svgs = d3.selectAll(".mermaid svg");
+            svgs.each(function() {
+                const svg = d3.select(this);
+                const container = svg.node().closest('.mermaid-container');
+                const diagramId = container ? container.id : 'default';
+
+                // Envuelve el contenido en un grupo para que el zoom funcione
+                svg.html("<g>" + svg.html() + "</g>");
+                const inner = svg.select("g");
+
+                // Crea el objeto de zoom
+                const zoom = d3.zoom().on("zoom", function(event) {
+                    inner.attr("transform", event.transform);
+                });
+
+                // Aplica el zoom al SVG
+                svg.call(zoom);
+
+                // Guarda el objeto de zoom para su uso posterior
+                d3ZoomObjects[diagramId] = zoom;
+            });
+        }
+
+        // Initialize fullscreen functionality for both diagrams
+        function initializeDiagramControls(diagramNumber) {
+            const diagramContainer = document.getElementById(`diagramContainer${diagramNumber}`);
+            const fullscreenBtn = document.getElementById(`fullscreenBtn${diagramNumber}`);
+
+            // Full-screen Toggle
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    diagramContainer.requestFullscreen().catch(err => {
+                        console.error(`Error: ${err.message}`);
+                    });
+                    diagramContainer.classList.add('fullscreen');
+                } else {
+                    document.exitFullscreen();
+                    diagramContainer.classList.remove('fullscreen');
+                }
+            });
+
+            // Handle fullscreen exit events (ESC key, etc.)
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    // Fullscreen was exited - remove the class from all containers
+                    document.querySelectorAll('.mermaid-container.fullscreen').forEach(container => {
+                        container.classList.remove('fullscreen');
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

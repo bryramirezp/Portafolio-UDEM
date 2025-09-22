@@ -1,0 +1,33 @@
+stateDiagram-v2
+    [*] --> Login
+    Login --> TokenGenerado: Credenciales válidas
+    TokenGenerado --> SesionActiva: Token guardado
+    
+    state SesionActiva {
+        [*] --> VerificacionPeriodica
+        VerificacionPeriodica --> VerificacionPeriodica: Cada 5s
+        VerificacionPeriodica --> TokenValido: Token válido
+        VerificacionPeriodica --> TokenExpirado: Token expirado
+        TokenValido --> OperacionNormal
+        OperacionNormal --> VerificacionPeriodica
+    }
+    
+    TokenExpirado --> ModalSesionExpirada
+    ModalSesionExpirada --> LimpiarTokens: Usuario confirma
+    LimpiarTokens --> RedireccionLogin
+    RedireccionLogin --> Login
+    
+    SesionActiva --> LogoutManual: Usuario hace logout
+    LogoutManual --> LimpiarTokens
+    
+    state TokenExpirado {
+        [*] --> Deteccion401
+        Deteccion401 --> HTTPInterceptor
+        HTTPInterceptor --> ModalSesionExpirada
+    }
+    
+    state ModalSesionExpirada {
+        [*] --> MostrarModal
+        MostrarModal --> Countdown3s
+        Countdown3s --> RedireccionAutomatica
+    }

@@ -1,8 +1,9 @@
-# UDEM
+# UDEM Portfolio
 
-Repositorio donde iré subiendo mis tareas y proyectos realizados en la **Universidad de Monterrey (UDEM)**.  
+Repositorio donde se documentan y exhiben los trabajos realizados durante el curso de **Integración de Aplicaciones Computacionales** en la Universidad de Monterrey (UDEM).
 
-Puedes consultarlos directamente desde la página: [https://bryramirezp.github.io/Portafolio-UDEM/](https://bryramirezp.github.io/Portafolio-UDEM/)
+[![Live Demo](https://img.shields.io/badge/🌐-Ver%20Demo-FFD166?style=for-the-badge)](https://bryramirezp.github.io/Portafolio-UDEM/)
+[![UDEM](https://img.shields.io/badge/🏛️-UDEM-073B4C?style=for-the-badge)](https://www.udem.edu.mx/)
 
 ## 🚀 Tecnologías y Herramientas
 
@@ -34,10 +35,76 @@ Puedes consultarlos directamente desde la página: [https://bryramirezp.github.i
 ![XSLT](https://img.shields.io/badge/XSLT-FF6600?style=for-the-badge&logo=xml&logoColor=white)
 ![XML](https://img.shields.io/badge/XML-FF6600?style=for-the-badge&logo=xml&logoColor=white)
 
-## Contenido
-- Apuntes de clase
-- Ejercicios prácticos
-- Proyectos y entregas
+## 📋 Contenido del Portafolio
 
-## Objetivo
-Mantener un registro ordenado y accesible de mi trabajo académico, así como facilitar su consulta desde cualquier lugar.
+### 🎯 Ejercicios Guiados
+Prácticas paso a paso con tecnologías modernas:
+- **🐳 Docker + IA**: Clasificación de servicios cloud con Python
+- **💬 Chat Local**: Ollama y Apache con contenedores
+- **📚 XML/XSLT**: Transformaciones y presentación de datos
+
+### 📝 Tareas
+Trabajos individuales y proyectos:
+- Mapas conceptuales y análisis
+- Ensayos técnicos
+- Infraestructura cloud con AWS CDK
+
+### ⚖️ Parciales
+Evaluaciones del curso:
+- Sistema de microservicios con Flask
+- Arquitecturas escalables
+- APIs REST y bases de datos
+
+### 🏥 Proyecto Final
+**PredictHealth**: Plataforma de predicción de riesgos de salud
+- Arquitectura de microservicios
+- IA y machine learning
+- Despliegue en AWS
+
+## 🎨 Características del Sitio
+
+- ✅ **Diseño Neo Brutalista** con paleta de colores audaz
+- ✅ **Modo Oscuro/Claro** automático con persistencia
+- ✅ **Responsive Design** para todos los dispositivos
+- ✅ **Animaciones y Efectos** sutiles pero impactantes
+- ✅ **Navegación Intuitiva** con breadcrumbs
+- ✅ **Easter Egg** especial 🍟
+
+## 📖 Documentación
+
+Para información detallada sobre desarrollo, arquitectura y guías de implementación, consulta:
+
+📋 **[Guía de Desarrollo (README_plantilla.md)](README_plantilla.md)**
+- Arquitectura completa del sistema
+- Guías de implementación para nuevas páginas
+- Documentación del sistema de diseño Neo Brutalist
+- Lineamientos de desarrollo y mejores prácticas
+
+## 🚀 Ver en Vivo
+
+Puedes consultar el portafolio completo en: [https://bryramirezp.github.io/Portafolio-UDEM/](https://bryramirezp.github.io/Portafolio-UDEM/)
+
+## 📊 Estadísticas del Proyecto
+
+- **Tecnologías**: 15+ lenguajes y frameworks
+- **Proyectos**: 10+ entregas académicas
+- **Componentes**: Sistema de diseño completo
+- **Responsive**: Optimizado para desktop, tablet y móvil
+
+## 🤝 Contribución
+
+Este es un proyecto académico personal. Para preguntas sobre tecnologías o implementación, referirse a la documentación técnica.
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT.
+
+---
+
+**👨‍💻 Desarrollado por**: Bryan Ramírez Palacios  
+**🏛️ Institución**: Universidad de Monterrey (UDEM)  
+**📚 Curso**: Integración de Aplicaciones Computacionales  
+**📅 Año**: 2024
+
+[![GitHub](https://img.shields.io/badge/GitHub-bryramirezp-181717?style=for-the-badge&logo=github)](https://github.com/bryramirezp)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Bryan%20Ramírez-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/bryan-ramirez-palacios)

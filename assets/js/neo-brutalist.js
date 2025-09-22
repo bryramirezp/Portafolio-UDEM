@@ -245,14 +245,14 @@ class NeoBrutalistSystem {
   setupEventListeners() {
     // Efecto de clic en botones
     document.addEventListener('click', (e) => {
-      if (e.target.matches('.neo-button, button')) {
+      if (e.target && typeof e.target.matches === 'function' && e.target.matches('.neo-button, button')) {
         this.animateClick(e.target);
       }
     });
 
     // Efecto de hover en cards
     document.addEventListener('mouseenter', (e) => {
-      if (e.target.matches('.neo-card, .folder-item, .file-item')) {
+      if (e.target && typeof e.target.matches === 'function' && e.target.matches('.neo-card, .folder-item, .file-item')) {
         this.animateHover(e.target);
       }
     }, true);
