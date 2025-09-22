@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyería - Sistema de Pedidos</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+    <header>
+        <h1>Joyería "El Brillo"</h1>
+        <div class="config-panel">
+            <div class="ip-info">
+                <span>IP Detectada: <span id="detected-ip">Cargando...</span></span>
+            </div>
+            <div class="input-group">
+                <label for="products-url">URL Productos:</label>
+                <input type="text" id="products-url" placeholder="Auto-detectada">
+            </div>
+            <div class="input-group">
+                <label for="pedidos-url">URL Pedidos:</label>
+                <input type="text" id="pedidos-url" placeholder="Auto-detectada">
+            </div>
+            <div class="input-group">
+                <label for="facturas-url">URL Facturas:</label>
+                <input type="text" id="facturas-url" placeholder="Auto-detectada">
+            </div>
+            <button id="save-config">Guardar Configuración</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="products-section">
+            <h2>Catálogo de Productos</h2>
+            <div id="products-list" class="products-grid">
+                <!-- Los productos se cargarán aquí dinámicamente -->
+                <p>Cargando productos...</p>
+            </div>
+        </section>
+
+        <section id="cart-section">
+            <h2>Carrito de Compras</h2>
+            <div id="cart-items">
+                <!-- Items del carrito -->
+            </div>
+            <div class="cart-total">
+                <strong>Total Estimado:</strong> <span id="cart-total-amount">$0.00</span>
+            </div>
+            <div class="customer-info">
+                 <label for="cliente-id">ID de Cliente:</label>
+                 <input type="number" id="cliente-id" value="1" placeholder="Ej: 1 para Ana García">
+            </div>
+            <button id="create-order-btn" disabled>Crear Pedido</button>
+        </section>
+
+        <section id="invoice-section">
+            <h2>Factura Generada</h2>
+            <div id="invoice-result">
+                <p>La factura aparecerá aquí después de crear un pedido.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Sistema de Microservicios - Ejercicio Práctico</p>
+        <p class="tech-info">Configuración automática de IP - Funciona con cualquier IP externa</p>
+    </footer>
+
+    <script>
+        // Mostrar IP detectada en el header
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('detected-ip').textContent = window.location.hostname;
+        });
+    </script>
+    <script src="factura.js"></script>
+</body>
+</html>
