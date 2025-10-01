@@ -38,16 +38,26 @@
 /* Modo Oscuro */
 [data-theme="dark"] {
   --bg-primary: #121212;
-  --bg-secondary: #1A1A1A;
+  --bg-secondary: #1e1e1e;
   --text-primary: #FFFFFF;
-  --text-secondary: #E0E0E0;
-  --border-color: #FFFFFF;
+  --text-secondary: #e0e0e0;
+  --border-color: #2a2a2a;
   --shadow-color: #FFFFFF;
 }
 
 /* Transiciones suaves para cambio de tema */
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilos específicos para modo oscuro */
+[data-theme="dark"] code {
+  background-color: #2d2d2d;
+  color: #ffcc66;
+  font-family: 'Fira Code', monospace;
+  padding: 2px 6px;
+  border-radius: var(--border-radius);
+  font-weight: 400;
 }
 
 /* Excluir elementos que no necesitan transición */
