@@ -2,8 +2,8 @@
 
 Repositorio donde se documentan y exhiben los trabajos realizados durante el curso de **Integración de Aplicaciones Computacionales** en la Universidad de Monterrey (UDEM).
 
-[![Live Demo](https://img.shields.io/badge/🌐-Ver%20Demo-FFD166?style=for-the-badge)](https://bryramirezp.github.io/Portafolio-UDEM/)
-[![UDEM](https://img.shields.io/badge/🏛️-UDEM-073B4C?style=for-the-badge)](https://www.udem.edu.mx/)
+[![Portafolio UDEM](https://img.shields.io/badge/🌐-Ver%20Demo-FFD166?style=for-the-badge)](https://bryramirezp.github.io/Portafolio-UDEM/)
+
 
 ## 🚀 Tecnologías y Herramientas
 
