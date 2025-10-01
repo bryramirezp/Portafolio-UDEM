@@ -61,10 +61,15 @@
 
         .mermaid {
             overflow: hidden;
+            /* Se establece una altura máxima inicial para que no ocupe toda la pantalla */
+            max-height: 600px; 
+            display: flex;
+            justify-content: center;
         }
 
         .mermaid svg {
             cursor: grab;
+            max-width: 100%; /* Asegura que el SVG no se desborde horizontalmente */
         }
 
         .mermaid svg:active {
@@ -117,6 +122,13 @@
             margin: 0 !important;
             padding: 20px !important;
         }
+        
+        /* En modo fullscreen, el mermaid y el svg usan todo el espacio */
+        .mermaid-container.fullscreen .mermaid {
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+        }
 
         .mermaid-container.fullscreen .controls {
             top: 20px;
@@ -124,24 +136,10 @@
             color: black; /* Changed to black for contrast on white background */
         }
 
-        /* Ensure the mermaid SVG inside the fullscreen container also expands */
-        .mermaid-container.fullscreen .mermaid {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transform-origin: center;
-            transition: transform 0.2s ease;
-        }
-
         .mermaid-container.fullscreen .mermaid svg {
             width: 100% !important;
             height: 100% !important;
-            max-width: 100% !important;
-            max-height: 100% !important;
             object-fit: contain; /* Ensures diagram fits without distortion */
-            flex: 1;
         }
 
 
@@ -189,73 +187,70 @@
     <!-- Contenido principal -->
     <main class="neo-container" style="padding: 3rem 0;">
         <!-- Nota sobre PredictHealth -->
-        <div class="neo-card" style="max-width: 900px; margin: 0 auto 3rem;">
-            <div class="neo-card__title">Implementación en Proyecto PredictHealth</div>
-            <div class="neo-card__content">
-                <p>Esta actividad de autenticación JWT fue implementada en el proyecto PredictHealth, donde se desarrolló un sistema completo de microservicios con autenticación segura para la gestión de datos de salud predictiva.</p>
-            </div>
-        </div>
+        <div class="neo-card" style="max-width:900px; margin:0 auto 3rem;">
+    <div class="neo-card__title">Implementación en Proyecto PredictHealth</div>
+    <div class="neo-card__content">
+        <p>
+            En lugar de desarrollar la actividad como un microservicio independiente, se integró directamente dentro del proyecto final 
+            <strong>PredictHealth</strong>, aprovechando la arquitectura existente de microservicios. Esta implementación centraliza la autenticación 
+            y gestión segura de sesiones mediante <strong>JWT (JSON Web Token)</strong> a través del microservicio 
+            <strong>AUTH-JWT</strong>, gestionado por el <strong>API Gateway Backend-Flask</strong>, garantizando seguridad y control de acceso para los usuarios.
+        </p>
+        <p>
+            Se utilizó este enfoque siguiendo los requerimientos originales de la actividad: desarrollar un microservicio en Flask que permita 
+            registrar usuarios, iniciar sesión, generar y validar tokens JWT, proteger rutas de la API y gestionar el ciclo de vida del token. 
+            Además, se implementó el almacenamiento del token en el cliente y el envío en las cabeceras de cada petición, así como el registro 
+            de logs en servidor y cliente para monitorear el flujo de autenticación.
+        </p>
+    </div>
+</div>
+
         <!-- Explicación de la actividad -->
         <h2 style="text-align: center; margin-bottom: 2rem;">Descripción de la Actividad</h2>
 
         <div class="neo-card" style="max-width: 900px; margin: 0 auto 3rem;">
             <div class="neo-card__title">Microservicio Flask con JWT</div>
             <div class="neo-card__content">
-                <p>La actividad consiste en desarrollar un microservicio en Flask que use JWT (JSON Web Token) para autenticar usuarios contra una base de datos. El sistema debe permitir:</p>
+                <p>La actividad central consiste en desarrollar un microservicio en <strong>Flask</strong> que implemente autenticación utilizando <strong>JWT (JSON Web Token)</strong>. Este sistema está diseñado para autenticar usuarios contra una base de datos, cumpliendo con los siguientes requisitos principales:</p>
                 <ul>
-                    <li>Registrar usuarios y permitir inicio de sesión.</li>
-                    <li>Generar tokens JWT al autenticarse correctamente.</li>
-                    <li>Proteger rutas de la API para que solo se accedan con un token válido.</li>
-                    <li>Crear una aplicación web (HTML, CSS, JS) separada que consuma el microservicio, almacenando el token en el navegador y enviándolo en las cabeceras de cada petición.</li>
-                    <li>Incluir logs en el servidor y en el cliente para observar el flujo de autenticación.</li>
+                    <li><strong>Gestión de Usuarios:</strong> Permitir el registro de nuevos usuarios y el inicio de sesión para usuarios existentes.</li>
+                    <li><strong>Generación de Tokens:</strong> Al autenticarse correctamente, el microservicio debe generar y emitir tokens JWT.</li>
+                    <li><strong>Protección de Rutas:</strong> Implementar mecanismos para proteger las rutas de la API, asegurando que solo puedan ser accedidas con un token JWT válido y activo.</li>
+                    <li><strong>Aplicación Cliente Web:</strong> Crear una aplicación web frontend (HTML, CSS, JS) separada que consuma este microservicio. Esta aplicación debe ser capaz de almacenar el token recibido en el navegador (ej. localStorage) y enviarlo en las cabeceras de cada petición a las rutas protegidas.</li>
+                    <li><strong>Logging Detallado:</strong> Incluir logs robustos tanto en el servidor (Flask) como en el cliente (JavaScript) para permitir la observación y depuración del flujo completo de autenticación.</li>
                 </ul>
 
-                <h3>Flujo General de JWT</h3>
+                <h3>Flujo General de Autenticación JWT</h3>
+                <p>El proceso básico de autenticación sigue estos pasos:</p>
                 <ol>
-                    <li>El usuario envía sus credenciales al servidor.</li>
-                    <li>El servidor, si son válidas, genera un JWT con información del usuario y lo firma.</li>
-                    <li>El JWT se envía al cliente.</li>
-                    <li>El cliente lo almacena (ej. localStorage).</li>
-                    <li>En cada petición a un recurso protegido, el cliente envía el JWT en la cabecera.</li>
-                    <li>El servidor verifica la firma del JWT.</li>
-                    <li>Si es válido, procesa la solicitud sin pedir credenciales de nuevo.</li>
+                    <li>El usuario envía sus credenciales (ej. email y contraseña) al microservicio de autenticación <strong>Auth-JWT</strong>.</li>
+                    <li>El microservicio valida estas credenciales. Si son correctas, genera un JWT (que contiene información del usuario y está firmado criptográficamente) y lo envía al cliente.</li>
+                    <li>El cliente recibe el JWT y lo almacena en <strong>localStorage</strong>.</li>
+                    <li>Para acceder a recursos protegidos, el cliente incluye el JWT en la cabecera <code>Authorization</code> de cada petición HTTP.</li>
+                    <li>El microservicio Backend, el cual funge como <strong>API Gateway</strong>, intercepta la petición, verifica la validez y firma del JWT.</li>
+                    <li>Si el token es válido, se permite el acceso al recurso solicitado; de lo contrario, se deniega.</li>
                 </ol>
             </div>
         </div>
 
+        <!-- ===== INICIO DEL BLOQUE ACTUALIZADO ===== -->
         <!-- Diagramas Mermaid -->
-        <h2 style="text-align: center; margin-bottom: 2rem;">Diagramas de Flujo</h2>
-
-        <div class="neo-grid neo-grid--2" style="max-width: 1200px; margin: 0 auto 3rem;">
-            <div class="neo-card">
-                <div class="neo-card__title">Flujo de Secuencia JWT</div>
-                <div class="neo-card__content">
-                    <div class="mermaid-container" id="diagramContainer1">
-                        <div class="mermaid" id="diagram1" data-mermaid-file="flujo_secuencia_jwt.mermaid">
-                            <!-- Content loaded from file -->
-                        </div>
-                        <div class="controls">
-                            <button id="fullscreenBtn1">⛶</button>
-                        </div>
+        <h2 style="text-align: center; margin-bottom: 2rem;">Diagrama de Flujo JWT</h2>
+        
+        <div class="neo-card" style="max-width: 1200px; margin: 0 auto 3rem;">
+            <div class="neo-card__title">Proceso Completo de Autenticación JWT</div>
+            <div class="neo-card__content">
+                <div class="mermaid-container" id="diagramContainer1">
+                    <div class="mermaid" id="diagram1">
+                        <!-- Contenido se carga desde el script -->
                     </div>
-                </div>
-            </div>
-
-            <div class="neo-card">
-                <div class="neo-card__title">Expiración de Token</div>
-                <div class="neo-card__content">
-                    <div class="mermaid-container" id="diagramContainer2">
-                        <div class="mermaid" id="diagram2" data-mermaid-file="expiracion_token.mermaid">
-                            <!-- Content loaded from file -->
-                        </div>
-                        <div class="controls">
-                            <button id="fullscreenBtn2">⛶</button>
-                        </div>
+                    <div class="controls">
+                        <button id="fullscreenBtn1">⛶</button>
                     </div>
                 </div>
             </div>
         </div>
-
+        <!-- ===== FIN DEL BLOQUE ACTUALIZADO ===== -->
 
         <!-- Video relacionado -->
         <h2 style="text-align: center; margin-bottom: 2rem;">Recursos Adicionales</h2>
@@ -263,11 +258,11 @@
         <div class="neo-card" style="max-width: 900px; margin: 0 auto 3rem;">
             <div class="neo-card__title">Video Explicativo</div>
             <div class="neo-card__content">
-                <p>Prueba en la aplicación mostrando el inicio de sesión, la generación y validación del token, y el manejo de la expiración del JWT.</p>
+                <p>Demostración de los comandos principales del servicio JWT: login, verificación, refresco, creación y revocación de tokens, junto con métricas, estado e información del sistema.</p>
                 <div style="text-align: center; margin-top: 1rem;">
                     <div class="video-wrapper">
                         <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/DgteVipuFPI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/k9MUp4jEPKA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>
@@ -287,92 +282,76 @@
     <script src="../../assets/js/neo-brutalist.js"></script>
     <script src="../../assets/js/main.js"></script>
 
+    <!-- ===== INICIO DEL SCRIPT ACTUALIZADO ===== -->
     <script>
-        // Load mermaid content - use embedded content since local file loading is blocked
-        function loadMermaidFromFile(containerId, filename) {
+        // Función para cargar el contenido del diagrama
+        function loadMermaidContent(containerId, content) {
             const container = document.getElementById(containerId);
             if (container) {
-                // Use embedded content directly
-                const content = getEmbeddedContent(filename);
                 container.textContent = content;
             }
         }
 
-        // Embedded content for diagrams
-        function getEmbeddedContent(filename) {
-            if (filename === 'flujo_secuencia_jwt.mermaid') {
-                return `%%{init: {'theme':'base', 'themeVariables':{'width':'1200'}}}%%
-sequenceDiagram
-    participant CW as Cliente Web
-    participant BF as Backend-Flask
-    participant SA as Servicio-Auth
-    participant SI as Servicio-Instituciones
-
-    Note over CW,SI: 🏥 FLUJO INSTITUCIONES
-
-    %% Registro
-    CW->>BF: 1. Registro institución (XML)
-    BF->>SI: 2. Crear institución (JSON)
-    SI->>BF: 3. Institución creada (JSON)
-    BF->>CW: 4. Registro exitoso (XML)
-
-    %% Login
-    CW->>BF: 5. Login institución (XML)
-    BF->>SA: 6. Validar credenciales (JSON)
-    SA->>BF: 7. JWT Token (JSON)
-    BF->>CW: 8. Login exitoso (XML)
-
-    %% Dashboard
-    CW->>BF: 9. Dashboard (XML + JWT)
-    BF->>SA: 10. Verificar JWT
-    SA->>BF: 11. User Info (JSON)
-    BF->>SI: 12. Datos institución (JWT)
-    SI->>BF: 13. Institution Data (JSON)
-    BF->>CW: 14. Dashboard Data (XML)`;
-            } else if (filename === 'expiracion_token.mermaid') {
-                return `%%{init: {'theme':'base', 'themeVariables':{'width':'1200'}}}%%
-stateDiagram-v2
-    [*] --> Login
-    Login --> TokenGenerado: Credenciales válidas
-    TokenGenerado --> SesionActiva: Token guardado
-
-    state SesionActiva {
-        [*] --> VerificacionPeriodica
-        VerificacionPeriodica --> VerificacionPeriodica: Cada 5s
-        VerificacionPeriodica --> TokenValido: Token válido
-        VerificacionPeriodica --> TokenExpirado: Token expirado
-        TokenValido --> OperacionNormal
-        OperacionNormal --> VerificacionPeriodica
-    }
-
-    TokenExpirado --> ModalSesionExpirada
-    ModalSesionExpirada --> LimpiarTokens: Usuario confirma
-    LimpiarTokens --> RedireccionLogin
-    RedireccionLogin --> Login
-
-    SesionActiva --> LogoutManual: Usuario hace logout
-    LogoutManual --> LimpiarTokens
-
-    state TokenExpirado {
-        [*] --> Deteccion401
-        Deteccion401 --> HTTPInterceptor
-        HTTPInterceptor --> ModalSesionExpirada
-    }
-
-    state ModalSesionExpirada {
-        [*] --> MostrarModal
-        MostrarModal --> Countdown3s
-        Countdown3s --> RedireccionAutomatica
-    }`;
-            }
-            return `graph TD\n    A[Error loading diagram] --> B[File: ${filename}]`;
-        }
-
         // Initialize Mermaid and D3.js zoom functionality
         document.addEventListener("DOMContentLoaded", function() {
-            // Load mermaid content from embedded sources
-            loadMermaidFromFile('diagram1', 'flujo_secuencia_jwt.mermaid');
-            loadMermaidFromFile('diagram2', 'expiracion_token.mermaid');
+            // Contenido del nuevo diagrama unificado
+            const diagramContent = `sequenceDiagram
+    participant C as Cliente
+    participant AG as API Gateway
+    participant JWT as JWT Service
+    participant PG as PostgreSQL
+
+    Note over C,PG: 1. AUTENTICACIÓN INICIAL
+    C->>AG: POST /auth/login<br/>{email, password}
+    AG->>JWT: Validar credenciales
+    JWT->>PG: SELECT user WHERE email=?
+    PG-->>JWT: User data
+    JWT->>JWT: Verificar password<br/>Generar Access Token (15min)<br/>Generar Refresh Token (7 días)
+    JWT-->>C: {access_token, refresh_token, user_info}
+
+    Note over C,PG: 2. ACCESO A RECURSOS (Token Válido)
+    C->>AG: GET /api/resource<br/>Authorization: Bearer {access_token}
+    AG->>AG: Decodificar JWT<br/>Validar firma y expiración
+    AG->>JWT: Proxy request + user context
+    JWT-->>C: 200 OK + Data
+
+    Note over C,PG: 3. TOKEN EXPIRADO - Renovación Automática
+    C->>AG: GET /api/resource<br/>Authorization: Bearer {expired_token}
+    AG->>AG: Validar token → exp < now()
+    AG-->>C: 401 Token Expired
+    
+    rect rgb(240, 248, 255)
+        Note over C: Cliente detecta expiración
+        C->>AG: POST /auth/refresh<br/>{refresh_token}
+        AG->>JWT: Validar refresh token
+        JWT->>JWT: Verificar firma y exp < 7 días
+        
+        Note over C,PG: CASO A: Refresh Token Válido (< 7 días)
+        JWT->>PG: Verificar usuario activo
+        PG-->>JWT: User válido
+        JWT->>JWT: Generar nuevo Access Token (15min)
+        JWT-->>C: {access_token}
+        C->>AG: Reintentar request original<br/>con nuevo token
+        AG-->>C: 200 OK + Data
+        
+        Note over C,PG: CASO B: Refresh Token Expirado (> 7 días)
+        JWT-->>C: 401 Session Expired
+        Note over C: Redirigir a Login
+        C->>AG: POST /auth/login (re-autenticación)
+    end
+
+    Note over C,PG: 4. CIERRE DE SESIÓN
+    C->>AG: POST /auth/logout<br/>Authorization: Bearer {access_token}
+    AG->>JWT: Revocar tokens
+    JWT->>JWT: Marcar tokens como inválidos
+    JWT-->>C: 200 Logout Success
+    Note over C: Eliminar tokens del storage
+
+    Note over C,PG: CICLO DE VIDA DEL TOKEN
+    Note over C: Access Token: 15 minutos → Renovación automática<br/>Refresh Token: 7 días → Re-login requerido<br/>Validación: JWT Signature + Expiración`;
+
+            // Cargar el diagrama
+            loadMermaidContent('diagram1', diagramContent);
 
             // Initialize Mermaid with proper configuration
             if (typeof mermaid !== 'undefined') {
@@ -388,16 +367,8 @@ stateDiagram-v2
                         secondaryColor: '#F5F5F5',
                         tertiaryColor: '#FFFFFF'
                     },
-                    flowchart: {
-                        useMaxWidth: true, // Allow expansion to fill container
-                        htmlLabels: true
-                    },
-                    stateDiagram: {
-                        useMaxWidth: true, // Allow expansion to fill container
-                        htmlLabels: true
-                    },
                     sequenceDiagram: {
-                        useMaxWidth: true, // Allow expansion to fill container
+                        useMaxWidth: true,
                         htmlLabels: true
                     }
                 });
@@ -411,9 +382,8 @@ stateDiagram-v2
                         applyD3Zoom();
                     }, 100);
 
-                    // Initialize controls for both diagrams
+                    // Initialize controls for the diagram
                     initializeDiagramControls(1);
-                    initializeDiagramControls(2);
                 }, 100);
             }
         });
@@ -446,10 +416,12 @@ stateDiagram-v2
             });
         }
 
-        // Initialize fullscreen functionality for both diagrams
+        // Initialize fullscreen functionality for the diagram
         function initializeDiagramControls(diagramNumber) {
             const diagramContainer = document.getElementById(`diagramContainer${diagramNumber}`);
             const fullscreenBtn = document.getElementById(`fullscreenBtn${diagramNumber}`);
+
+            if (!diagramContainer || !fullscreenBtn) return;
 
             // Full-screen Toggle
             fullscreenBtn.addEventListener('click', () => {
@@ -475,6 +447,7 @@ stateDiagram-v2
             });
         }
     </script>
+    <!-- ===== FIN DEL SCRIPT ACTUALIZADO ===== -->
 
 </body>
 </html>
