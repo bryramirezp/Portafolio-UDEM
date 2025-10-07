@@ -77,35 +77,6 @@ Evaluaciones del curso:
 - ✅ **Navegación Intuitiva** con breadcrumbs
 - ✅ **Easter Egg** especial 🍟
 
-## 📖 Documentación
-
-Para información detallada sobre desarrollo, arquitectura y guías de implementación, consulta:
-
-📋 **[Guía de Desarrollo (README_plantilla.md)](README_plantilla.md)**
-- Arquitectura completa del sistema
-- Guías de implementación para nuevas páginas
-- Documentación del sistema de diseño Neo Brutalist
-- Lineamientos de desarrollo y mejores prácticas
-
-##  Ver en Vivo
-
-Puedes consultar el portafolio completo en: [https://bryramirezp.github.io/Portafolio-UDEM/](https://bryramirezp.github.io/Portafolio-UDEM/)
-
-## 📊 Estadísticas del Proyecto
-
-- **Tecnologías**: 15+ lenguajes y frameworks
-- **Proyectos**: 10+ entregas académicas
-- **Componentes**: Sistema de diseño completo
-- **Responsive**: Optimizado para desktop, tablet y móvil
-
-## 🤝 Contribución
-
-Este es un proyecto académico personal. Para preguntas sobre tecnologías o implementación, referirse a la documentación técnica.
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT.
-
 ---
 
 **👨‍💻 Desarrollado por**: Bryan Ramírez Palacios  
