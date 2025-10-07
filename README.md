@@ -12,12 +12,15 @@ Repositorio donde se documentan y exhiben los trabajos realizados durante el cur
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JSON](https://img.shields.io/badge/JSON-000000?style=for-the-badge&logo=json&logoColor=white)
 
 ### Frameworks y Librerías
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Chart.js](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
+![PyJWT](https://img.shields.io/badge/PyJWT-000000?style=for-the-badge&logo=python&logoColor=white)
 
 ### Cloud & DevOps
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
@@ -28,12 +31,14 @@ Repositorio donde se documentan y exhiben los trabajos realizados durante el cur
 ### Bases de Datos
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white)
 
 ### Herramientas de Desarrollo
 ![Apache](https://img.shields.io/badge/Apache-D22128?style=for-the-badge&logo=apache&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white)
 ![XSLT](https://img.shields.io/badge/XSLT-FF6600?style=for-the-badge&logo=xml&logoColor=white)
 ![XML](https://img.shields.io/badge/XML-FF6600?style=for-the-badge&logo=xml&logoColor=white)
+![Adminer](https://img.shields.io/badge/Adminer-FF6600?style=for-the-badge&logo=adminer&logoColor=white)
 
 ## 📋 Contenido del Portafolio
 
@@ -42,6 +47,8 @@ Prácticas paso a paso con tecnologías modernas:
 - **🐳 Docker + IA**: Clasificación de servicios cloud con Python
 - **💬 Chat Local**: Ollama y Apache con contenedores
 - **📚 XML/XSLT**: Transformaciones y presentación de datos
+- **🔐 JWT Authentication**: Autenticación JWT en Microservicios
+- **🔐 JWT con Redis**: Autenticación JWT en Microservicios con Redis
 
 ### 📝 Tareas
 Trabajos individuales y proyectos:
@@ -80,7 +87,7 @@ Para información detallada sobre desarrollo, arquitectura y guías de implement
 - Documentación del sistema de diseño Neo Brutalist
 - Lineamientos de desarrollo y mejores prácticas
 
-## 🚀 Ver en Vivo
+##  Ver en Vivo
 
 Puedes consultar el portafolio completo en: [https://bryramirezp.github.io/Portafolio-UDEM/](https://bryramirezp.github.io/Portafolio-UDEM/)
 
