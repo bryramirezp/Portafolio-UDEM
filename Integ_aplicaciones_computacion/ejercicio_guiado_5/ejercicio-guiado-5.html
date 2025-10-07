@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 5 - Autenticación JWT con Redis - Portafolio UDEM</title>
+
+    <!-- CSS obligatorio - IMPORTANTE: Este orden -->
+    <link rel="stylesheet" href="../../assets/css/neo-brutalist.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+
+    <!-- Fuentes requeridas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Mermaid.js para diagramas -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <!-- D3.js para drag and zoom -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                background: '#ffffff',
+                primaryColor: '#FFD166',
+                primaryTextColor: '#073B4C',
+                primaryBorderColor: '#073B4C',
+                lineColor: '#073B4C',
+                secondaryColor: '#F5F5F5',
+                tertiaryColor: '#FFFFFF'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            stateDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            sequenceDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+
+    <style>
+        /* Mermaid container styling */
+        .mermaid-container {
+            position: relative;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 1200px; /* Increased from 100% to 1200px for larger diagrams */
+            background: #fff;
+        }
+
+        .mermaid {
+            overflow: hidden;
+            /* Se establece una altura máxima inicial para que no ocupe toda la pantalla */
+            max-height: 600px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mermaid svg {
+            cursor: grab;
+            max-width: none !important; /* Permite que el SVG use el ancho completo del contenedor */
+            width: 100% !important;
+        }
+
+        .mermaid svg:active {
+            cursor: grabbing;
+        }
+
+
+        /* Control buttons */
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 5px;
+        }
+
+        .controls button {
+            background: #FFD166;
+            border: 2px solid #073B4C;
+            padding: 5px 8px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            color: #073B4C;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .controls button:hover {
+            background: #073B4C;
+            color: #FFD166;
+            transform: translate(-1px, -1px);
+        }
+
+        /* Fullscreen container */
+        .mermaid-container.fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important; /* Use viewport width */
+            height: 100vh !important; /* Use viewport height */
+            background: #ffffff; /* Changed to white */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: none !important;
+            margin: 0 !important;
+            padding: 20px !important;
+        }
+
+        /* En modo fullscreen, el mermaid y el svg usan todo el espacio */
+        .mermaid-container.fullscreen .mermaid {
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mermaid-container.fullscreen .controls {
+            top: 20px;
+            right: 20px;
+            color: black; /* Changed to black for contrast on white background */
+        }
+
+        .mermaid-container.fullscreen .mermaid svg {
+            max-width: none !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain; /* Ensures diagram fits without distortion */
+        }
+
+
+        /* Video container styling */
+        .video-container {
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 560px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            display: block;
+        }
+
+        /* Additional wrapper to ensure proper clipping */
+        .video-wrapper {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver</a>
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 5</h1>
+            <p class="neo-header__subtitle">Autenticación JWT en Microservicios con Redis</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Toggle se agrega automáticamente por JS -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+
+        <!-- 1. Objetivo del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">1. Objetivo del Proyecto</div>
+            <div class="neo-card__content">
+                <p>Desarrollar un microservicio de autenticación basado en JSON Web Tokens (JWT) con Flask y Python, utilizando Redis como sistema de almacenamiento temporal para tokens JWT y MariaDB para datos persistentes de usuarios. Proporciona una API REST completa para gestionar la autenticación de usuarios, incluyendo registro, login, refresh de tokens, logout y acceso a recursos protegidos.</p>
+                <p><strong>Características principales:</strong></p>
+                <ul>
+                    <li>Registro de usuarios con validación</li>
+                    <li>Autenticación segura con JWT</li>
+                    <li>Sistema de refresh tokens</li>
+                    <li>Revocación inmediata de tokens en logout</li>
+                    <li>Endpoint protegido para recursos autenticados</li>
+                    <li>Health check del servicio con monitoreo de Redis</li>
+                    <li>Redis para almacenamiento rápido de tokens con TTL automático</li>
+                    <li>MariaDB para datos persistentes de usuarios</li>
+                    <li>Dockerización completa con Docker Compose</li>
+                    <li>Logging detallado para debugging</li>
+                    <li>Adminer incluido para gestión de BD</li>
+                    <li>Script de pruebas automatizadas</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. Tecnologías Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">2. Tecnologías Utilizadas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Backend</h3>
+                        <ul>
+                            <li><strong>Flask</strong> - Framework web para Python</li>
+                            <li><strong>PyJWT</strong> - Librería para manejo de JWT</li>
+                            <li><strong>PyMySQL</strong> - Conector MySQL para Python</li>
+                            <li><strong>Redis</strong> - Base de datos en memoria para tokens</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Herramientas</h3>
+                        <ul>
+                            <li><strong>MariaDB</strong> - Base de datos relacional</li>
+                            <li><strong>Docker</strong> - Containerización</li>
+                            <li><strong>Adminer</strong> - Interfaz web para bases de datos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Arquitectura del Sistema -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">3. Arquitectura del Sistema</div>
+            <div class="neo-card__content">
+                <p>El sistema está diseñado con una arquitectura modular que separa las responsabilidades:</p>
+
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Flask App</div>
+                        <div class="neo-card__content">
+                            <p>API REST principal que maneja todas las operaciones de autenticación</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">MariaDB</div>
+                        <div class="neo-card__content">
+                            <p>Base de datos relacional para almacenar usuarios</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Redis</div>
+                        <div class="neo-card__content">
+                            <p>Base de datos en memoria para almacenamiento temporal de tokens JWT</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagramas integrados aquí -->
+                <h3>Diagrama de Arquitectura</h3>
+                <div class="mermaid-container" id="diagramContainer1">
+                    <div class="mermaid" id="diagram1">
+                        <!-- Contenido se carga desde el script -->
+                    </div>
+                    <div class="controls">
+                        <button id="fullscreenBtn1">⛶</button>
+                    </div>
+                </div>
+
+                <h3>Flujo de Autenticación JWT</h3>
+                <div class="mermaid-container" id="diagramContainer2">
+                    <div class="mermaid" id="diagram2">
+                        <!-- Contenido se carga desde el script -->
+                    </div>
+                    <div class="controls">
+                        <button id="fullscreenBtn2">⛶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Prerrequisitos -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">4. Prerrequisitos</div>
+            <div class="neo-card__content">
+                <ul>
+                    <li>Docker (versión 20.10 o superior)</li>
+                    <li>Docker Compose (versión 1.29 o superior)</li>
+                    <li>Puerto 5000 disponible (API Flask)</li>
+                    <li>Puerto 3306 disponible (MariaDB)</li>
+                    <li>Puerto 6379 disponible (Redis)</li>
+                    <li>Puerto 8080 disponible (Adminer)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. Instalación -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">5. Instalación</div>
+            <div class="neo-card__content">
+                <ol>
+                    <li><strong>Clona el repositorio</strong>
+                        <pre><code>git clone <url-del-repositorio>
+cd jwt-microservice</code></pre>
+                    </li>
+                    <li><strong>Configura las variables de entorno</strong>
+                        <pre><code>cp .env.example .env  # Si existe, o crea .env con las variables</code></pre>
+                    </li>
+                    <li><strong>Construye y ejecuta los contenedores</strong>
+                        <pre><code>docker-compose up --build</code></pre>
+                    </li>
+                    <li><strong>Verifica que los servicios estén corriendo</strong>
+                        <pre><code>API: http://localhost:5000/health
+Adminer: http://localhost:8080</code></pre>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 6. Configuración -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">6. Configuración</div>
+            <div class="neo-card__content">
+                <h3>Variables de Entorno (.env)</h3>
+                <pre><code># Configuración de Base de Datos
+DB_HOST=mariadb
+DB_PORT=3306
+DB_USER=jwt_user
+DB_PASSWORD=jwt_password
+DB_NAME=jwt_auth
+
+# Configuración JWT
+JWT_SECRET_KEY=UDEM
+ACCESS_TOKEN_EXPIRES_MINUTES=15
+REFRESH_TOKEN_EXPIRES_DAYS=7
+
+# Configuración Redis
+REDIS_HOST=redis
+REDIS_PORT=6379
+REDIS_PASSWORD=redis_password
+REDIS_MAXMEMORY=256mb
+REDIS_MAXMEMORY_POLICY=allkeys-lru</code></pre>
+
+                <h3>Descripción de Variables</h3>
+                <pre><code>DB_HOST: Host de la base de datos (por defecto: mariadb)
+DB_PORT: Puerto de la base de datos (por defecto: 3306)
+DB_USER: Usuario de la base de datos
+DB_PASSWORD: Contraseña del usuario
+DB_NAME: Nombre de la base de datos
+JWT_SECRET_KEY: Clave secreta para firmar los tokens JWT
+ACCESS_TOKEN_EXPIRES_MINUTES: Tiempo de expiración del access token en minutos
+REFRESH_TOKEN_EXPIRES_DAYS: Tiempo de expiración del refresh token en días
+REDIS_HOST: Host de Redis (por defecto: redis)
+REDIS_PORT: Puerto de Redis (por defecto: 6379)
+REDIS_PASSWORD: Contraseña de Redis
+REDIS_MAXMEMORY: Memoria máxima para Redis (por defecto: 256mb)
+REDIS_MAXMEMORY_POLICY: Política de eviction de Redis (por defecto: allkeys-lru)</code></pre>
+            </div>
+        </div>
+
+        <!-- 7. Uso -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">7. Uso</div>
+            <div class="neo-card__content">
+                <h3>Acceso a los Servicios</h3>
+                <pre><code>API del Microservicio: http://localhost:5000
+Adminer (Gestión BD): http://localhost:8080
+Usuario: jwt_user
+Contraseña: jwt_password
+Base de datos: jwt_auth</code></pre>
+            </div>
+        </div>
+
+                <h3>Endpoints de la API</h3>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">1. Registro de Usuario</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/register</code></p>
+                        <p>Registra un nuevo usuario en el sistema.</p>
+                        <p><strong>Request Body:</strong></p>
+                        <pre><code>{
+  "username": "usuario_ejemplo",
+  "email": "usuario@example.com",
+  "password": "contraseña_segura"
+}</code></pre>
+                        <p><strong>Response (201):</strong></p>
+                        <pre><code>{
+  "message": "User registered successfully",
+  "user_id": 1
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">2. Login</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/login</code></p>
+                        <p>Autentica al usuario y devuelve tokens JWT.</p>
+                        <p><strong>Request Body:</strong></p>
+                        <pre><code>{
+  "username": "usuario_ejemplo",
+  "password": "contraseña_segura"
+}</code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "token_type": "Bearer",
+  "expires_in": 900,
+  "message": "Login successful"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">3. Refresh Token</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/refresh</code></p>
+                        <p>Renueva el access token usando el refresh token.</p>
+                        <p><strong>Request Body:</strong></p>
+                        <pre><code>{
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}</code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "token_type": "Bearer",
+  "expires_in": 900,
+  "message": "Token refreshed successfully"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">4. Logout</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/logout</code></p>
+                        <p>Revoca el token actual del usuario.</p>
+                        <p><strong>Headers:</strong></p>
+                        <pre><code>Authorization: Bearer <access_token></code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "message": "Logged out successfully"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">5. Endpoint Protegido</div>
+                    <div class="neo-card__content">
+                        <p><strong>GET</strong> <code>/protected</code></p>
+                        <p>Accede a recursos que requieren autenticación.</p>
+                        <p><strong>Headers:</strong></p>
+                        <pre><code>Authorization: Bearer <access_token></code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "message": "This is a protected endpoint",
+  "user_id": 1,
+  "data": "Secret data only for authenticated users"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">6. Health Check</div>
+                    <div class="neo-card__content">
+                        <p><strong>GET</strong> <code>/health</code></p>
+                        <p>Verifica el estado del servicio, la conexión a la base de datos y Redis.</p>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "status": "healthy",
+  "database": "connected",
+  "redis": "connected",
+  "tables": ["users"],
+  "redis_tokens": 5,
+  "note": "Tokens managed in Redis, not database",
+  "timestamp": "2024-01-01T12:00:00.000000"
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Pruebas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">8. Pruebas</div>
+            <div class="neo-card__content">
+                <p>El proyecto incluye un script de pruebas automatizadas que verifica todas las funcionalidades.</p>
+                <h3>Ejecutar Pruebas</h3>
+                <pre><code># Asegúrate de que los servicios estén corriendo
+python test_jwt.py</code></pre>
+                <h3>Qué Prueba el Script</h3>
+                <ul>
+                    <li>✅ Salud del servicio</li>
+                    <li>✅ Registro de usuario</li>
+                    <li>✅ Login exitoso</li>
+                    <li>✅ Acceso a endpoint protegido</li>
+                    <li>✅ Refresh de token</li>
+                    <li>✅ Logout y revocación</li>
+                    <li>✅ Verificación de que el token fue revocado</li>
+                </ul>
+                <h3>Pruebas Manuales</h3>
+                <p>También puedes usar herramientas como Postman o curl. Consulta el archivo <code>commands-tests.txt</code> para ejemplos detallados de requests.</p>
+            </div>
+        </div>
+
+        <!-- 9. Estructura del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">9. Estructura del Proyecto</div>
+            <div class="neo-card__content">
+                <pre><code>jwt-microservice/
+├── app.py                 # Aplicación Flask principal con integración Redis
+├── test_jwt.py           # Script de pruebas automatizadas
+├── commands-tests.txt    # Ejemplos de requests para testing manual
+├── requirements.txt      # Dependencias Python (incluye redis-py)
+├── Dockerfile           # Dockerfile para la aplicación Flask
+├── Dockerfile.mariadb   # Dockerfile personalizado para MariaDB
+├── docker-compose.yml   # Configuración Docker Compose con Redis
+├── init.sql            # Script de inicialización BD (solo tabla users)
+├── .env                # Variables de entorno (DB, JWT, Redis)
+└── README.md           # Este archivo</code></pre>
+            </div>
+        </div>
+
+        <!-- 10. Beneficios de Redis para JWT -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">10. Beneficios de Redis para JWT</div>
+            <div class="neo-card__content">
+                <h3>Rendimiento</h3>
+                <ul>
+                    <li><strong>Validación ultra-rápida</strong>: Operaciones O(1) para verificar tokens</li>
+                    <li><strong>Sin consultas a BD</strong>: Reducción del 90% en carga de base de datos para autenticación</li>
+                    <li><strong>Escalabilidad</strong>: Manejo eficiente de miles de tokens concurrentes</li>
+                </ul>
+                <h3>Seguridad y Gestión</h3>
+                <ul>
+                    <li><strong>Expiración automática</strong>: Tokens se eliminan automáticamente al vencer TTL</li>
+                    <li><strong>Revocación inmediata</strong>: Logout elimina tokens instantáneamente</li>
+                    <li><strong>Sin estado persistente</strong>: Tokens no quedan en base de datos después de logout</li>
+                </ul>
+                <h3>Arquitectura</h3>
+                <ul>
+                    <li><strong>Separación de responsabilidades</strong>: Redis para datos efímeros, MariaDB para datos persistentes</li>
+                    <li><strong>Alta disponibilidad</strong>: Redis con persistencia y configuración de memoria</li>
+                    <li><strong>Monitoreo integrado</strong>: Health checks incluyen estado de Redis y conteo de tokens</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 11. Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">11. Conclusión</div>
+            <div class="neo-card__content">
+                <p>El microservicio JWT con Redis está listo para usar! 🚀</p>
+                <h3>Demostración en Video de JWT con Redis</h3>
+                <div class="video-wrapper">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/watch?v=DVWlskxJZYs" title="Demostración en video de JWT con Redis" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/bryramirezp/Microservicio-JWT-Redis" class="neo-button neo-button--primary" target="_blank">
+                        Ver Código en GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Neo Brutalist -->
+    <footer class="neo-footer">
+        <div class="neo-footer__center">
+            <p class="neo-footer__text">Bryan Ramírez Palacios</p>
+        </div>
+    </footer>
+
+    <!-- Scripts obligatorios - IMPORTANTE: Este orden -->
+    <script src="../../assets/js/neo-brutalist.js"></script>
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Script for Mermaid diagrams -->
+    <script>
+        // Función para cargar el contenido del diagrama
+        function loadMermaidContent(containerId, content) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.textContent = content;
+            }
+        }
+
+        // Initialize Mermaid and D3.js zoom functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            // Contenido del diagrama de arquitectura
+            const architectureDiagram = `graph TB
+    A[Cliente HTTP] --> B[Flask App :5000]
+    B --> C[(MariaDB :3306 - Usuarios)]
+    B --> D[(Redis :6379 - Tokens)]
+    E[Adminer :8080] --> C`;
+
+            // Contenido del diagrama de flujo JWT
+            const flowDiagram = `sequenceDiagram
+    participant U as Usuario
+    participant A as API Flask
+    participant DB as MariaDB
+    participant R as Redis
+
+    U->>A: POST /register
+    A->>DB: Insertar usuario
+    DB-->>A: Usuario creado
+    A-->>U: Usuario registrado
+
+    U->>A: POST /login
+    A->>DB: Verificar credenciales
+    DB-->>A: Usuario válido
+    A->>R: Almacenar tokens con TTL
+    R-->>A: Tokens guardados
+    A-->>U: access_token + refresh_token
+
+    U->>A: GET /protected (con access_token)
+    A->>R: Verificar token existe
+    R-->>A: Token válido
+    A-->>U: Datos protegidos
+
+    U->>A: POST /refresh (con refresh_token)
+    A->>R: Verificar refresh_token
+    R-->>A: Token válido
+    A->>R: Actualizar access_token
+    R-->>A: Token actualizado
+    A-->>U: nuevo access_token
+
+    U->>A: POST /logout (con access_token)
+    A->>R: Eliminar tokens
+    R-->>A: Tokens eliminados
+    A-->>U: Logout exitoso`;
+
+            // Cargar los diagramas
+            loadMermaidContent('diagram1', architectureDiagram);
+            loadMermaidContent('diagram2', flowDiagram);
+
+            // Initialize Mermaid with proper configuration
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: 'base',
+                    themeVariables: {
+                        background: '#ffffff',
+                        primaryColor: '#FFD166',
+                        primaryTextColor: '#073B4C',
+                        primaryBorderColor: '#073B4C',
+                        lineColor: '#073B4C',
+                        secondaryColor: '#F5F5F5',
+                        tertiaryColor: '#FFFFFF'
+                    },
+                    flowchart: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    },
+                    sequenceDiagram: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    }
+                });
+
+                // Re-initialize mermaid after loading content
+                setTimeout(() => {
+                    mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+                    // Apply D3.js drag and zoom to all mermaid SVGs
+                    setTimeout(() => {
+                        applyD3Zoom();
+                    }, 100);
+
+                    // Initialize controls for the diagrams
+                    initializeDiagramControls(1);
+                    initializeDiagramControls(2);
+                }, 100);
+            }
+        });
+
+        // Mapa para guardar los objetos de zoom por diagrama
+        const d3ZoomObjects = {};
+
+        // Apply D3.js drag and zoom to all mermaid SVGs
+        function applyD3Zoom() {
+            const svgs = d3.selectAll(".mermaid svg");
+            svgs.each(function() {
+                const svg = d3.select(this);
+                const container = svg.node().closest('.mermaid-container');
+                const diagramId = container ? container.id : 'default';
+
+                // Envuelve el contenido en un grupo para que el zoom funcione
+                svg.html("<g>" + svg.html() + "</g>");
+                const inner = svg.select("g");
+
+                // Crea el objeto de zoom
+                const zoom = d3.zoom().on("zoom", function(event) {
+                    inner.attr("transform", event.transform);
+                });
+
+                // Aplica el zoom al SVG
+                svg.call(zoom);
+
+                // Guarda el objeto de zoom para su uso posterior
+                d3ZoomObjects[diagramId] = zoom;
+            });
+        }
+
+        // Initialize fullscreen functionality for the diagrams
+        function initializeDiagramControls(diagramNumber) {
+            const diagramContainer = document.getElementById(`diagramContainer${diagramNumber}`);
+            const fullscreenBtn = document.getElementById(`fullscreenBtn${diagramNumber}`);
+
+            if (!diagramContainer || !fullscreenBtn) return;
+
+            // Full-screen Toggle
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    diagramContainer.requestFullscreen().catch(err => {
+                        console.error(`Error: ${err.message}`);
+                    });
+                    diagramContainer.classList.add('fullscreen');
+                } else {
+                    document.exitFullscreen();
+                    diagramContainer.classList.remove('fullscreen');
+                }
+            });
+
+            // Handle fullscreen exit events (ESC key, etc.)
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    // Fullscreen was exited - remove the class from all containers
+                    document.querySelectorAll('.mermaid-container.fullscreen').forEach(container => {
+                        container.classList.remove('fullscreen');
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -36,7 +36,7 @@
             <div class="neo-card__content">
                 <p>Este ejercicio demuestra cómo trabajar con datos XML, transformaciones XSLT y estilos CSS para crear un catálogo interactivo de libros.</p>
                 
-                <div class="neo-grid neo-grid--3">
+                <div class="neo-grid neo-grid--2">
                     <div class="neo-card">
                         <div class="neo-card__title">XML Data</div>
                         <div class="neo-card__content">
@@ -47,12 +47,6 @@
                         <div class="neo-card__title">XSLT Transform</div>
                         <div class="neo-card__content">
                             <p>Transformación de XML a HTML</p>
-                        </div>
-                    </div>
-                    <div class="neo-card">
-                        <div class="neo-card__title">CSS Styling</div>
-                        <div class="neo-card__content">
-                            <p>Presentación visual Neo Brutalist</p>
                         </div>
                     </div>
                 </div>
@@ -169,7 +163,7 @@
                 <pre><code>function renderBooks() {
     const container = document.getElementById('catalogue-container');
     container.innerHTML = '';
-    
+
     booksData.forEach(book => {
         const bookCard = document.createElement('div');
         bookCard.className = 'neo-card';

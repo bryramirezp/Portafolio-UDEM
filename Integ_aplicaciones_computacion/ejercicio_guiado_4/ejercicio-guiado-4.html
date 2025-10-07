@@ -69,7 +69,8 @@
 
         .mermaid svg {
             cursor: grab;
-            max-width: 100%; /* Asegura que el SVG no se desborde horizontalmente */
+            max-width: none !important; /* Permite que el SVG use el ancho completo del contenedor */
+            width: 100% !important;
         }
 
         .mermaid svg:active {
@@ -137,6 +138,7 @@
         }
 
         .mermaid-container.fullscreen .mermaid svg {
+            max-width: none !important;
             width: 100% !important;
             height: 100% !important;
             object-fit: contain; /* Ensures diagram fits without distortion */
@@ -186,60 +188,83 @@
 
     <!-- Contenido principal -->
     <main class="neo-container" style="padding: 3rem 0;">
-        <!-- Nota sobre PredictHealth -->
-        <div class="neo-card" style="max-width:900px; margin:0 auto 3rem;">
-    <div class="neo-card__title">Implementación en Proyecto PredictHealth</div>
-    <div class="neo-card__content">
-        <p>
-            En lugar de desarrollar la actividad como un microservicio independiente, se integró directamente dentro del proyecto final 
-            <strong>PredictHealth</strong>, aprovechando la arquitectura existente de microservicios. Esta implementación centraliza la autenticación 
-            y gestión segura de sesiones mediante <strong>JWT (JSON Web Token)</strong> a través del microservicio 
-            <strong>AUTH-JWT</strong>, gestionado por el <strong>API Gateway Backend-Flask</strong>, garantizando seguridad y control de acceso para los usuarios.
-        </p>
-        <p>
-            Se utilizó este enfoque siguiendo los requerimientos originales de la actividad: desarrollar un microservicio en Flask que permita 
-            registrar usuarios, iniciar sesión, generar y validar tokens JWT, proteger rutas de la API y gestionar el ciclo de vida del token. 
-            Además, se implementó el almacenamiento del token en el cliente y el envío en las cabeceras de cada petición, así como el registro 
-            de logs en servidor y cliente para monitorear el flujo de autenticación.
-        </p>
-    </div>
-</div>
-
-        <!-- Explicación de la actividad -->
-        <h2 style="text-align: center; margin-bottom: 2rem;">Descripción de la Actividad</h2>
-
-        <div class="neo-card" style="max-width: 900px; margin: 0 auto 3rem;">
-            <div class="neo-card__title">Microservicio Flask con JWT</div>
+        
+        <!-- 1. Objetivo del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">1. Objetivo del Proyecto</div>
             <div class="neo-card__content">
-                <p>La actividad central consiste en desarrollar un microservicio en <strong>Flask</strong> que implemente autenticación utilizando <strong>JWT (JSON Web Token)</strong>. Este sistema está diseñado para autenticar usuarios contra una base de datos, cumpliendo con los siguientes requisitos principales:</p>
+                <p>Desarrollar un microservicio de autenticación basado en JSON Web Tokens (JWT) con Flask y Python. Proporciona una API REST completa para gestionar usuarios, incluyendo registro, login, refresh de tokens, logout y acceso a recursos protegidos.</p>
+                <p><strong>Características principales:</strong></p>
                 <ul>
-                    <li><strong>Gestión de Usuarios:</strong> Permitir el registro de nuevos usuarios y el inicio de sesión para usuarios existentes.</li>
-                    <li><strong>Generación de Tokens:</strong> Al autenticarse correctamente, el microservicio debe generar y emitir tokens JWT.</li>
-                    <li><strong>Protección de Rutas:</strong> Implementar mecanismos para proteger las rutas de la API, asegurando que solo puedan ser accedidas con un token JWT válido y activo.</li>
-                    <li><strong>Aplicación Cliente Web:</strong> Crear una aplicación web frontend (HTML, CSS, JS) separada que consuma este microservicio. Esta aplicación debe ser capaz de almacenar el token recibido en el navegador (ej. localStorage) y enviarlo en las cabeceras de cada petición a las rutas protegidas.</li>
-                    <li><strong>Logging Detallado:</strong> Incluir logs robustos tanto en el servidor (Flask) como en el cliente (JavaScript) para permitir la observación y depuración del flujo completo de autenticación.</li>
+                    <li>Registro de usuarios con validación</li>
+                    <li>Autenticación segura con JWT</li>
+                    <li>Sistema de refresh tokens</li>
+                    <li>Revocación de tokens en logout</li>
+                    <li>Endpoint protegido para recursos autenticados</li>
+                    <li>Health check del servicio</li>
+                    <li>Base de datos MariaDB con configuración UTF-8</li>
+                    <li>Dockerización completa con Docker Compose</li>
+                    <li>Logging detallado para debugging</li>
+                    <li>Adminer incluido para gestión de BD</li>
+                    <li>Script de pruebas automatizadas</li>
                 </ul>
-
-                <h3>Flujo General de Autenticación JWT</h3>
-                <p>El proceso básico de autenticación sigue estos pasos:</p>
-                <ol>
-                    <li>El usuario envía sus credenciales (ej. email y contraseña) al microservicio de autenticación <strong>Auth-JWT</strong>.</li>
-                    <li>El microservicio valida estas credenciales. Si son correctas, genera un JWT (que contiene información del usuario y está firmado criptográficamente) y lo envía al cliente.</li>
-                    <li>El cliente recibe el JWT y lo almacena en <strong>localStorage</strong>.</li>
-                    <li>Para acceder a recursos protegidos, el cliente incluye el JWT en la cabecera <code>Authorization</code> de cada petición HTTP.</li>
-                    <li>El microservicio Backend, el cual funge como <strong>API Gateway</strong>, intercepta la petición, verifica la validez y firma del JWT.</li>
-                    <li>Si el token es válido, se permite el acceso al recurso solicitado; de lo contrario, se deniega.</li>
-                </ol>
             </div>
         </div>
 
-        <!-- ===== INICIO DEL BLOQUE ACTUALIZADO ===== -->
-        <!-- Diagramas Mermaid -->
-        <h2 style="text-align: center; margin-bottom: 2rem;">Diagrama de Flujo JWT</h2>
-        
-        <div class="neo-card" style="max-width: 1200px; margin: 0 auto 3rem;">
-            <div class="neo-card__title">Proceso Completo de Autenticación JWT</div>
+        <!-- 2. Tecnologías Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">2. Tecnologías Utilizadas</div>
             <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Backend</h3>
+                        <ul>
+                            <li><strong>Flask</strong> - Framework web para Python</li>
+                            <li><strong>PyJWT</strong> - Librería para manejo de JWT</li>
+                            <li><strong>PyMySQL</strong> - Conector MySQL para Python</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Herramientas</h3>
+                        <ul>
+                            <li><strong>MariaDB</strong> - Base de datos relacional</li>
+                            <li><strong>Docker</strong> - Containerización</li>
+                            <li><strong>Adminer</strong> - Interfaz web para bases de datos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Arquitectura del Sistema -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">3. Arquitectura del Sistema</div>
+            <div class="neo-card__content">
+                <p>El sistema está diseñado con una arquitectura modular que separa las responsabilidades:</p>
+                
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Flask App</div>
+                        <div class="neo-card__content">
+                            <p>API REST principal que maneja todas las operaciones de autenticación</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">MariaDB</div>
+                        <div class="neo-card__content">
+                            <p>Base de datos relacional para almacenar usuarios y tokens</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">JWT</div>
+                        <div class="neo-card__content">
+                            <p>Sistema de tokens para autenticación stateless</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagramas integrados aquí -->
+                <h3>Diagrama de Arquitectura</h3>
                 <div class="mermaid-container" id="diagramContainer1">
                     <div class="mermaid" id="diagram1">
                         <!-- Contenido se carga desde el script -->
@@ -248,23 +273,279 @@
                         <button id="fullscreenBtn1">⛶</button>
                     </div>
                 </div>
+
+                <h3>Flujo de Autenticación JWT</h3>
+                <div class="mermaid-container" id="diagramContainer2">
+                    <div class="mermaid" id="diagram2">
+                        <!-- Contenido se carga desde el script -->
+                    </div>
+                    <div class="controls">
+                        <button id="fullscreenBtn2">⛶</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- ===== FIN DEL BLOQUE ACTUALIZADO ===== -->
 
-        <!-- Video relacionado -->
-        <h2 style="text-align: center; margin-bottom: 2rem;">Recursos Adicionales</h2>
-
-        <div class="neo-card" style="max-width: 900px; margin: 0 auto 3rem;">
-            <div class="neo-card__title">Video Explicativo</div>
+        <!-- 4. Prerrequisitos -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">4. Prerrequisitos</div>
             <div class="neo-card__content">
-                <p>Demostración de los comandos principales del servicio JWT: login, verificación, refresco, creación y revocación de tokens, junto con métricas, estado e información del sistema.</p>
-                <div style="text-align: center; margin-top: 1rem;">
-                    <div class="video-wrapper">
-                        <div class="video-container">
-                            <iframe src="https://www.youtube.com/embed/m6Sur8ufWL0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        </div>
+                <ul>
+                    <li>Docker (versión 20.10 o superior)</li>
+                    <li>Docker Compose (versión 1.29 o superior)</li>
+                    <li>Puerto 5000 disponible (API)</li>
+                    <li>Puerto 3306 disponible (MariaDB)</li>
+                    <li>Puerto 8080 disponible (Adminer)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. Instalación -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">5. Instalación</div>
+            <div class="neo-card__content">
+                <ol>
+                    <li><strong>Clona el repositorio</strong>
+                        <pre><code>git clone <url-del-repositorio>
+cd jwt-microservice</code></pre>
+                    </li>
+                    <li><strong>Configura las variables de entorno</strong>
+                        <pre><code>cp .env.example .env  # Si existe, o crea .env con las variables</code></pre>
+                    </li>
+                    <li><strong>Construye y ejecuta los contenedores</strong>
+                        <pre><code>docker-compose up --build</code></pre>
+                    </li>
+                    <li><strong>Verifica que los servicios estén corriendo</strong>
+                        <pre><code>API: http://localhost:5000/health
+Adminer: http://localhost:8080</code></pre>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 6. Configuración -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">6. Configuración</div>
+            <div class="neo-card__content">
+                <h3>Variables de Entorno (.env)</h3>
+                <pre><code># Configuración de Base de Datos
+DB_HOST=mariadb
+DB_PORT=3306
+DB_USER=jwt_user
+DB_PASSWORD=jwt_password
+DB_NAME=jwt_auth
+
+# Configuración JWT
+JWT_SECRET_KEY=UDEM
+ACCESS_TOKEN_EXPIRES_MINUTES=15
+REFRESH_TOKEN_EXPIRES_DAYS=7</code></pre>
+
+                <h3>Descripción de Variables</h3>
+                <pre><code>DB_HOST: Host de la base de datos (por defecto: mariadb)
+DB_PORT: Puerto de la base de datos (por defecto: 3306)
+DB_USER: Usuario de la base de datos
+DB_PASSWORD: Contraseña del usuario
+DB_NAME: Nombre de la base de datos
+JWT_SECRET_KEY: Clave secreta para firmar los tokens JWT
+ACCESS_TOKEN_EXPIRES_MINUTES: Tiempo de expiración del access token en minutos
+REFRESH_TOKEN_EXPIRES_DAYS: Tiempo de expiración del refresh token en días</code></pre>
+            </div>
+        </div>
+
+        <!-- 7. Uso -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">7. Uso</div>
+            <div class="neo-card__content">
+                <h3>Acceso a los Servicios</h3>
+                <pre><code>API del Microservicio: http://localhost:5000
+Adminer (Gestión BD): http://localhost:8080
+Usuario: jwt_user
+Contraseña: jwt_password
+Base de datos: jwt_auth</code></pre>
+            </div>
+        </div>
+
+                <h3>Endpoints de la API</h3>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">1. Registro de Usuario</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/register</code></p>
+                        <p>Registra un nuevo usuario en el sistema.</p>
+                        <p><strong>Request Body:</strong></p>
+                        <pre><code>{
+  "username": "usuario_ejemplo",
+  "email": "usuario@example.com",
+  "password": "contraseña_segura"
+}</code></pre>
+                        <p><strong>Response (201):</strong></p>
+                        <pre><code>{
+  "message": "User registered successfully",
+  "user_id": 1
+}</code></pre>
                     </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">2. Login</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/login</code></p>
+                        <p>Autentica al usuario y devuelve tokens JWT.</p>
+                        <p><strong>Request Body:</strong></p>
+                        <pre><code>{
+  "username": "usuario_ejemplo",
+  "password": "contraseña_segura"
+}</code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "token_type": "Bearer",
+  "expires_in": 900,
+  "message": "Login successful"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">3. Refresh Token</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/refresh</code></p>
+                        <p>Renueva el access token usando el refresh token.</p>
+                        <p><strong>Request Body:</strong></p>
+                        <pre><code>{
+  "refresh_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."
+}</code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...",
+  "token_type": "Bearer",
+  "expires_in": 900,
+  "message": "Token refreshed successfully"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">4. Logout</div>
+                    <div class="neo-card__content">
+                        <p><strong>POST</strong> <code>/logout</code></p>
+                        <p>Revoca el token actual del usuario.</p>
+                        <p><strong>Headers:</strong></p>
+                        <pre><code>Authorization: Bearer <access_token></code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "message": "Logged out successfully"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">5. Endpoint Protegido</div>
+                    <div class="neo-card__content">
+                        <p><strong>GET</strong> <code>/protected</code></p>
+                        <p>Accede a recursos que requieren autenticación.</p>
+                        <p><strong>Headers:</strong></p>
+                        <pre><code>Authorization: Bearer <access_token></code></pre>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "message": "This is a protected endpoint",
+  "user_id": 1,
+  "data": "Secret data only for authenticated users"
+}</code></pre>
+                    </div>
+                </div>
+                <div class="neo-card neo-mb-4">
+                    <div class="neo-card__title">6. Health Check</div>
+                    <div class="neo-card__content">
+                        <p><strong>GET</strong> <code>/health</code></p>
+                        <p>Verifica el estado del servicio y la conexión a la base de datos.</p>
+                        <p><strong>Response (200):</strong></p>
+                        <pre><code>{
+  "status": "healthy",
+  "database": "connected",
+  "tables": ["users", "tokens"],
+  "timestamp": "2024-01-01T12:00:00.000000"
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Pruebas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">7. Pruebas</div>
+            <div class="neo-card__content">
+                <p>El proyecto incluye un script de pruebas automatizadas que verifica todas las funcionalidades.</p>
+                <h3>Ejecutar Pruebas</h3>
+                <pre><code># Asegúrate de que los servicios estén corriendo
+python test_jwt.py</code></pre>
+                <h3>Qué Prueba el Script</h3>
+                <ul>
+                    <li>✅ Salud del servicio</li>
+                    <li>✅ Registro de usuario</li>
+                    <li>✅ Login exitoso</li>
+                    <li>✅ Acceso a endpoint protegido</li>
+                    <li>✅ Refresh de token</li>
+                    <li>✅ Logout y revocación</li>
+                    <li>✅ Verificación de que el token fue revocado</li>
+                </ul>
+                <h3>Pruebas Manuales</h3>
+                <p>También puedes usar herramientas como Postman o curl. Consulta el archivo <code>commands-tests.txt</code> para ejemplos detallados de requests.</p>
+            </div>
+        </div>
+
+        <!-- 8. Estructura del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">8. Estructura del Proyecto</div>
+            <div class="neo-card__content">
+                <pre><code>jwt-microservice/
+├── app.py                 # Aplicación Flask principal
+├── test_jwt.py           # Script de pruebas
+├── commands-tests.txt    # Ejemplos de requests para Postman
+├── requirements.txt      # Dependencias Python
+├── Dockerfile           # Dockerfile para la app
+├── Dockerfile.mariadb   # Dockerfile para MariaDB
+├── docker-compose.yml   # Configuración Docker Compose
+├── init.sql            # Script de inicialización BD
+├── .env                # Variables de entorno
+└── README.md           # Este archivo</code></pre>
+            </div>
+        </div>
+
+        <!-- 9. Tecnologías Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">9. Tecnologías Utilizadas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <ul>
+                            <li><strong>Flask</strong>: Framework web para Python</li>
+                            <li><strong>PyJWT</strong>: Librería para manejo de JWT</li>
+                            <li><strong>PyMySQL</strong>: Conector MySQL para Python</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><strong>MariaDB</strong>: Base de datos relacional</li>
+                            <li><strong>Docker</strong>: Contenedorización</li>
+                            <li><strong>Adminer</strong>: Interfaz web para bases de datos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">10. Conclusión</div>
+            <div class="neo-card__content">
+                <p>El microservicio JWT está listo para usar! 🚀</p>
+                <h3>Demostración en Video de JWT</h3>
+                <div class="video-wrapper">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/NYZ1mDMAqrQ" title="Demostración en video de JWT" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/bryramirezp/Microservicio-JWT" class="neo-button neo-button--primary" target="_blank">
+                        Ver Código en GitHub
+                    </a>
                 </div>
             </div>
         </div>
@@ -282,7 +563,7 @@
     <script src="../../assets/js/neo-brutalist.js"></script>
     <script src="../../assets/js/main.js"></script>
 
-    <!-- ===== INICIO DEL SCRIPT ACTUALIZADO ===== -->
+    <!-- Script for Mermaid diagrams -->
     <script>
         // Función para cargar el contenido del diagrama
         function loadMermaidContent(containerId, content) {
@@ -294,64 +575,51 @@
 
         // Initialize Mermaid and D3.js zoom functionality
         document.addEventListener("DOMContentLoaded", function() {
-            // Contenido del nuevo diagrama unificado
-            const diagramContent = `sequenceDiagram
-    participant C as Cliente
-    participant AG as API Gateway
-    participant JWT as AUTH-JWT Service
-    participant PG as PostgreSQL
+            // Contenido del diagrama de arquitectura
+            const architectureDiagram = `graph TB
+    A[Cliente HTTP] --> B[Flask App :5000]
+    B --> C[(MariaDB :3306)]
+    B --> D[JWT Tokens]
+    E[Adminer :8080] --> C`;
 
-    Note over C,PG: 1. AUTENTICACIÓN INICIAL
-    C->>AG: POST /auth/login<br/>{email, password}
-    AG->>JWT: Validar credenciales
-    JWT->>PG: SELECT user WHERE email=?
-    PG-->>JWT: User data
-    JWT->>JWT: Verificar password<br/>Generar Access Token (15min)<br/>Generar Refresh Token (7 días)
-    JWT-->>C: {access_token, refresh_token, user_info}
+            // Contenido del diagrama de flujo JWT
+            const flowDiagram = `sequenceDiagram
+    participant U as Usuario
+    participant A as API Flask
+    participant DB as MariaDB
 
-    Note over C,PG: 2. ACCESO A RECURSOS (Token Válido)
-    C->>AG: GET /api/resource<br/>Authorization: Bearer {access_token}
-    AG->>AG: Decodificar JWT<br/>Validar firma y expiración
-    AG->>JWT: Proxy request + user context
-    JWT-->>C: 200 OK + Data
+    U->>A: POST /register
+    A->>DB: Insertar usuario
+    DB-->>A: Usuario creado
+    A-->>U: Usuario registrado
 
-    Note over C,PG: 3. TOKEN EXPIRADO - Renovación Automática
-    C->>AG: GET /api/resource<br/>Authorization: Bearer {expired_token}
-    AG->>AG: Validar token → exp < now()
-    AG-->>C: 401 Token Expired
-    
-    rect rgb(240, 248, 255)
-        Note over C: Cliente detecta expiración
-        C->>AG: POST /auth/refresh<br/>{refresh_token}
-        AG->>JWT: Validar refresh token
-        JWT->>JWT: Verificar firma y exp < 7 días
-        
-        Note over C,PG: CASO A: Refresh Token Válido (< 7 días)
-        JWT->>PG: Verificar usuario activo
-        PG-->>JWT: User válido
-        JWT->>JWT: Generar nuevo Access Token (15min)
-        JWT-->>C: {access_token}
-        C->>AG: Reintentar request original<br/>con nuevo token
-        AG-->>C: 200 OK + Data
-        
-        Note over C,PG: CASO B: Refresh Token Expirado (> 7 días)
-        JWT-->>C: 401 Session Expired
-        Note over C: Redirigir a Login
-        C->>AG: POST /auth/login (re-autenticación)
-    end
+    U->>A: POST /login
+    A->>DB: Verificar credenciales
+    DB-->>A: Usuario válido
+    A->>DB: Almacenar tokens
+    DB-->>A: Tokens guardados
+    A-->>U: access_token + refresh_token
 
-    Note over C,PG: 4. CIERRE DE SESIÓN
-    C->>AG: POST /auth/logout<br/>Authorization: Bearer {access_token}
-    AG->>JWT: Revocar tokens
-    JWT->>JWT: Marcar tokens como inválidos
-    JWT-->>C: 200 Logout Success
-    Note over C: Eliminar tokens del storage
+    U->>A: GET /protected (con access_token)
+    A->>DB: Verificar token válido
+    DB-->>A: Token válido
+    A-->>U: Datos protegidos
 
-    Note over C,PG: CICLO DE VIDA DEL TOKEN
-    Note over C: Access Token: 15 minutos → Renovación automática<br/>Refresh Token: 7 días → Re-login requerido<br/>Validación: JWT Signature + Expiración`;
+    U->>A: POST /refresh (con refresh_token)
+    A->>DB: Verificar refresh_token
+    DB-->>A: Token válido
+    A->>DB: Actualizar access_token
+    DB-->>A: Token actualizado
+    A-->>U: nuevo access_token
 
-            // Cargar el diagrama
-            loadMermaidContent('diagram1', diagramContent);
+    U->>A: POST /logout (con access_token)
+    A->>DB: Revocar token
+    DB-->>A: Token revocado
+    A-->>U: Logout exitoso`;
+
+            // Cargar los diagramas
+            loadMermaidContent('diagram1', architectureDiagram);
+            loadMermaidContent('diagram2', flowDiagram);
 
             // Initialize Mermaid with proper configuration
             if (typeof mermaid !== 'undefined') {
@@ -366,6 +634,10 @@
                         lineColor: '#073B4C',
                         secondaryColor: '#F5F5F5',
                         tertiaryColor: '#FFFFFF'
+                    },
+                    flowchart: {
+                        useMaxWidth: true,
+                        htmlLabels: true
                     },
                     sequenceDiagram: {
                         useMaxWidth: true,
@@ -382,8 +654,9 @@
                         applyD3Zoom();
                     }, 100);
 
-                    // Initialize controls for the diagram
+                    // Initialize controls for the diagrams
                     initializeDiagramControls(1);
+                    initializeDiagramControls(2);
                 }, 100);
             }
         });
@@ -416,7 +689,7 @@
             });
         }
 
-        // Initialize fullscreen functionality for the diagram
+        // Initialize fullscreen functionality for the diagrams
         function initializeDiagramControls(diagramNumber) {
             const diagramContainer = document.getElementById(`diagramContainer${diagramNumber}`);
             const fullscreenBtn = document.getElementById(`fullscreenBtn${diagramNumber}`);
@@ -447,7 +720,6 @@
             });
         }
     </script>
-    <!-- ===== FIN DEL SCRIPT ACTUALIZADO ===== -->
 
 </body>
 </html>
