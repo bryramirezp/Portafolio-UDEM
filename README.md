@@ -16,6 +16,7 @@ Repositorio donde se documentan y exhiben los trabajos realizados durante el cur
 
 ### Frameworks y Librerías
 ![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Tkinter](https://img.shields.io/badge/Tkinter-FF6F00?style=for-the-badge&logo=python&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=json-web-tokens&logoColor=white)
 ![PyJWT](https://img.shields.io/badge/PyJWT-000000?style=for-the-badge&logo=python&logoColor=white)
 
@@ -45,7 +46,9 @@ Prácticas paso a paso con tecnologías modernas:
 - **💬 Chat Local**: Ollama y Apache con contenedores
 - **📚 XML/XSLT**: Transformaciones y presentación de datos
 - **🔐 JWT Authentication**: Autenticación JWT en Microservicios
-- **🔐 JWT con Redis**: Autenticación JWT en Microservicios con Redis
+- **🔑 JWT con Redis**: Autenticación JWT en Microservicios con Redis
+- **🖥️ Cliente GUI Tkinter**: Cliente gráfico para microservicio JWT con Tkinter
+
 
 ### 📝 Tareas
 Trabajos individuales y proyectos:
@@ -79,7 +82,7 @@ Evaluaciones del curso:
 **👨‍💻 Desarrollado por**: Bryan Ramírez Palacios  
 **🏛️ Institución**: Universidad de Monterrey (UDEM)  
 **📚 Curso**: Integración de Aplicaciones Computacionales  
-**📅 Año**: 2024
+**📅 Año**: 2025
 
 [![GitHub](https://img.shields.io/badge/GitHub-bryramirezp-181717?style=for-the-badge&logo=github)](https://github.com/bryramirezp)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Bryan%20Ramírez-0077B5?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/bryan-ramirez-palacios)
