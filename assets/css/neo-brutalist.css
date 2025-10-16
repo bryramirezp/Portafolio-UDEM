@@ -37,12 +37,12 @@
 
 /* Modo Oscuro */
 [data-theme="dark"] {
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
+  --bg-primary: #0F0F0F;
+  --bg-secondary: #1A1A1A;
   --text-primary: #FFFFFF;
-  --text-secondary: #e0e0e0;
-  --border-color: #2a2a2a;
-  --shadow-color: #FFFFFF;
+  --text-secondary: #CCCCCC;
+  --border-color: #333333;
+  --shadow-color: #FFD166;
 }
 
 /* Transiciones suaves para cambio de tema */
@@ -52,12 +52,25 @@
 
 /* Estilos específicos para modo oscuro */
 [data-theme="dark"] code {
-  background-color: #2d2d2d;
-  color: #ffcc66;
-  font-family: 'Fira Code', monospace;
+  background-color: #2A2A2A;
+  color: #FFD166;
+  font-family: 'Courier New', Courier, monospace;
   padding: 2px 6px;
   border-radius: var(--border-radius);
   font-weight: 400;
+  border: 1px solid #444444;
+}
+
+[data-theme="dark"] pre {
+  background-color: #1A1A1A;
+  border: 2px solid #333333;
+  color: #CCCCCC;
+}
+
+[data-theme="dark"] pre code {
+  background-color: transparent;
+  color: #FFD166;
+  border: none;
 }
 
 /* Excluir elementos que no necesitan transición */
@@ -76,14 +89,14 @@
 }
 
 body {
-  font-family: 'Roboto Mono', monospace;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
-  transition: background-color var(--transition-speed) var(--transition-easing),
-              color var(--transition-speed) var(--transition-easing);
+   font-family: 'Courier New', Courier, monospace;
+   background-color: var(--bg-primary);
+   color: var(--text-primary);
+   margin: 0;
+   padding: 0;
+   line-height: 1.6;
+   transition: background-color var(--transition-speed) var(--transition-easing),
+               color var(--transition-speed) var(--transition-easing);
 }
 
 /* ========================================
@@ -102,40 +115,72 @@ body {
 }
 
 /* ========================================
-   TIPOGRAFÍA NEO BRUTALIST
-   ======================================== */
+    TIPOGRAFÍA NEO BRUTALIST
+    ======================================== */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 2px;
-  font-weight: 400;
-  margin: 0;
+   letter-spacing: 2px;
+   margin: 0;
 }
 
-h1 { font-size: 2.5rem; }
-h2 { font-size: 2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
-h5 { font-size: 1.125rem; }
-h6 { font-size: 1rem; }
+/* Títulos Principales (H1, PORTAFOLIO) */
+h1 {
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: bold;
+   text-transform: uppercase;
+   font-size: 2.5rem;
+}
+
+/* Subtítulos/Categorías (H2, EJERCICIOS) */
+h2 {
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: normal;
+   text-transform: uppercase;
+   font-size: 2rem;
+}
+
+/* Otros títulos */
+h3 {
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: normal;
+   font-size: 1.5rem;
+}
+
+h4 {
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: normal;
+   font-size: 1.25rem;
+}
+
+h5 {
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: normal;
+   font-size: 1.125rem;
+}
+
+h6 {
+   font-family: Arial, Helvetica, sans-serif;
+   font-weight: normal;
+   font-size: 1rem;
+}
 
 /* ========================================
-   BOTÓN NEO BRUTALIST
-   ======================================== */
+    BOTÓN NEO BRUTALIST
+    ======================================== */
 .neo-button {
-  background-color: var(--neo-yellow);
-  color: var(--neo-black);
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-  padding: 12px 24px;
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all var(--transition-speed) var(--transition-easing);
-  border-radius: var(--border-radius);
-  text-decoration: none;
-  display: inline-block;
-  text-align: center;
+   background-color: var(--neo-yellow);
+   color: var(--neo-black);
+   border: var(--border-width) solid var(--border-color);
+   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+   padding: 12px 24px;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: 600;
+   font-size: 1rem;
+   cursor: pointer;
+   transition: all var(--transition-speed) var(--transition-easing);
+   border-radius: var(--border-radius);
+   text-decoration: none;
+   display: inline-block;
+   text-align: center;
 }
 
 .neo-button:hover {
@@ -158,6 +203,12 @@ h6 { font-size: 1rem; }
 .neo-button--secondary {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
+}
+
+[data-theme="dark"] .neo-button--secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
 }
 
 .neo-button--danger {
@@ -197,27 +248,33 @@ h6 { font-size: 1rem; }
 }
 
 /* ========================================
-   TOGGLE SWITCH NEO BRUTALIST - DISEÑO ELEGANTE
-   ======================================== */
+    TOGGLE SWITCH NEO BRUTALIST - DISEÑO ELEGANTE
+    ======================================== */
 .neo-toggle {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 16px;
-  background-color: var(--bg-secondary);
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-  border-radius: var(--border-radius);
-  transition: all var(--transition-speed) var(--transition-easing);
-  cursor: pointer;
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--text-primary);
-  user-select: none;
-  min-width: 140px;
-  justify-content: space-between;
+   position: relative;
+   display: inline-flex;
+   align-items: center;
+   gap: 12px;
+   padding: 10px 16px;
+   background-color: var(--bg-secondary);
+   border: var(--border-width) solid var(--border-color);
+   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+   border-radius: var(--border-radius);
+   transition: all var(--transition-speed) var(--transition-easing);
+   cursor: pointer;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: 600;
+   font-size: 13px;
+   color: var(--text-primary);
+   user-select: none;
+   min-width: 140px;
+   justify-content: space-between;
+}
+
+[data-theme="dark"] .neo-toggle {
+   background-color: var(--bg-secondary);
+   border-color: var(--border-color);
+   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
 }
 
 .neo-toggle:hover {
@@ -248,6 +305,11 @@ h6 { font-size: 1rem; }
   overflow: hidden;
 }
 
+[data-theme="dark"] .neo-toggle__slider {
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
 .neo-toggle__slider:before {
   content: '';
   position: absolute;
@@ -259,6 +321,11 @@ h6 { font-size: 1rem; }
   border-radius: 50%;
   transition: all var(--transition-speed) var(--transition-easing);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme="dark"] .neo-toggle__slider:before {
+  background-color: var(--text-primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .neo-toggle__input:checked + .neo-toggle__slider {
@@ -305,12 +372,12 @@ h6 { font-size: 1rem; }
 }
 
 .neo-header__center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  text-align: center;
-  padding: 0 20px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    padding: 0;
 }
 
 .neo-header__right {
@@ -331,12 +398,12 @@ h6 { font-size: 1rem; }
 }
 
 .neo-header__subtitle {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin: 4px 0 0 0;
-  opacity: 0.8;
+   font-family: 'Courier New', Courier, monospace;
+   font-size: 0.9rem;
+   font-weight: 500;
+   color: var(--text-secondary);
+   margin: 4px 0 0 0;
+   opacity: 0.8;
 }
 
 /* Responsive del header */
@@ -376,19 +443,25 @@ h6 { font-size: 1rem; }
 }
 
 /* ========================================
-   INPUT NEO BRUTALIST
-   ======================================== */
+    INPUT NEO BRUTALIST
+    ======================================== */
 .neo-input {
-  width: 100%;
-  padding: 12px 16px;
-  background-color: var(--bg-secondary);
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1rem;
-  color: var(--text-primary);
-  border-radius: var(--border-radius);
-  transition: all var(--transition-speed) var(--transition-easing);
+   width: 100%;
+   padding: 12px 16px;
+   background-color: var(--bg-secondary);
+   border: var(--border-width) solid var(--border-color);
+   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+   font-family: 'Courier New', Courier, monospace;
+   font-size: 1rem;
+   color: var(--text-primary);
+   border-radius: var(--border-radius);
+   transition: all var(--transition-speed) var(--transition-easing);
+}
+
+[data-theme="dark"] .neo-input {
+   background-color: var(--bg-secondary);
+   border-color: var(--border-color);
+   color: var(--text-primary);
 }
 
 .neo-input:focus {
@@ -397,39 +470,47 @@ h6 { font-size: 1rem; }
   transform: translate(2px, 2px);
 }
 
+[data-theme="dark"] .neo-input:focus {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+}
+
 .neo-input::placeholder {
   color: var(--text-secondary);
   opacity: 0.7;
 }
 
+[data-theme="dark"] .neo-input::placeholder {
+  color: var(--text-secondary);
+}
+
 /* ========================================
-   NAVEGACIÓN NEO BRUTALIST
-   ======================================== */
+    NAVEGACIÓN NEO BRUTALIST
+    ======================================== */
 .neo-nav {
-  background-color: var(--bg-secondary);
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-  padding: 16px;
-  border-radius: var(--border-radius);
+   background-color: var(--bg-secondary);
+   border: var(--border-width) solid var(--border-color);
+   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+   padding: 16px;
+   border-radius: var(--border-radius);
 }
 
 .neo-nav__list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+   display: flex;
+   flex-wrap: wrap;
+   gap: 16px;
+   list-style: none;
+   margin: 0;
+   padding: 0;
 }
 
 .neo-nav__link {
-  color: var(--text-primary);
-  text-decoration: none;
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 600;
-  padding: 8px 16px;
-  border: 2px solid transparent;
-  transition: all var(--transition-speed) var(--transition-easing);
+   color: var(--text-primary);
+   text-decoration: none;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: 600;
+   padding: 8px 16px;
+   border: 2px solid transparent;
+   transition: all var(--transition-speed) var(--transition-easing);
 }
 
 .neo-nav__link:hover {

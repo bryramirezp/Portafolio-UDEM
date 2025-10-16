@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 8 - Microservicio JWT con Swagger - Portafolio UDEM</title>
+
+    <!-- CSS obligatorio - IMPORTANTE: Este orden -->
+    <link rel="stylesheet" href="../../assets/css/neo-brutalist.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+
+    <!-- Fuentes requeridas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Mermaid.js para diagramas -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <!-- D3.js para drag and zoom -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                background: '#ffffff',
+                primaryColor: '#FFD166',
+                primaryTextColor: '#073B4C',
+                primaryBorderColor: '#073B4C',
+                lineColor: '#073B4C',
+                secondaryColor: '#F5F5F5',
+                tertiaryColor: '#FFFFFF'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            stateDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            sequenceDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+
+    <style>
+        /* Mermaid container styling */
+        .mermaid-container {
+            position: relative;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 1200px;
+            background: #fff;
+        }
+
+        .mermaid {
+            overflow: hidden;
+            max-height: 600px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mermaid svg {
+            cursor: grab;
+            max-width: none !important;
+            width: 100% !important;
+        }
+
+        .mermaid svg:active {
+            cursor: grabbing;
+        }
+
+        /* Control buttons */
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 5px;
+        }
+
+        .controls button {
+            background: #FFD166;
+            border: 2px solid #073B4C;
+            padding: 5px 8px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            color: #073B4C;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .controls button:hover {
+            background: #073B4C;
+            color: #FFD166;
+            transform: translate(-1px, -1px);
+        }
+
+        /* Fullscreen container */
+        .mermaid-container.fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            background: #ffffff;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: none !important;
+            margin: 0 !important;
+            padding: 20px !important;
+        }
+
+        .mermaid-container.fullscreen .mermaid {
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mermaid-container.fullscreen .controls {
+            top: 20px;
+            right: 20px;
+            color: black;
+        }
+
+        .mermaid-container.fullscreen .mermaid svg {
+            max-width: none !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain;
+        }
+
+        /* Video container styling */
+        .video-container {
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 560px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            display: block;
+        }
+
+        /* Additional wrapper to ensure proper clipping */
+        .video-wrapper {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        /* Image container styling */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            box-shadow: 8px 8px 0 #073B4C;
+        }
+
+        /* Code blocks styling */
+        pre {
+            background-color: #f5f5f5;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            padding: 16px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        code {
+            background-color: #f5f5f5;
+            color: #073B4C;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 500;
+        }
+
+        /* Badge styling */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #FFD166;
+            color: #073B4C;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver</a>
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 8</h1>
+            <p class="neo-header__subtitle">Microservicio JWT con Swagger</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Toggle se agrega automáticamente por JS -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+
+        <!-- 1. Objetivo del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">1. Objetivo del Proyecto</div>
+            <div class="neo-card__content">
+                <p>Desarrollar un microservicio completo en Python utilizando Flask como framework web, implementando autenticación JWT (JSON Web Tokens) con Redis para gestión de sesiones, MariaDB como base de datos relacional, y documentación automática con Swagger/OpenAPI 2.0 a través de Flasgger. El proyecto demuestra las mejores prácticas en desarrollo de APIs REST seguras, documentadas y escalables.</p>
+                <p><strong>Características principales:</strong></p>
+                <ul>
+                    <li>Autenticación completa con JWT (registro, login, refresh, logout)</li>
+                    <li>Documentación interactiva automática con Swagger UI</li>
+                    <li>Endpoints REST protegidos con validación de tokens</li>
+                    <li>Gestión de sesiones con Redis como almacén temporal</li>
+                    <li>Base de datos MariaDB para persistencia de usuarios</li>
+                    <li>Validación automática de esquemas con Flasgger</li>
+                    <li>Contenedorización con Docker y docker-compose</li>
+                    <li>Monitoreo de salud del servicio</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. Tecnologías Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">2. Tecnologías Utilizadas</div>
+            <div class="neo-card__content">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <span class="badge">Python</span>
+                    <span class="badge">Flask</span>
+                    <span class="badge">Swagger</span>
+                    <span class="badge">JWT</span>
+                    <span class="badge">Redis</span>
+                    <span class="badge">MariaDB</span>
+                    <span class="badge">Docker</span>
+                </div>
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Backend Framework</h3>
+                        <ul>
+                            <li><strong>Python 3.9+</strong> - Lenguaje de programación principal</li>
+                            <li><strong>Flask</strong> - Framework web ligero y extensible</li>
+                            <li><strong>Flasgger</strong> - Extensión para documentación Swagger/OpenAPI</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Seguridad y Almacenamiento</h3>
+                        <ul>
+                            <li><strong>PyJWT</strong> - Implementación de JSON Web Tokens</li>
+                            <li><strong>Redis</strong> - Almacén de sesiones y tokens revocados</li>
+                            <li><strong>MariaDB</strong> - Base de datos relacional para usuarios</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="neo-grid neo-grid--2" style="margin-top: 2rem;">
+                    <div>
+                        <h3>Contenedorización</h3>
+                        <ul>
+                            <li><strong>Docker</strong> - Contenedorización de la aplicación</li>
+                            <li><strong>docker-compose</strong> - Orquestación de servicios múltiples</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Herramientas de Desarrollo</h3>
+                        <ul>
+                            <li><strong>pip</strong> - Gestor de paquetes Python</li>
+                            <li><strong>requirements.txt</strong> - Definición de dependencias</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Arquitectura del Sistema -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">3. Arquitectura del Sistema</div>
+            <div class="neo-card__content">
+                <p>La arquitectura del microservicio sigue el patrón de separación de responsabilidades, con componentes especializados para cada aspecto del sistema de autenticación y documentación.</p>
+
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Flask App</div>
+                        <div class="neo-card__content">
+                            <p>Servidor web principal que maneja todas las rutas REST y lógica de negocio</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Swagger UI</div>
+                        <div class="neo-card__content">
+                            <p>Interfaz web interactiva para documentación y pruebas de la API</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">JWT Auth</div>
+                        <div class="neo-card__content">
+                            <p>Sistema de autenticación basado en tokens JSON Web Tokens</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagramas integrados aquí -->
+                <h3>Diagrama de Arquitectura</h3>
+                <div class="mermaid-container" id="diagramContainer1">
+                    <div class="mermaid" id="diagram1">
+                        <!-- Contenido se carga desde el script -->
+                    </div>
+                    <div class="controls">
+                        <button id="fullscreenBtn1">⛶</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 4. Prerrequisitos -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">4. Prerrequisitos</div>
+            <div class="neo-card__content">
+                <ul>
+                    <li>Python 3.9 o superior</li>
+                    <li>Docker y docker-compose</li>
+                    <li>Puertos disponibles: 5000 (Flask), 3306 (MariaDB), 6379 (Redis)</li>
+                    <li>Git para clonar el repositorio</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. Instalación -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">5. Instalación</div>
+            <div class="neo-card__content">
+                <ol>
+                    <li><strong>Clona el repositorio</strong>
+                        <pre><code>git clone https://github.com/bryramirezp/microservicio-auth-swagger-jwt.git
+cd microservicio-auth-swagger-jwt</code></pre>
+                    </li>
+                    <li><strong>Con Docker (recomendado)</strong>
+                        <pre><code>docker-compose up --build</code></pre>
+                    </li>
+                    <li><strong>Sin Docker (desarrollo)</strong>
+                        <pre><code>pip install -r requirements.txt
+python app.py</code></pre>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 6. Configuración -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">6. Configuración</div>
+            <div class="neo-card__content">
+                <h3>Variables de Entorno</h3>
+                <p>El proyecto utiliza variables de entorno para configuración flexible:</p>
+                <pre><code># Flask
+FLASK_ENV=development
+FLASK_DEBUG=True
+
+# Base de datos
+MYSQL_HOST=mariadb
+MYSQL_USER=root
+MYSQL_PASSWORD=password
+MYSQL_DB=auth_db
+
+# Redis
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+# JWT
+JWT_SECRET_KEY=your-secret-key-here
+JWT_ACCESS_TOKEN_EXPIRE_MINUTES=15
+JWT_REFRESH_TOKEN_EXPIRE_DAYS=7</code></pre>
+
+                <h3>Configuración Docker</h3>
+                <p>El archivo <code>docker-compose.yml</code> define tres servicios:</p>
+                <ul>
+                    <li><strong>web</strong>: Aplicación Flask con Flasgger</li>
+                    <li><strong>mariadb</strong>: Base de datos MariaDB</li>
+                    <li><strong>redis</strong>: Almacén de sesiones Redis</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 7. Uso -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">7. Uso</div>
+            <div class="neo-card__content">
+                <h3>Acceso a Swagger UI</h3>
+                <p>Una vez iniciado el servicio, accede a la documentación interactiva:</p>
+                <pre><code>http://localhost:5000/apidocs/</code></pre>
+
+                <h3>¿Qué es Swagger?</h3>
+                <p>Swagger es una herramienta poderosa para diseñar, construir, documentar y consumir APIs REST. Utilizamos <strong>Flasgger</strong> para integrar Swagger/OpenAPI 2.0 directamente en nuestro microservicio.</p>
+
+                <h3>Interfaz Swagger UI</h3>
+                <div class="image-container">
+                    <img src="swagger.png" alt="Interfaz de Swagger UI mostrando la documentación interactiva" style="max-width: 800px;">
+                    <p style="margin-top: 10px; font-size: 14px; color: #666;">Interfaz interactiva de Swagger UI para probar y documentar la API</p>
+                </div>
+
+                <h3>Beneficios de Swagger</h3>
+                <ul>
+                    <li><strong>Documentación Interactiva</strong>: Interfaz web para explorar y probar endpoints</li>
+                    <li><strong>Esquemas de Seguridad</strong>: Define claramente el uso de tokens JWT</li>
+                    <li><strong>Validación Automática</strong>: Decoradores validan respuestas con esquemas</li>
+                    <li><strong>Descubrimiento de APIs</strong>: Desarrolladores entienden APIs rápidamente</li>
+                </ul>
+
+                <h3>Flujo de Uso Típico</h3>
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h4>1. Registro</h4>
+                        <p>POST /register - Crear nueva cuenta de usuario</p>
+                        <pre><code>{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "securepass123"
+}</code></pre>
+                    </div>
+                    <div>
+                        <h4>2. Login</h4>
+                        <p>POST /login - Obtener tokens JWT</p>
+                        <pre><code>{
+  "username": "testuser",
+  "password": "securepass123"
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="neo-grid neo-grid--2" style="margin-top: 2rem;">
+                    <div>
+                        <h4>3. Autorización</h4>
+                        <p>Usar token en header Authorization:</p>
+                        <pre><code>Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...</code></pre>
+                    </div>
+                    <div>
+                        <h4>4. Acceso Protegido</h4>
+                        <p>GET /protected - Requiere token válido</p>
+                        <pre><code>✅ Respuesta exitosa con datos protegidos</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Estructura del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">8. Estructura del Proyecto</div>
+            <div class="neo-card__content">
+                <pre><code>microservicio-auth-swagger-jwt/
+├── app.py                    # Aplicación Flask principal
+├── requirements.txt          # Dependencias Python
+├── docker-compose.yml        # Configuración Docker
+├── Dockerfile               # Imagen Docker
+├── config.py               # Configuración de la aplicación
+├── models.py               # Modelos de datos (Usuario)
+├── auth.py                 # Lógica de autenticación JWT
+├── database.py             # Conexión y operaciones DB
+├── redis_client.py         # Cliente Redis para sesiones
+├── swagger_specs/          # Especificaciones Swagger
+│   ├── auth.yml
+│   ├── protected.yml
+│   └── health.yml
+└── README.md               # Documentación del proyecto</code></pre>
+            </div>
+        </div>
+
+        <!-- 9. Tecnologías Implementadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">9. Tecnologías Implementadas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <ul>
+                            <li><strong>Flask</strong>: Framework web Python para APIs REST</li>
+                            <li><strong>Flasgger</strong>: Integración Swagger/OpenAPI con Flask</li>
+                            <li><strong>PyJWT</strong>: Generación y validación de tokens JWT</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><strong>Redis</strong>: Almacén de sesiones y tokens revocados</li>
+                            <li><strong>MariaDB</strong>: Base de datos relacional con SQLAlchemy</li>
+                            <li><strong>Docker</strong>: Contenedorización y orquestación</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. Mejores Prácticas Implementadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">10. Mejores Prácticas Implementadas</div>
+            <div class="neo-card__content">
+                <h3>Seguridad</h3>
+                <ul>
+                    <li><strong>Hashing de Contraseñas</strong>: Uso de werkzeug.security para hashing seguro</li>
+                    <li><strong>Tokens JWT</strong>: Implementación completa con access y refresh tokens</li>
+                    <li><strong>Revocación de Tokens</strong>: Sistema de blacklist con Redis</li>
+                    <li><strong>Validación de Datos</strong>: Esquemas de entrada/salida con Marshmallow</li>
+                </ul>
+
+                <h3>Documentación</h3>
+                <ul>
+                    <li><strong>Swagger/OpenAPI</strong>: Documentación automática e interactiva</li>
+                    <li><strong>Esquemas de Respuesta</strong>: Definición clara de todas las respuestas HTTP</li>
+                    <li><strong>Ejemplos de Uso</strong>: Casos de uso documentados en la UI</li>
+                    <li><strong>Validación Automática</strong>: Sincronización código-documentación</li>
+                </ul>
+
+                <h3>Arquitectura</h3>
+                <ul>
+                    <li><strong>Separación de Responsabilidades</strong>: Módulos especializados por funcionalidad</li>
+                    <li><strong>Inyección de Dependencias</strong>: Configuración flexible por entorno</li>
+                    <li><strong>Manejo de Errores</strong>: Respuestas consistentes y informativas</li>
+                    <li><strong>Logging</strong>: Seguimiento completo de operaciones</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 11. Beneficios de la Implementación -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">11. Beneficios de la Implementación</div>
+            <div class="neo-card__content">
+                <h3>Para Desarrolladores</h3>
+                <ul>
+                    <li><strong>Documentación Viva</strong>: Documentación actualizada automáticamente</li>
+                    <li><strong>Pruebas Interactivas</strong>: Probar APIs sin código adicional</li>
+                    <li><strong>Descubrimiento Automático</strong>: Encontrar endpoints fácilmente</li>
+                    <li><strong>Validación Integrada</strong>: Consistencia entre código y documentación</li>
+                </ul>
+
+                <h3>Para Equipos</h3>
+                <ul>
+                    <li><strong>Colaboración Mejorada</strong>: Equipos entienden APIs rápidamente</li>
+                    <li><strong>Estándares Consistentes</strong>: OpenAPI como especificación estándar</li>
+                    <li><strong>Integración Continua</strong>: APIs documentadas facilitan testing</li>
+                    <li><strong>Mantenibilidad</strong>: Código autodocumentado reduce deuda técnica</li>
+                </ul>
+
+                <h3>Para la Organización</h3>
+                <ul>
+                    <li><strong>Productividad</strong>: Desarrollo más rápido con documentación clara</li>
+                    <li><strong>Calidad</strong>: Validación automática reduce errores</li>
+                    <li><strong>Escalabilidad</strong>: Arquitectura modular facilita crecimiento</li>
+                    <li><strong>Confianza</strong>: APIs bien documentadas generan confianza</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 12. Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">12. Conclusión</div>
+            <div class="neo-card__content">
+                <p>El microservicio JWT con Swagger está listo para usar! 🚀</p>
+                <p>Esta implementación demuestra cómo construir APIs REST modernas, seguras y bien documentadas utilizando las mejores prácticas de la industria. La combinación de Flask, JWT, Redis, MariaDB y Swagger/OpenAPI crea una base sólida para sistemas de autenticación escalables.</p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/bryramirezp/microservicio-auth-swagger-jwt" class="neo-button neo-button--primary" target="_blank">
+                        Ver Código en GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Neo Brutalist -->
+    <footer class="neo-footer">
+        <div class="neo-footer__center">
+            <p class="neo-footer__text">Bryan Ramírez Palacios</p>
+        </div>
+    </footer>
+
+    <!-- Scripts obligatorios - IMPORTANTE: Este orden -->
+    <script src="../../assets/js/neo-brutalist.js"></script>
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Script for Mermaid diagrams -->
+    <script>
+        // Función para cargar el contenido del diagrama
+        function loadMermaidContent(containerId, content) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.textContent = content;
+            }
+        }
+
+        // Initialize Mermaid and D3.js zoom functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            // Contenido del diagrama de arquitectura
+            const architectureDiagram = `graph TB
+    A[Cliente HTTP] --> B[Flask App :5000]
+    B --> C[Swagger UI<br>/apidocs/]
+    B --> D[JWT Auth Module]
+    D --> E[Redis :6379<br>Sessions & Tokens]
+    B --> F[MariaDB :3306<br>User Data]
+    D --> G[PyJWT<br>Token Generation]`;
+
+            // Cargar los diagramas
+            loadMermaidContent('diagram1', architectureDiagram);
+
+            // Initialize Mermaid with proper configuration
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: 'base',
+                    themeVariables: {
+                        background: '#ffffff',
+                        primaryColor: '#FFD166',
+                        primaryTextColor: '#073B4C',
+                        primaryBorderColor: '#073B4C',
+                        lineColor: '#073B4C',
+                        secondaryColor: '#F5F5F5',
+                        tertiaryColor: '#FFFFFF'
+                    },
+                    flowchart: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    },
+                    stateDiagram: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    },
+                    sequenceDiagram: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    }
+                });
+
+                // Re-initialize mermaid after loading content
+                setTimeout(() => {
+                    mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+                    // Apply D3.js drag and zoom to all mermaid SVGs
+                    setTimeout(() => {
+                        applyD3Zoom();
+                    }, 100);
+
+                    // Initialize controls for the diagrams
+                    initializeDiagramControls(1);
+                }, 100);
+            }
+        });
+
+        // Mapa para guardar los objetos de zoom por diagrama
+        const d3ZoomObjects = {};
+
+        // Apply D3.js drag and zoom to all mermaid SVGs
+        function applyD3Zoom() {
+            const svgs = d3.selectAll(".mermaid svg");
+            svgs.each(function() {
+                const svg = d3.select(this);
+                const container = svg.node().closest('.mermaid-container');
+                const diagramId = container ? container.id : 'default';
+
+                // Envuelve el contenido en un grupo para que el zoom funcione
+                svg.html("<g>" + svg.html() + "</g>");
+                const inner = svg.select("g");
+
+                // Crea el objeto de zoom
+                const zoom = d3.zoom().on("zoom", function(event) {
+                    inner.attr("transform", event.transform);
+                });
+
+                // Aplica el zoom al SVG
+                svg.call(zoom);
+
+                // Guarda el objeto de zoom para su uso posterior
+                d3ZoomObjects[diagramId] = zoom;
+            });
+        }
+
+        // Initialize fullscreen functionality for the diagrams
+        function initializeDiagramControls(diagramNumber) {
+            const diagramContainer = document.getElementById(`diagramContainer${diagramNumber}`);
+            const fullscreenBtn = document.getElementById(`fullscreenBtn${diagramNumber}`);
+
+            if (!diagramContainer || !fullscreenBtn) return;
+
+            // Full-screen Toggle
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    diagramContainer.requestFullscreen().catch(err => {
+                        console.error(`Error: ${err.message}`);
+                    });
+                    diagramContainer.classList.add('fullscreen');
+                } else {
+                    document.exitFullscreen();
+                    diagramContainer.classList.remove('fullscreen');
+                }
+            });
+
+            // Handle fullscreen exit events (ESC key, etc.)
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    // Fullscreen was exited - remove the class from all containers
+                    document.querySelectorAll('.mermaid-container.fullscreen').forEach(container => {
+                        container.classList.remove('fullscreen');
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>
