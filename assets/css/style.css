@@ -1,9 +1,650 @@
 /* ========================================
-   NEO BRUTALIST DESIGN SYSTEM - OVERRIDES
+   NEO BRUTALIST DESIGN SYSTEM - CONSOLIDADO
    ======================================== */
 
-/* Importar el sistema Neo Brutalist */
-@import url('neo-brutalist.css');
+/* Importar fuentes */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap');
+
+/* ========================================
+   VARIABLES CSS - MODO CLARO/OSCURO
+   ======================================== */
+:root {
+  /* Colores Neo Brutalist */
+  --neo-yellow: #FFD166;
+  --neo-black: #073B4C;
+  --neo-white: #FFFFFF;
+  --neo-gray: #F5F5F5;
+  --neo-dark-gray: #333333;
+
+  /* Modo Claro (por defecto) */
+  --bg-primary: #F5F5F5;
+  --bg-secondary: #FFFFFF;
+  --text-primary: #073B4C;
+  --text-secondary: #333333;
+  --border-color: #000000;
+  --shadow-color: #000000;
+
+  /* Bordes y Sombras */
+  --border-width: 4px;
+  --shadow-offset: 8px;
+  --shadow-offset-hover: 6px;
+  --border-radius: 4px;
+
+  /* Transiciones */
+  --transition-speed: 0.2s;
+  --transition-easing: ease;
+}
+
+/* Modo Oscuro */
+[data-theme="dark"] {
+  --bg-primary: #0F0F0F;
+  --bg-secondary: #1A1A1A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #CCCCCC;
+  --border-color: #333333;
+  --shadow-color: #FFD166;
+}
+
+/* Transiciones suaves para cambio de tema */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Estilos específicos para modo oscuro */
+[data-theme="dark"] code {
+  background-color: #2A2A2A;
+  color: #FFD166;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2px 6px;
+  border-radius: var(--border-radius);
+  font-weight: 400;
+  border: 1px solid #444444;
+}
+
+[data-theme="dark"] pre {
+  background-color: #1A1A1A;
+  border: 2px solid #333333;
+  color: #CCCCCC;
+}
+
+[data-theme="dark"] pre code {
+  background-color: transparent;
+  color: #FFD166;
+  border: none;
+}
+
+/* Excluir elementos que no necesitan transición */
+.neo-toggle__slider,
+.neo-toggle__slider:before,
+.neo-button,
+.neo-card {
+  transition: all 0.3s ease;
+}
+
+/* ========================================
+   RESET Y ESTILOS BASE
+   ======================================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  transition: background-color var(--transition-speed) var(--transition-easing),
+    color var(--transition-speed) var(--transition-easing);
+  /* Estilos para que el footer se pegue abajo */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos para párrafos */
+p {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+main {
+  flex: 1;
+}
+
+
+/* ========================================
+   COMPONENTE BASE NEO BRUTALIST
+   ======================================== */
+.neo-brutalist {
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  transition: all var(--transition-speed) var(--transition-easing);
+  border-radius: var(--border-radius);
+}
+
+.neo-brutalist:hover {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+}
+
+/* ========================================
+    TIPOGRAFÍA NEO BRUTALIST
+    ======================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* Títulos Principales (H1, PORTAFOLIO) */
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 2.5rem;
+}
+
+/* Subtítulos/Categorías (H2, EJERCICIOS) */
+h2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 2rem;
+}
+
+/* Otros títulos */
+h3 {
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--neo-yellow);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+h4 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 1.25rem;
+}
+
+h5 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 1.125rem;
+}
+
+h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  font-size: 1rem;
+}
+
+/* ========================================
+    BOTÓN NEO BRUTALIST
+    ======================================== */
+.neo-button {
+  background-color: var(--neo-yellow);
+  color: var(--neo-black);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  padding: 12px 24px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all var(--transition-speed) var(--transition-easing);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.neo-button:hover {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+  background-color: #FFC107;
+}
+
+.neo-button:active {
+  transform: translate(0, 0);
+  box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+/* Variantes de botón */
+.neo-button--primary {
+  background-color: var(--neo-yellow);
+  color: var(--neo-black);
+}
+
+[data-theme="dark"] .neo-button--primary {
+  background-color: var(--bg-secondary) !important;
+  color: var(--neo-white) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Estilo especial para el Easter Egg de UDEM */
+.udem-easter-egg {
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+[data-theme="dark"] .udem-easter-egg {
+  background-color: var(--bg-secondary) !important;
+  color: var(--neo-yellow) !important;
+}
+
+.neo-button--secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .neo-button--secondary {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.neo-button--danger {
+  background-color: #FF4444;
+  color: var(--neo-white);
+}
+
+/* ========================================
+   CARD NEO BRUTALIST
+   ======================================== */
+.neo-card {
+  background-color: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  padding: 24px;
+  transition: all var(--transition-speed) var(--transition-easing);
+  border-radius: var(--border-radius);
+  position: relative;
+}
+
+.neo-card:hover {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+}
+
+.neo-card__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--text-primary);
+}
+
+.neo-card__content {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.6;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* ========================================
+   HEADER NEO BRUTALIST
+   ======================================== */
+.neo-header {
+  background-color: var(--bg-secondary);
+  border-bottom: var(--border-width) solid var(--border-color);
+  box-shadow: 0 var(--shadow-offset) 0 var(--shadow-color);
+  padding: 20px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  min-height: 80px;
+}
+
+.neo-header__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
+}
+
+.neo-header__center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 0;
+}
+
+.neo-header__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 0 0 auto;
+}
+
+.neo-header__title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1;
+  letter-spacing: 1px;
+}
+
+.neo-header__subtitle {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 4px 0 0 0;
+  opacity: 0.8;
+}
+
+/* Responsive del header */
+@media (max-width: 768px) {
+  .neo-header {
+    padding: 16px 20px;
+    min-height: 70px;
+  }
+
+  .neo-header__title {
+    font-size: 2rem;
+  }
+
+  .neo-header__subtitle {
+    font-size: 0.8rem;
+  }
+
+  .neo-header__left,
+  .neo-header__right {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .neo-header {
+    padding: 12px 16px;
+    min-height: 60px;
+  }
+
+  .neo-header__title {
+    font-size: 1.5rem;
+  }
+
+  .neo-header__subtitle {
+    font-size: 0.7rem;
+  }
+}
+
+/* ========================================
+    INPUT NEO BRUTALIST
+    ======================================== */
+.neo-input {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  color: var(--text-primary);
+  border-radius: var(--border-radius);
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+[data-theme="dark"] .neo-input {
+  background-color: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.neo-input:focus {
+  outline: none;
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+  transform: translate(2px, 2px);
+}
+
+[data-theme="dark"] .neo-input:focus {
+  box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+}
+
+.neo-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+[data-theme="dark"] .neo-input::placeholder {
+  color: var(--text-secondary);
+}
+
+/* ========================================
+    NAVEGACIÓN NEO BRUTALIST
+    ======================================== */
+.neo-nav {
+  background-color: var(--bg-secondary);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  padding: 16px;
+  border-radius: var(--border-radius);
+}
+
+.neo-nav__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.neo-nav__link {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 2px solid transparent;
+  transition: all var(--transition-speed) var(--transition-easing);
+}
+
+.neo-nav__link:hover {
+  border-color: var(--border-color);
+  background-color: var(--neo-yellow);
+  color: var(--neo-black);
+}
+
+/* ========================================
+   GRID Y LAYOUT NEO BRUTALIST
+   ======================================== */
+.neo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.neo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.neo-grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.neo-grid--3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.neo-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* ========================================
+   UTILIDADES NEO BRUTALIST
+   ======================================== */
+.neo-text-center {
+  text-align: center;
+}
+
+.neo-text-left {
+  text-align: left;
+}
+
+.neo-text-right {
+  text-align: right;
+}
+
+.neo-mb-1 {
+  margin-bottom: 8px;
+}
+
+.neo-mb-2 {
+  margin-bottom: 16px;
+}
+
+.neo-mb-3 {
+  margin-bottom: 24px;
+}
+
+.neo-mb-4 {
+  margin-bottom: 32px;
+}
+
+.neo-mt-1 {
+  margin-top: 8px;
+}
+
+.neo-mt-2 {
+  margin-top: 16px;
+}
+
+.neo-mt-3 {
+  margin-top: 24px;
+}
+
+.neo-mt-4 {
+  margin-top: 32px;
+}
+
+.neo-p-1 {
+  padding: 8px;
+}
+
+.neo-p-2 {
+  padding: 16px;
+}
+
+.neo-p-3 {
+  padding: 24px;
+}
+
+.neo-p-4 {
+  padding: 32px;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN (BASE)
+   ======================================== */
+@media (max-width: 768px) {
+  /* .neo-header se anula más abajo con reglas específicas */
+
+  .neo-grid--2,
+  .neo-grid--3,
+  .neo-grid--4 {
+    grid-template-columns: 1fr;
+  }
+
+  .neo-container {
+    padding: 0 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .neo-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .neo-card {
+    padding: 16px;
+  }
+
+  /* .neo-header__title se anula más abajo */
+}
+
+/* ========================================
+   ANIMACIONES ESPECIALES
+   ======================================== */
+@keyframes neo-bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-4px);
+  }
+
+  60% {
+    transform: translateY(-2px);
+  }
+}
+
+.neo-bounce {
+  animation: neo-bounce 1s ease-in-out;
+}
+
+/* ========================================
+   ESTADOS ESPECIALES
+   ======================================== */
+.neo-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.neo-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.neo-disabled:hover {
+  transform: none;
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+}
+
+
+/* ========================================
+   INICIO DE OVERRIDES DE STYLE.CSS
+   ======================================== */
 
 /* ========================================
    COMPATIBILIDAD CON ESTILOS EXISTENTES
@@ -34,7 +675,7 @@
 
 /* Convertir elementos de navegación */
 .header-left,
-.folder-page-header > a:first-child {
+.folder-page-header>a:first-child {
   display: flex;
   align-items: center;
   gap: 16px;
@@ -353,10 +994,21 @@ pre code {
   letter-spacing: 2px;
 }
 
-.modelo-iaas .modelo-title { color: #0ea5e9; }
-.modelo-paas .modelo-title { color: #10b981; }
-.modelo-saas .modelo-title { color: #8b5cf6; }
-.modelo-faas .modelo-title { color: #f97316; }
+.modelo-iaas .modelo-title {
+  color: #0ea5e9;
+}
+
+.modelo-paas .modelo-title {
+  color: #10b981;
+}
+
+.modelo-saas .modelo-title {
+  color: #8b5cf6;
+}
+
+.modelo-faas .modelo-title {
+  color: #f97316;
+}
 
 .control-bar {
   width: 100%;
@@ -374,10 +1026,25 @@ pre code {
   transition: width 0.3s ease;
 }
 
-.control-iaas { background-color: #ef4444; width: 90%; }
-.control-paas { background-color: #eab308; width: 50%; }
-.control-saas { background-color: #22c55e; width: 15%; }
-.control-faas { background-color: #3b82f6; width: 25%; }
+.control-iaas {
+  background-color: #ef4444;
+  width: 90%;
+}
+
+.control-paas {
+  background-color: #eab308;
+  width: 50%;
+}
+
+.control-saas {
+  background-color: #22c55e;
+  width: 15%;
+}
+
+.control-faas {
+  background-color: #3b82f6;
+  width: 25%;
+}
 
 .ejemplos-list {
   list-style: none;
@@ -402,7 +1069,7 @@ pre code {
 }
 
 /* ========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (OVERRIDES)
    ======================================== */
 
 @media (max-width: 1200px) {
@@ -413,6 +1080,7 @@ pre code {
 }
 
 @media (max-width: 768px) {
+
   .file-system-header,
   .folder-page-header {
     padding: 12px 16px;
@@ -420,24 +1088,35 @@ pre code {
     gap: 12px;
   }
   
+  /* Sobrescribe el .neo-header responsive de la base */
+  .neo-header {
+    padding: 12px 16px;
+    flex-direction: row; /* Mantenemos el de la imagen */
+    gap: 12px;
+  }
+  
+  .neo-header__center {
+    order: 0; /* Lo dejamos en el centro */
+  }
+
   .file-system-container,
   .files-container {
     grid-template-columns: 1fr;
   }
-  
+
   .central-title {
     font-size: 2rem;
   }
-  
+
   .modelos-grid {
     grid-template-columns: 1fr;
     gap: 24px;
   }
-  
+
   .mapa-container {
     padding: 16px;
   }
-  
+
   .article-content {
     padding: 24px;
   }
@@ -448,17 +1127,17 @@ pre code {
     padding: 6px 12px;
     font-size: 1rem;
   }
-  
+
   .back-btn {
     padding: 6px 12px;
     font-size: 0.8rem;
   }
-  
+
   .folder-item,
   .file-item {
     padding: 16px;
   }
-  
+
   .central-title {
     font-size: 1.5rem;
   }
@@ -473,6 +1152,7 @@ pre code {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -484,11 +1164,6 @@ pre code {
 }
 
 /* Efecto de carga */
-.neo-loading {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
 .neo-loading::after {
   content: '';
   position: absolute;
@@ -504,457 +1179,13 @@ pre code {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  0% {
+    transform: rotate(0deg);
+  }
 
-/* --- Estilos del Sistema de Archivos --- */
-.file-system-body {
-    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
-    min-height: 100vh;
-    font-family: 'Inter', sans-serif;
-}
-
-.file-system-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.header-left .logo {
-    background: #16232A; /* Mirage */
-    color: #E4EEF0; /* Wild Sand */
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 1.2rem;
-    border: 2px solid #FF5B04; /* Blaze Orange border */
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(22, 35, 42, 0.3);
-}
-
-.header-left .logo:hover {
-    background: #FF5B04; /* Blaze Orange */
-    color: #E4EEF0; /* Wild Sand */
-    border-color: #16232A; /* Mirage */
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(22, 35, 42, 0.4);
-}
-
-.header-right {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-}
-
-.language-selector {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 0.5rem;
-    border-radius: 5px;
-    font-size: 0.9rem;
-}
-
-.icon-btn {
-    background: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.icon-btn:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-.file-system-main {
-    padding: 3rem 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: calc(100vh - 80px);
-}
-
-.file-system-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    max-width: 900px;
-    width: 100%;
-}
-
-.folder-item {
-    background: rgba(228, 238, 240, 0.95); /* Wild Sand with opacity */
-    border-radius: 20px;
-    padding: 2rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 32px rgba(22, 35, 42, 0.2); /* Mirage shadow */
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 91, 4, 0.3); /* Blaze Orange border */
-    position: relative;
-    overflow: hidden;
-}
-
-.folder-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(22, 35, 42, 0.3); /* Mirage shadow */
-    background: rgba(228, 238, 240, 1); /* Wild Sand */
-    border-color: rgba(255, 91, 4, 0.6); /* Blaze Orange border */
-}
-
-.folder-icon {
-    position: relative;
-    width: 80px;
-    height: 60px;
-    margin: 0 auto 1rem;
-}
-
-.folder-top {
-    width: 80px;
-    height: 45px;
-    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
-    border-radius: 5px 5px 0 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.folder-bottom {
-    width: 80px;
-    height: 50px;
-    background: #E4EEF0; /* Wild Sand */
-    border-radius: 0 0 8px 8px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.folder-tab {
-    width: 20px;
-    height: 15px;
-    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
-    border-radius: 0 0 5px 5px;
-    position: absolute;
-    top: 0;
-    left: 10px;
-}
-
-.folder-icons {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.mini-icon {
-    font-size: 1.2rem;
-    opacity: 0.8;
-}
-
-.folder-label {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #16232A; /* Mirage */
-    margin-top: 0.5rem;
-}
-
-/* --- Estilos para páginas de carpetas --- */
-.folder-page-body {
-    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
-    min-height: 100vh;
-    font-family: 'Inter', sans-serif;
-}
-
-.folder-page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.back-btn {
-    background: #16232A; /* Mirage */
-    border: 1px solid #16232A; /* Mirage */
-    color: #E4EEF0; /* Wild Sand */
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: all 0.3s ease;
-    font-weight: 500;
-}
-
-.back-btn:hover {
-    background: #FF5B04; /* Blaze Orange */
-    border-color: #FF5B04; /* Blaze Orange */
-    color: #E4EEF0; /* Wild Sand */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(22, 35, 42, 0.3);
-}
-
-.folder-title {
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-}
-
-.folder-page-main {
-    padding: 3rem 2rem;
-}
-
-.files-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.file-item {
-    background: rgba(228, 238, 240, 0.95); /* Wild Sand with opacity */
-    border-radius: 15px;
-    padding: 1.5rem;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 32px rgba(22, 35, 42, 0.2); /* Mirage shadow */
-    backdrop-filter: blur(10px);
-    border: 2px solid rgba(228, 238, 240, 0.3); /* Wild Sand border */
-    text-decoration: none;
-    color: inherit;
-}
-
-.file-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(22, 35, 42, 0.3); /* Mirage shadow */
-    background: rgba(228, 238, 240, 1); /* Wild Sand */
-    border-color: rgba(255, 91, 4, 0.6); /* Blaze Orange border */
-}
-
-.file-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.file-name {
-    font-weight: 600;
-    font-size: 1rem;
-    color: #16232A; /* Mirage */
-    margin-bottom: 0.5rem;
-}
-
-.file-description {
-    font-size: 0.9rem;
-    color: #16232A; /* Mirage - texto negro */
-    line-height: 1.4;
-    font-weight: 500;
-}
-
-/* --- Encabezado --- */
-.header {
-    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
-    color: #E4EEF0; /* Wild Sand */
-    padding: 2rem 1rem;
-    text-align: center;
-    border-bottom: 4px solid #FF5B04; /* Blaze Orange */
-    box-shadow: 0 4px 20px rgba(22, 35, 42, 0.3); /* Mirage shadow */
-}
-
-.header h1 {
-    margin: 0;
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.header p {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #E4EEF0;
-    opacity: 0.9;
-}
-
-/* --- Contenido Principal --- */
-.content {
-    max-width: 1100px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-}
-
-.content h2 {
-    text-align: center;
-    color: #16232A; /* Mirage */
-    margin-bottom: 2rem;
-    font-size: 2rem;
-    font-weight: 600;
-    position: relative;
-}
-
-.content h2::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #FF5B04, #E4EEF0); /* Blaze Orange to Wild Sand */
-    border-radius: 2px;
-}
-
-/* --- Cuadrícula de Tareas --- */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-}
-
-/* --- Cajas de Tarea Individuales --- */
-.box {
-    background: linear-gradient(145deg, #E4EEF0 0%, #f8f9fa 100%); /* Wild Sand gradient */
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 6px 20px rgba(22, 35, 42, 0.1); /* Mirage shadow */
-    text-decoration: none;
-    color: inherit;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(228, 238, 240, 0.1); /* Wild Sand border */
-    position: relative;
-    overflow: hidden;
-}
-
-.box::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #FF5B04, #E4EEF0); /* Blaze Orange to Wild Sand */
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-.box:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 30px rgba(22, 35, 42, 0.2); /* Mirage shadow */
-    border-color: rgba(255, 91, 4, 0.3); /* Blaze Orange border */
-}
-
-.box:hover::before {
-    transform: scaleX(1);
-}
-
-.box h3 {
-    margin-top: 0;
-    color: #16232A; /* Mirage */
-    font-weight: 600;
-    font-size: 1.2rem;
-}
-
-.box p {
-    flex-grow: 1; /* Empuja el texto para alinear las cajas */
-}
-
-/* --- Pie de Página --- */
-.footer {
-    background: radial-gradient(ellipse at center, #FF5B04 0%, #FF8A50 30%, #FFB380 60%, #FFD9C7 100%); /* Orange gradient */
-    color: #E4EEF0; /* Wild Sand */
-    text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
-    border-top: 3px solid #FF5B04; /* Blaze Orange */
-}
-
-/* --- Secciones de Contenido --- */
-.entregas-seccion + .entregas-seccion {
-    margin-top: 4rem;
-}
-
-/* --- Estilos para las Páginas de Artículos --- */
-.article-content {
-    background: linear-gradient(145deg, #E4EEF0 0%, #f8f9fa 100%); /* Wild Sand gradient */
-    color: #16232A; /* Mirage */
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(22, 35, 42, 0.1); /* Mirage shadow */
-    max-width: 900px;
-    margin: 2rem auto;
-    border: 1px solid rgba(228, 238, 240, 0.1); /* Wild Sand border */
-}
-
-.article-content h2 {
-    color: #16232A; /* Mirage */
-    border-bottom: 3px solid #FF5B04; /* Blaze Orange */
-    padding-bottom: 0.5rem;
-    margin-top: 2rem;
-    font-weight: 600;
-}
-
-.article-content h3 {
-    color: #E4EEF0; /* Wild Sand */
-    margin-top: 1.5rem;
-    font-weight: 600;
-}
-
-
-code {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: rgba(255, 91, 4, 0.1); /* Blaze Orange background */
-    color: #16232A; /* Mirage */
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-.image-caption {
-    text-align: center;
-    font-style: italic;
-    color: #E4EEF0; /* Wild Sand */
-    margin-bottom: 2rem;
-    font-weight: 500;
-}
-
-/* --- REGLA MODIFICADA PARA IMÁGENES --- */
-.article-image {
-    max-width: 100%;      /* La imagen nunca será más ancha que el contenedor */
-    height: auto;         /* Mantiene la proporción de la imagen */
-    display: block;       /* Permite usar márgenes automáticos para centrar */
-    margin-left: auto;    /* Centra la imagen horizontalmente */
-    margin-right: auto;   /* Centra la imagen horizontalmente */
-    border-radius: 12px;
-    margin-top: 1rem;
-    border: 2px solid rgba(255, 91, 4, 0.2); /* Blaze Orange border */
-    box-shadow: 0 6px 20px rgba(22, 35, 42, 0.15); /* Mirage shadow */
-    transition: all 0.3s ease;
-}
-
-.article-image:hover {
-    transform: scale(1.02);
-    box-shadow: 0 8px 25px rgba(22, 35, 42, 0.25); /* Mirage shadow */
-    border-color: rgba(255, 91, 4, 0.4); /* Blaze Orange border */
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 /* ========================================
@@ -965,9 +1196,12 @@ code {
   border-top: var(--border-width) solid var(--border-color);
   box-shadow: 0 calc(-1 * var(--shadow-offset)) 0 var(--shadow-color);
   padding: 20px 32px;
-  margin-top: auto;
+  margin-top: auto; /* Se pega al fondo gracias al flex-direction: column del body */
   position: relative;
   z-index: 100;
+  display: flex; /* Añadido para centrar */
+  justify-content: center; /* Añadido para centrar */
+  align-items: center; /* Añadido para centrar */
 }
 
 .neo-footer__center {
@@ -988,19 +1222,9 @@ code {
   opacity: 0.8;
 }
 
-/* Asegurar que el body tenga altura mínima completa */
-body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-}
-
 /* ========================================
    TOGGLE SWITCH NEO BRUTALIST - DISEÑO ELEGANTE CON EMOJIS
+   (Esta es la versión final que reemplaza la base)
    ======================================== */
 .neo-toggle {
   position: relative;
@@ -1021,6 +1245,12 @@ main {
   user-select: none;
   min-width: 140px;
   justify-content: space-between;
+}
+
+[data-theme="dark"] .neo-toggle {
+   background-color: var(--bg-secondary);
+   border-color: var(--border-color);
+   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
 }
 
 .neo-toggle:hover {
@@ -1051,6 +1281,11 @@ main {
   overflow: hidden;
 }
 
+[data-theme="dark"] .neo-toggle__slider {
+  background-color: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
 .neo-toggle__slider:before {
   content: '🌙';
   position: absolute;
@@ -1068,12 +1303,17 @@ main {
   font-size: 8px;
 }
 
-.neo-toggle__input:checked + .neo-toggle__slider {
+[data-theme="dark"] .neo-toggle__slider:before {
+  background-color: var(--text-primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.neo-toggle__input:checked+.neo-toggle__slider {
   background-color: var(--neo-yellow);
   border-color: var(--neo-black);
 }
 
-.neo-toggle__input:checked + .neo-toggle__slider:before {
+.neo-toggle__input:checked+.neo-toggle__slider:before {
   content: '☀️';
   transform: translateX(22px);
   background-color: var(--neo-white);
