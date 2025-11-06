@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea 1: Mapa Conceptual - Modelos de Cloud Computing</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <!-- Fuentes definidas en CSS -->
+    <style>
+        /* Estilos específicos para el mapa conceptual */
+        .mapa-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .connector-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+        
+        .line {
+            position: absolute;
+            background-color: #9ca3af;
+            z-index: -1;
+        }
+        
+        .mapa-card {
+            background-color: var(--bg-secondary);
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+            border-radius: var(--border-radius);
+            padding: 24px;
+            transition: all var(--transition-speed) var(--transition-easing);
+            z-index: 10;
+            position: relative;
+            min-height: 400px;
+        }
+        
+        .mapa-card:hover {
+            box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+            transform: translate(2px, 2px);
+        }
+        
+        .central-node {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .central-card {
+            background-color: var(--bg-secondary);
+            border: var(--border-width) solid var(--neo-yellow);
+            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+            border-radius: var(--border-radius);
+            padding: 32px 48px;
+            display: inline-block;
+        }
+        
+        .central-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--neo-yellow);
+            margin: 0;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .modelos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            position: relative;
+        }
+        
+        .modelo-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
+        }
+        
+        .modelo-iaas .modelo-title { color: #0ea5e9; }
+        .modelo-paas .modelo-title { color: #10b981; }
+        .modelo-saas .modelo-title { color: #8b5cf6; }
+        .modelo-faas .modelo-title { color: #f97316; }
+        
+        .modelo-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modelo-section h4 {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .modelo-section p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        .control-bar {
+            width: 100%;
+            background-color: var(--bg-primary);
+            border-radius: 10px;
+            height: 8px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+        }
+        
+        .control-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .control-iaas { background-color: #ef4444; width: 90%; }
+        .control-paas { background-color: #eab308; width: 50%; }
+        .control-saas { background-color: #22c55e; width: 15%; }
+        .control-faas { background-color: #3b82f6; width: 25%; }
+        
+        .control-label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-align: right;
+            margin-top: 0.25rem;
+        }
+        
+        .ejemplos-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0 0;
+        }
+        
+        .ejemplos-list li {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            padding: 0.25rem 0;
+            position: relative;
+            padding-left: 1rem;
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        .ejemplos-list li::before {
+            content: "•";
+            color: var(--neo-yellow);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        @media (max-width: 1200px) {
+            .modelos-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .central-title {
+                font-size: 2rem;
+            }
+            
+            .modelos-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .mapa-container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../tareas.html" class="neo-button neo-button--secondary">← Volver a Tareas</a>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Tarea 1</h1>
+            <p class="neo-header__subtitle">Mapa Conceptual: Modelos de Cloud Computing</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+        <div class="mapa-container">
+            <!-- Contenedor del SVG para las líneas -->
+            <div class="connector-container">
+                <svg id="connector-svg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1;"></svg>
+            </div>
+
+            <!-- Nodo Central -->
+            <div class="central-node">
+                <div id="central-node" class="central-card">
+                    <h2 class="central-title">Modelos de Cloud Computing</h2>
+                </div>
+            </div>
+
+            <!-- Ramas principales -->
+            <div class="modelos-grid">
+                
+                <!-- IaaS -->
+                <div id="iaas" class="mapa-card modelo-iaas">
+                    <h3 class="modelo-title">IaaS</h3>
+                    <div class="modelo-section">
+                        <h4>Definición</h4>
+                        <p>Provee infraestructura de TI virtualizada (servidores, almacenamiento, redes) bajo demanda.</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Nivel de Control</h4>
+                        <div class="control-bar">
+                            <div class="control-fill control-iaas"></div>
+                        </div>
+                        <p class="control-label" style="color: #ef4444;">Alto</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Ejemplos</h4>
+                        <ul class="ejemplos-list">
+                            <li>AWS EC2</li>
+                            <li>Google Compute Engine</li>
+                            <li>Azure Virtual Machines</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PaaS -->
+                <div id="paas" class="mapa-card modelo-paas">
+                    <h3 class="modelo-title">PaaS</h3>
+                    <div class="modelo-section">
+                        <h4>Definición</h4>
+                        <p>Ofrece una plataforma para desarrollar, desplegar y gestionar apps sin preocuparse por la infraestructura.</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Nivel de Control</h4>
+                        <div class="control-bar">
+                            <div class="control-fill control-paas"></div>
+                        </div>
+                        <p class="control-label" style="color: #eab308;">Medio</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Ejemplos</h4>
+                        <ul class="ejemplos-list">
+                            <li>Heroku</li>
+                            <li>AWS Elastic Beanstalk</li>
+                            <li>Google App Engine</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- SaaS -->
+                <div id="saas" class="mapa-card modelo-saas">
+                    <h3 class="modelo-title">SaaS</h3>
+                    <div class="modelo-section">
+                        <h4>Definición</h4>
+                        <p>Entrega software listo para usar a través de internet, generalmente bajo suscripción.</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Nivel de Control</h4>
+                        <div class="control-bar">
+                            <div class="control-fill control-saas"></div>
+                        </div>
+                        <p class="control-label" style="color: #22c55e;">Bajo</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Ejemplos</h4>
+                        <ul class="ejemplos-list">
+                            <li>Google Docs</li>
+                            <li>Salesforce</li>
+                            <li>Microsoft 365</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- FaaS -->
+                <div id="faas" class="mapa-card modelo-faas">
+                    <h3 class="modelo-title">FaaS</h3>
+                    <div class="modelo-section">
+                        <h4>Definición</h4>
+                        <p>Modelo "serverless" que ejecuta funciones de código en respuesta a eventos, sin gestionar servidores.</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Nivel de Control</h4>
+                        <div class="control-bar">
+                            <div class="control-fill control-faas"></div>
+                        </div>
+                        <p class="control-label" style="color: #3b82f6;">Bajo (enfocado en código)</p>
+                    </div>
+                    <div class="modelo-section">
+                        <h4>Ejemplos</h4>
+                        <ul class="ejemplos-list">
+                            <li>AWS Lambda</li>
+                            <li>Google Cloud Functions</li>
+                            <li>Azure Functions</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/app.js"></script>
+    <script>
+        // Dibuja las líneas de conexión desde el nodo central a cada rama
+        function drawConnectors() {
+            const svg = document.getElementById('connector-svg');
+            const centralNode = document.getElementById('central-node');
+            const branches = ['iaas', 'paas', 'saas', 'faas'];
+            
+            // Limpiar SVG anterior
+            svg.innerHTML = '';
+
+            const centralRect = centralNode.getBoundingClientRect();
+            const containerRect = svg.parentElement.getBoundingClientRect();
+
+            // Punto de origen (parte inferior del nodo central)
+            const startX = centralRect.left + centralRect.width / 2 - containerRect.left;
+            const startY = centralRect.bottom - containerRect.top;
+
+            branches.forEach(id => {
+                const branchEl = document.getElementById(id);
+                if (branchEl) {
+                    const branchRect = branchEl.getBoundingClientRect();
+                    // Punto de destino (parte superior de cada rama)
+                    const endX = branchRect.left + branchRect.width / 2 - containerRect.left;
+                    const endY = branchRect.top - containerRect.top;
+
+                    // Crear la línea con una curva suave (path SVG)
+                    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    const d = `M ${startX} ${startY} C ${startX} ${startY + 60}, ${endX} ${endY - 60}, ${endX} ${endY}`;
+                    path.setAttribute('d', d);
+                    path.setAttribute('stroke', 'var(--neo-yellow)');
+                    path.setAttribute('stroke-width', '3');
+                    path.setAttribute('fill', 'none');
+                    path.setAttribute('opacity', '0.6');
+                    svg.appendChild(path);
+                }
+            });
+        }
+
+        // Volver a dibujar las líneas cuando la ventana cambie de tamaño
+        window.addEventListener('resize', drawConnectors);
+        // Dibujar al cargar la página
+        window.addEventListener('load', drawConnectors);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 9: Pruebas de Rendimiento con Locust</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+</head>
+<body>
+    
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver a Ejercicios</a>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 9</h1>
+            <p class="neo-header__subtitle">Pruebas de Rendimiento con Locust</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+        
+        <!-- Objetivo del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">1. Objetivo del Proyecto</div>
+            <div class="neo-card__content">
+                <p>Implementar un conjunto completo de pruebas de rendimiento utilizando Locust para evaluar la capacidad de carga, escalabilidad y resistencia de una aplicación web bajo diferentes escenarios de uso.</p>
+                <p><strong>Características principales:</strong></p>
+                <ul>
+                    <li>Simulación de usuarios concurrentes con diferentes perfiles</li>
+                    <li>Pruebas de carga bajo diferentes patrones de uso</li>
+                    <li>Análisis de métricas de rendimiento y cuellos de botella</li>
+                    <li>Generación de informes detallados con gráficas comparativas</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Tecnologías Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">2. Tecnologías Utilizadas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Herramientas de Pruebas</h3>
+                        <ul>
+                            <li><strong>Locust</strong> - Framework de pruebas de carga</li>
+                            <li><strong>Python</strong> - Lenguaje de scripting</li>
+                            <li><strong>CSV Feeder</strong> - Datos de prueba realistas</li>
+                            <li><strong>LoadTestShape</strong> - Patrones de carga personalizados</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Métricas Evaluadas</h3>
+                        <ul>
+                            <li>Tiempo promedio de respuesta</li>
+                            <li>Tasa de errores (%)</li>
+                            <li>Requests por segundo (RPS)</li>
+                            <li>Usuarios concurrentes máximos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Arquitectura del Sistema -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">3. Tipos de Pruebas Implementadas</div>
+            <div class="neo-card__content">
+                <p>Se implementaron diferentes tipos de pruebas para evaluar el sistema bajo diversas condiciones de carga:</p>
+                
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Baseline</div>
+                        <div class="neo-card__content">
+                            <p>Carga ligera constante (50 usuarios, 5 min) para establecer métricas base</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Smoke</div>
+                        <div class="neo-card__content">
+                            <p>1-5 usuarios para verificación rápida de disponibilidad de servicios</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Read/Write Heavy</div>
+                        <div class="neo-card__content">
+                            <p>Ajuste de proporción de operaciones GET vs POST para evaluar diferentes patrones</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Ramp-Up/Down</div>
+                        <div class="neo-card__content">
+                            <p>Uso de LoadTestShape para simular crecimiento y decrecimiento gradual</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Spike</div>
+                        <div class="neo-card__content">
+                            <p>Incremento abrupto de usuarios (200 a 1000 en 10 segundos) para evaluar resiliencia</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Soak</div>
+                        <div class="neo-card__content">
+                            <p>Carga sostenida moderada durante 30+ minutos para detectar degradación</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Implementación -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">4. Implementación Clave</div>
+            <div class="neo-card__content">
+                <h3>Archivos Python de Locust para Cada Tipo de Prueba</h3>
+                <p>Se crearon archivos Python específicos para cada tipo de prueba de rendimiento, permitiendo una configuración precisa y especializada para cada escenario:</p>
+                
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h4>Archivos de Pruebas Implementados</h4>
+                        <ul>
+                            <li><a href="locust/baseline_test.py" download><code>baseline_test.py</code></a> - Prueba de línea base con carga moderada constante</li>
+                            <li><a href="locust/smoke_test.py" download><code>smoke_test.py</code></a> - Prueba rápida de verificación de disponibilidad</li>
+                            <li><a href="locust/read_heavy_test.py" download><code>read_heavy_test.py</code></a> - Prueba intensiva de operaciones de lectura</li>
+                            <li><a href="locust/write_heavy_test.py" download><code>write_heavy_test.py</code></a> - Prueba intensiva de operaciones de escritura</li>
+                            <li><a href="locust/shape_ramp_test.py" download><code>shape_ramp_test.py</code></a> - Prueba con ramp-up/down gradual</li>
+                            <li><a href="locust/shape_spike_test.py" download><code>shape_spike_test.py</code></a> - Prueba con picos de carga abruptos</li>
+                            <li><a href="locust/soak_test.py" download><code>soak_test.py</code></a> - Prueba de resistencia prolongada</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Características de los Archivos</h4>
+                        <ul>
+                            <li><strong>Modularidad</strong> - Cada prueba en su propio archivo para fácil mantenimiento</li>
+                            <li><strong>Configuración Específica</strong> - Parámetros optimizados para cada tipo de prueba</li>
+                            <li><strong>Comandos Incluidos</strong> - Instrucciones exactas para ejecutar cada prueba</li>
+                            <li><strong>Importación Común</strong> - Uso de módulos compartidos para reutilización de código</li>
+                            <li><strong>Documentación Detallada</strong> - Comentarios explicando objetivos y configuraciones</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p><strong>Ejemplo de estructura de archivo:</strong></p>
+                <pre><code># baseline_test.py
+"""
+Prueba de Línea Base (Baseline Test):
+- Objetivo: Establecer una métrica de rendimiento base
+- Carga: 50 usuarios de cada tipo (150 en total)
+- Duración: Corta (5 minutos)
+"""
+
+from common.users import DoctorUser, PatientUser, InstitutionUser
+import common.reporting
+
+# Comandos para ejecutar:
+# DOCTORS=50 PATIENTS=50 INSTITUTIONS=50 locust -f baseline_test.py --headless -u 150 -r 15 --run-time 5m -E smoke</code></pre>
+                
+                <h3>Autenticación con Usuarios Reales</h3>
+                <p>Para garantizar pruebas realistas, se utilizó una base de usuarios reales extraídos directamente de la base de datos del sistema. Esto incluye:</p>
+                <ul>
+                    <li><strong>Usuarios Pacientes</strong> - Cuentas reales de pacientes con credenciales válidas</li>
+                    <li><strong>Usuarios Doctores</strong> - Perfiles de médicos con acceso al sistema</li>
+                    <li><strong>Usuarios Instituciones</strong> - Cuentas institucionales para pruebas administrativas</li>
+                </ul>
+                
+                <h3>CSV Feeder con Credenciales Reales</h3>
+                <p>Se implementó un archivo <a href="locust/user.csv" download><code>user.csv</code></a> que contiene las credenciales reales de los usuarios:</p>
+                <p><strong>Estructura del archivo user.csv:</strong></p>
+                <pre><code>id,password,email
+163749fb-8b46-4447-a8b7-95b4a59531b6,Hkfx0Igv_5M(,contacto@despacho-grijalva-mascarenas-y-parra.predicthealth.com
+83b74179-f6ef-4219-bc70-c93f4393a350,gj6hdu&2k%(F,contacto@laboratorios-saldivar-santillan-y-villanueva.predicthealth.com
+...</code></pre>
+                <p><em>El archivo contiene 301 usuarios reales con sus IDs únicos, contraseñas y correos electrónicos</em></p>
+                
+                <h3>Estructura de Usuarios Simulados</h3>
+                <pre><code>from locust import HttpUser, task, between
+import csv
+import random
+
+class DoctorUser(HttpUser):
+    wait_time = between(1, 3)
+    
+    def on_start(self):
+        # Autenticación usando CSV feeder con usuarios reales
+        with open('user.csv', 'r') as f:
+            reader = csv.DictReader(f)
+            users = list(reader)
+            user = random.choice(users)
+            self.client.post("/login", json={
+                "id": user["id"],
+                "password": user["password"]
+            })
+    
+    @task(3)
+    def view_patients(self):
+        self.client.get("/patients")
+    
+    @task(1)
+    def create_prescription(self):
+        self.client.post("/prescriptions", json={
+            "patient_id": "123",
+            "medication": "Ibuprofen",
+            "dosage": "400mg"
+        })</code></pre>
+                
+                <div class="neo-mt-3">
+                    <h4>Ventajas del Enfoque Realista</h4>
+                    <div class="neo-grid neo-grid--2">
+                        <div>
+                            <h5>Autenticación Real</h5>
+                            <ul>
+                                <li>Credenciales válidas de usuarios existentes</li>
+                                <li>Distribución realista de tipos de usuarios</li>
+                                <li>Simulación auténtica de patrones de uso</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5>Escenarios Realistas</h5>
+                            <ul>
+                                <li>Operaciones GET y POST con datos reales</li>
+                                <li>Interacciones autenticadas con el sistema</li>
+                                <li>Detección de errores de autenticación reales</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">5. Resultados de Pruebas</div>
+            <div class="neo-card__content">
+                <p>Se ejecutaron todas las pruebas y se generaron informes detallados con métricas clave:</p>
+                
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Métricas Clave Evaluadas</h3>
+                        <ul>
+                            <li>Tiempo promedio de respuesta</li>
+                            <li>Tasa de errores (%)</li>
+                            <li>Requests por segundo (RPS)</li>
+                            <li>Usuarios concurrentes máximos soportados</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Gráficas Generadas</h3>
+                        <ul>
+                            <li>Response times over time</li>
+                            <li>Users vs RPS</li>
+                            <li>Success vs RPS</li>
+                            <li>Failures over time</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Sección de resultados con módulos para cada prueba -->
+                <div class="neo-mt-4">
+                    <h3 class="neo-mb-3">Informes Detallados por Tipo de Prueba</h3>
+                    
+                    <!-- Baseline Test Results -->
+                    <div class="neo-card neo-mb-3">
+                        <div class="neo-card__title">Prueba Baseline</div>
+                        <div class="neo-card__content">
+                            <p><strong>Configuración:</strong> 50 usuarios constantes durante 5 minutos</p>
+                            <div class="neo-grid neo-grid--3">
+                                <div>
+                                    <h4>Informe HTML</h4>
+                                    <p><a href="resultados/baseline/baseline.html" class="neo-button neo-button--primary" target="_blank">Ver Informe HTML</a></p>
+                                    <p><em>Informe detallado de la prueba baseline con métricas completas</em></p>
+                                </div>
+                                <div>
+                                    <h4>Datos CSV</h4>
+                                    <p><a href="resultados/baseline/baseline.csv" class="neo-button neo-button--primary" target="_blank">Ver Datos CSV</a></p>
+                                    <p><em>Archivo con métricas detalladas de la prueba baseline</em></p>
+                                </div>
+                                <div>
+                                    <h4>Imagen Error Report</h4>
+                                    <p><a href="resultados/baseline/baseline.png" class="neo-button neo-button--secondary" target="_blank">Ver Imagen Completa</a></p>
+                                    <p><em>Gráfica mostrando los errores encontrados durante la prueba</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Smoke Test Results -->
+                    <div class="neo-card neo-mb-3">
+                        <div class="neo-card__title">Prueba Smoke</div>
+                        <div class="neo-card__content">
+                            <p><strong>Configuración:</strong> 1-5 usuarios para verificación rápida</p>
+                            <div class="neo-grid neo-grid--3">
+                                <div>
+                                    <h4>Informe HTML</h4>
+                                    <p><a href="resultados/smoke/smoke.html" class="neo-button neo-button--primary" target="_blank">Ver Informe HTML</a></p>
+                                    <p><em>Informe de verificación rápida de disponibilidad de servicios</em></p>
+                                </div>
+                                <div>
+                                    <h4>Datos CSV</h4>
+                                    <p><a href="resultados/smoke/smoke.csv" class="neo-button neo-button--primary" target="_blank">Ver Datos CSV</a></p>
+                                    <p><em>Archivo con métricas de verificación de disponibilidad</em></p>
+                                </div>
+                                <div>
+                                    <h4>Imagen Error Report</h4>
+                                    <p><em>No hubo error para prueba smoke</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Read Heavy Test Results -->
+                    <div class="neo-card neo-mb-3">
+                        <div class="neo-card__title">Prueba Read-Heavy</div>
+                        <div class="neo-card__content">
+                            <p><strong>Configuración:</strong> 150 usuarios con operaciones intensivas de lectura</p>
+                            <div class="neo-grid neo-grid--3">
+                                <div>
+                                    <h4>Informe HTML</h4>
+                                    <p><a href="resultados/read_heavy/read_heavy.html" class="neo-button neo-button--primary" target="_blank">Ver Informe HTML</a></p>
+                                    <p><em>Informe detallado de operaciones de lectura intensivas</em></p>
+                                </div>
+                                <div>
+                                    <h4>Datos CSV</h4>
+                                    <p><a href="resultados/read_heavy/read_heavy.csv" class="neo-button neo-button--primary" target="_blank">Ver Datos CSV</a></p>
+                                    <p><em>Archivo con métricas de operaciones de lectura intensivas</em></p>
+                                </div>
+                                <div>
+                                    <h4>Imagen Error Report</h4>
+                                    <p><a href="resultados/read_heavy/read_heavy.png" class="neo-button neo-button--secondary" target="_blank">Ver Imagen Completa</a></p>
+                                    <p><em>Gráfica mostrando los errores encontrados durante la prueba</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Write Heavy Test Results -->
+                    <div class="neo-card neo-mb-3">
+                        <div class="neo-card__title">Prueba Write-Heavy</div>
+                        <div class="neo-card__content">
+                            <p><strong>Configuración:</strong> 60 usuarios con operaciones intensivas de escritura</p>
+                            <div class="neo-grid neo-grid--3">
+                                <div>
+                                    <h4>Informe HTML</h4>
+                                    <p><a href="resultados/write_heavy/write_heavy.html" class="neo-button neo-button--primary" target="_blank">Ver Informe HTML</a></p>
+                                    <p><em>Informe detallado de operaciones de escritura intensivas</em></p>
+                                </div>
+                                <div>
+                                    <h4>Datos CSV</h4>
+                                    <p><a href="resultados/write_heavy/write_heavy.csv" class="neo-button neo-button--primary" target="_blank">Ver Datos CSV</a></p>
+                                    <p><em>Archivo con métricas de operaciones de escritura intensivas</em></p>
+                                </div>
+                                <div>
+                                    <h4>Imagen Error Report</h4>
+                                    <p><a href="resultados/write_heavy/write_heavy.png" class="neo-button neo-button--secondary" target="_blank">Ver Imagen Completa</a></p>
+                                    <p><em>Gráfica mostrando los errores encontrados durante la prueba</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Shape Ramp Test Results -->
+                    <div class="neo-card neo-mb-3">
+                        <div class="neo-card__title">Prueba Ramp-Up/Down</div>
+                        <div class="neo-card__content">
+                            <p><strong>Configuración:</strong> Crecimiento y decrecimiento gradual de usuarios</p>
+                            <div class="neo-grid neo-grid--3">
+                                <div>
+                                    <h4>Informe HTML</h4>
+                                    <p><a href="resultados/shape_ramp/shape_ramp.html" class="neo-button neo-button--primary" target="_blank">Ver Informe HTML</a></p>
+                                    <p><em>Informe detallado de prueba de ramp-up/down</em></p>
+                                </div>
+                                <div>
+                                    <h4>Datos CSV</h4>
+                                    <p><a href="resultados/shape_ramp/shape_ramp.csv" class="neo-button neo-button--primary" target="_blank">Ver Datos CSV</a></p>
+                                    <p><em>Archivo con métricas de prueba de ramp-up/down</em></p>
+                                </div>
+                                <div>
+                                    <h4>Imagen Error Report</h4>
+                                    <p><a href="resultados/shape_ramp/shape_ramp.png" class="neo-button neo-button--secondary" target="_blank">Ver Imagen Completa</a></p>
+                                    <p><em>Gráfica mostrando los errores encontrados durante la prueba</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Shape Spike Test Results -->
+                    <div class="neo-card neo-mb-3">
+                        <div class="neo-card__title">Prueba Spike</div>
+                        <div class="neo-card__content">
+                            <p><strong>Configuración:</strong> Incremento abrupto de 200 a 1000 usuarios en 10 segundos</p>
+                            <div class="neo-grid neo-grid--3">
+                                <div>
+                                    <h4>Informe HTML</h4>
+                                    <p><a href="resultados/shape_spike/shape_spike.html" class="neo-button neo-button--primary" target="_blank">Ver Informe HTML</a></p>
+                                    <p><em>Informe detallado de prueba de picos de carga</em></p>
+                                </div>
+                                <div>
+                                    <h4>Datos CSV</h4>
+                                    <p><a href="resultados/shape_spike/shape_spike.csv" class="neo-button neo-button--primary" target="_blank">Ver Datos CSV</a></p>
+                                    <p><em>Archivo con métricas de prueba de picos de carga</em></p>
+                                </div>
+                                <div>
+                                    <h4>Imagen Error Report</h4>
+                                    <p><a href="resultados/shape_spike/shape_spike.png" class="neo-button neo-button--secondary" target="_blank">Ver Imagen Completa</a></p>
+                                    <p><em>Gráfica mostrando los errores encontrados durante la prueba</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Soak Test Results -->
+                    <div class="neo-card neo-mb-3">
+                        <div class="neo-card__title">Prueba Soak</div>
+                        <div class="neo-card__content">
+                            <p><strong>Configuración:</strong> Carga sostenida moderada durante 30+ minutos</p>
+                            <div class="neo-grid neo-grid--3">
+                                <div>
+                                    <h4>Informe HTML</h4>
+                                    <p><a href="resultados/soak/soak.html" class="neo-button neo-button--primary" target="_blank">Ver Informe HTML</a></p>
+                                    <p><em>Informe detallado de prueba de resistencia prolongada</em></p>
+                                </div>
+                                <div>
+                                    <h4>Datos CSV</h4>
+                                    <p><a href="resultados/soak/soak.csv" class="neo-button neo-button--primary" target="_blank">Ver Datos CSV</a></p>
+                                    <p><em>Archivo con métricas de prueba de resistencia prolongada</em></p>
+                                </div>
+                                <div>
+                                    <h4>Imagen Error Report</h4>
+                                    <p><a href="resultados/soak/soak.png" class="neo-button neo-button--secondary" target="_blank">Ver Imagen Completa</a></p>
+                                    <p><em>Gráfica mostrando los errores encontrados durante la prueba</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lecciones Aprendidas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">6. Lecciones Aprendidas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Desafíos</h3>
+                        <ul>
+                            <li>Configuración adecuada de patrones de carga realistas</li>
+                            <li>Manejo de autenticación con múltiples usuarios</li>
+                            <li>Análisis de grandes volúmenes de datos de rendimiento</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Soluciones</h3>
+                        <ul>
+                            <li>Implementación de LoadTestShape para patrones complejos</li>
+                            <li>Uso de CSV feeder con datos de usuarios reales</li>
+                            <li>Automatización de generación de informes comparativos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">7. Conclusión</div>
+            <div class="neo-card__content">
+                <p>El proyecto demuestra la importancia de realizar pruebas de rendimiento exhaustivas bajo diferentes escenarios para identificar cuellos de botella, limitaciones de escalabilidad y puntos de fallo del sistema. La combinación de diferentes tipos de pruebas proporciona una visión completa del comportamiento de la aplicación bajo condiciones variables.</p>
+                
+                <div class="neo-mt-4">
+                    <h3>Problemas Identificados Durante las Pruebas</h3>
+                    <div class="neo-grid neo-grid--2">
+                        <div>
+                            <h4>Errores de Base de Datos</h4>
+                            <ul>
+                                <li>Problemas con usuarios no correctamente creados en la base de datos debido al script de población</li>
+                                <li>Errores de normalización en la base de datos con correos duplicados en la tabla de usuarios</li>
+                                <li>Inconsistencias en las relaciones entre tablas que afectan la autenticación</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4>Errores en Endpoints</h4>
+                            <ul>
+                                <li>Los endpoints POST /api/v1/doctor y POST /api/v1/patient presentaron errores del 100%</li>
+                                <li>Posible mala programación en los tests de Locust o gestión incorrecta en los endpoints internos</li>
+                                <li>Los "Imagen Error Report" muestran visualmente estos errores de conexión</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="neo-mt-3">
+                        <h4>Análisis de Imágenes de Resultados</h4>
+                        <p>Las imágenes generadas en los informes muestran claramente los picos de error y las fallas en los endpoints POST, lo que evidencia la necesidad de revisar tanto la configuración de los tests como la implementación de los endpoints del servidor.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/app.js"></script>
+
+</body>
+</html>

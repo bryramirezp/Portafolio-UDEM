@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 2: Chat con IA Local usando Docker y Ollama</title>
+    <link rel="stylesheet" href="../../static/css/style.css"> 
+</head>
+<body>
+
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver a Ejercicios</a>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 2</h1>
+            <p class="neo-header__subtitle">Chat con IA Local usando Docker y Ollama</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+        
+        <!-- Introducción -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">🤖 Chat con IA Local usando Docker y Ollama</div>
+            <div class="neo-card__content">
+                <p>Este ejercicio demuestra cómo crear y orquestar un sistema de dos contenedores Docker para desplegar una aplicación de chat que interactúa con un modelo de lenguaje grande (LLM) local.</p>
+                
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Ollama Container</div>
+                        <div class="neo-card__content">
+                            <p>Sirve el modelo <strong>Deepseek-Coder</strong> para procesamiento de IA</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Apache Container</div>
+                        <div class="neo-card__content">
+                            <p>Aloja la interfaz de chat (HTML, CSS, JS)</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Docker Network</div>
+                        <div class="neo-card__content">
+                            <p>Permite comunicación entre contenedores</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Paso 1: Preparación del Entorno -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Paso 1: Preparación del Entorno (Ollama y el Modelo)</div>
+            <div class="neo-card__content">
+            <p>El primer paso es levantar el servicio de Ollama en un contenedor y descargar el modelo que utilizaremos. Esto aísla el entorno de IA y facilita su gestión.</p>
+            
+            <h3>1.1. Correr el contenedor de Ollama</h3>
+            <p>Este comando descarga la imagen oficial de Ollama y la ejecuta, exponiendo el puerto 11434 para que nuestra aplicación pueda comunicarse con la API.</p>
+                
+                <pre><code>docker run -d --name ollama-container -p 11434:11434 ollama/ollama</code></pre>
+
+            <h3>1.2. Descargar el modelo Deepseek-Coder</h3>
+                <p>Una vez que el contenedor está ejecutándose, descargamos el modelo que utilizaremos para el chat.</p>
+                
+                <pre><code>docker exec ollama-container ollama pull deepseek-coder</code></pre>
+            </div>
+        </div>
+
+        <!-- Paso 2: Creación de la Interfaz Web -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Paso 2: Creación de la Interfaz Web</div>
+            <div class="neo-card__content">
+                <p>Creamos una interfaz web simple que permita al usuario interactuar con el modelo de IA a través de una interfaz de chat intuitiva.</p>
+                
+                <h3>2.1. Estructura de archivos</h3>
+                <pre><code>chat-app/
+├── index.html
+├── style.css
+└── app.js</code></pre>
+                
+                <h3>2.2. HTML Principal</h3>
+                <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Chat con IA Local&lt;/title&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="chat-container"&gt;
+        &lt;div class="chat-messages" id="messages"&gt;&lt;/div&gt;
+        &lt;div class="chat-input"&gt;
+            &lt;input type="text" id="userInput" placeholder="Escribe tu mensaje..."&gt;
+            &lt;button onclick="sendMessage()"&gt;Enviar&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+            </div>
+        </div>
+
+        <!-- Paso 3: Implementación del JavaScript -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Paso 3: Implementación del JavaScript</div>
+            <div class="neo-card__content">
+                <p>El JavaScript maneja la comunicación con la API de Ollama y actualiza la interfaz de usuario en tiempo real.</p>
+                
+                <h3>3.1. Función de envío de mensajes</h3>
+                <pre><code>async function sendMessage() {
+    const userInput = document.getElementById('userInput');
+    const message = userInput.value.trim();
+    
+    if (!message) return;
+    
+    // Agregar mensaje del usuario
+    addMessage(message, 'user');
+    userInput.value = '';
+    
+    // Mostrar indicador de carga
+    const loadingId = addMessage('Pensando...', 'assistant', true);
+    
+    try {
+        // Llamar a la API de Ollama
+        const response = await fetch('http://localhost:11434/api/generate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                model: 'deepseek-coder',
+                prompt: message,
+                stream: false
+            })
+        });
+        
+        const data = await response.json();
+        
+        // Remover indicador de carga y mostrar respuesta
+        removeMessage(loadingId);
+        addMessage(data.response, 'assistant');
+        
+    } catch (error) {
+        removeMessage(loadingId);
+        addMessage('Error: No se pudo conectar con la IA', 'error');
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <!-- Paso 4: Containerización con Apache -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Paso 4: Containerización con Apache</div>
+            <div class="neo-card__content">
+                <p>Creamos un contenedor Apache que sirve nuestra aplicación web y se comunica con el contenedor de Ollama.</p>
+                
+                <h3>4.1. Dockerfile para Apache</h3>
+                <pre><code>FROM httpd:2.4
+
+# Copiar archivos de la aplicación
+COPY . /usr/local/apache2/htdocs/
+
+# Exponer puerto 80
+EXPOSE 80
+
+# Comando por defecto
+CMD ["httpd-foreground"]</code></pre>
+                
+                <h3>4.2. Construir y ejecutar el contenedor</h3>
+                <pre><code># Construir la imagen
+docker build -t chat-app .
+
+# Ejecutar el contenedor
+docker run -d --name chat-container -p 8080:80 chat-app</pre></code>
+            </div>
+        </div>
+
+        <!-- Paso 5: Configuración de Red Docker -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Paso 5: Configuración de Red Docker</div>
+            <div class="neo-card__content">
+                <p>Para que los contenedores puedan comunicarse entre sí, creamos una red Docker personalizada.</p>
+                
+                <h3>5.1. Crear red personalizada</h3>
+                <pre><code>docker network create chat-network</code></pre>
+                
+                <h3>5.2. Conectar contenedores a la red</h3>
+                <pre><code># Conectar Ollama a la red
+docker network connect chat-network ollama-container
+
+# Conectar Apache a la red
+docker network connect chat-network chat-container</code></pre>
+                
+                <h3>5.3. Actualizar JavaScript para usar nombres de contenedor</h3>
+                <pre><code>// Cambiar la URL de la API
+const response = await fetch('http://ollama-container:11434/api/generate', {
+    // ... resto del código
+});</code></pre>
+            </div>
+        </div>
+
+        <!-- Resultados y Pruebas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Resultados y Pruebas</div>
+            <div class="neo-card__content">
+                <p>El sistema implementado permite:</p>
+                
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Funcionalidades</h3>
+                        <ul>
+                            <li>✅ Chat en tiempo real con IA local</li>
+                            <li>✅ Interfaz web responsive</li>
+                            <li>✅ Comunicación entre contenedores</li>
+                            <li>✅ Procesamiento de código con Deepseek-Coder</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Ventajas</h3>
+                        <ul>
+                            <li>🔒 Privacidad total (sin datos externos)</li>
+                            <li>⚡ Respuesta rápida (sin latencia de red)</li>
+                            <li>🐳 Fácil despliegue con Docker</li>
+                            <li>🔄 Escalabilidad horizontal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Conclusión</div>
+            <div class="neo-card__content">
+                <p>Este ejercicio demuestra cómo combinar tecnologías modernas (Docker, Ollama, Apache) para crear una solución de IA local completa. La arquitectura de microservicios permite escalabilidad y mantenimiento fácil.</p>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/usuario/chat-ia-local" class="neo-button neo-button--primary" target="_blank">
+                        Ver Código en GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/app.js"></script>
+
+</body>
+</html>

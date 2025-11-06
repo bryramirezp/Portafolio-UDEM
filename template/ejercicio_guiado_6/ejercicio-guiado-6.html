@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 6 - Cliente GUI Tkinter para Microservicio JWT - Portafolio UDEM</title>
+
+    <!-- CSS obligatorio - IMPORTANTE: Este orden -->
+    <link rel="stylesheet" href="../../static/css/style.css">
+
+    <!-- Fuentes definidas en CSS -->
+
+    <!-- Mermaid.js para diagramas -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <!-- D3.js para drag and zoom -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                background: '#ffffff',
+                primaryColor: '#FFD166',
+                primaryTextColor: '#073B4C',
+                primaryBorderColor: '#073B4C',
+                lineColor: '#073B4C',
+                secondaryColor: '#F5F5F5',
+                tertiaryColor: '#FFFFFF'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            stateDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            sequenceDiagram: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+
+    <style>
+        /* Mermaid container styling */
+        .mermaid-container {
+            position: relative;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 20px auto;
+            width: 100%;
+            max-width: 1200px; /* Increased from 100% to 1200px for larger diagrams */
+            background: #fff;
+        }
+
+        .mermaid {
+            overflow: hidden;
+            /* Se establece una altura máxima inicial para que no ocupe toda la pantalla */
+            max-height: 600px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .mermaid svg {
+            cursor: grab;
+            max-width: none !important; /* Permite que el SVG use el ancho completo del contenedor */
+            width: 100% !important;
+        }
+
+        .mermaid svg:active {
+            cursor: grabbing;
+        }
+
+
+        /* Control buttons */
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 5px;
+        }
+
+        .controls button {
+            background: #FFD166;
+            border: 2px solid #073B4C;
+            padding: 5px 8px;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 4px;
+            color: #073B4C;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .controls button:hover {
+            background: #073B4C;
+            color: #FFD166;
+            transform: translate(-1px, -1px);
+        }
+
+        /* Fullscreen container */
+        .mermaid-container.fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important; /* Use viewport width */
+            height: 100vh !important; /* Use viewport height */
+            background: #ffffff; /* Changed to white */
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            border: none !important;
+            margin: 0 !important;
+            padding: 20px !important;
+        }
+
+        /* En modo fullscreen, el mermaid y el svg usan todo el espacio */
+        .mermaid-container.fullscreen .mermaid {
+            max-height: 100%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mermaid-container.fullscreen .controls {
+            top: 20px;
+            right: 20px;
+            color: black; /* Changed to black for contrast on white background */
+        }
+
+        .mermaid-container.fullscreen .mermaid svg {
+            max-width: none !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: contain; /* Ensures diagram fits without distortion */
+        }
+
+
+        /* Video container styling */
+        .video-container {
+            border-radius: 10px;
+            overflow: hidden;
+            max-width: 560px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .video-container iframe {
+            width: 100%;
+            height: 315px;
+            border: none;
+            display: block;
+        }
+
+        /* Additional wrapper to ensure proper clipping */
+        .video-wrapper {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver</a>
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 6</h1>
+            <p class="neo-header__subtitle">Cliente GUI Tkinter para Microservicio JWT</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Toggle se agrega automáticamente por JS -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+
+        <!-- 1. Objetivo del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">1. Objetivo del Proyecto</div>
+            <div class="neo-card__content">
+                <p>Desarrollar una aplicación GUI completa en Python utilizando Tkinter como cliente para consumir y gestionar todos los endpoints del microservicio JWT. La aplicación proporciona una experiencia visual intuitiva para operaciones de autenticación, implementando un diseño modular con frames organizados, widgets interactivos, sistema de logging en tiempo real, semáforo visual de estado, y persistencia de configuración y tokens JWT en almacenamiento local.</p>
+                <p><strong>Características principales:</strong></p>
+                <ul>
+                    <li>Interfaz modular con frames organizados (ttk.LabelFrame)</li>
+                    <li>Widgets interactivos: botones, entradas de texto, controles ttk estilizados</li>
+                    <li>Sistema de logging visual con ScrolledText y timestamps</li>
+                    <li>Semáforo dinámico con Canvas para indicar estado del servicio</li>
+                    <li>Treeview para mostrar lista de usuarios</li>
+                    <li>Validación de formularios con messagebox</li>
+                    <li>Feedback visual inmediato con labels para tokens actuales</li>
+                    <li>Configuración persistente en archivo JSON</li>
+                    <li>Hilos para operaciones de red sin bloquear la UI</li>
+                    <li>Manejo de eventos con callbacks asociados a botones</li>
+                    <li>Layout responsivo con grid system y weights</li>
+                    <li>Colores y estilos ttk con tema significativo</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. Tecnologías Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">2. Tecnologías Utilizadas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>GUI Framework</h3>
+                        <ul>
+                            <li><strong>Python</strong> - Lenguaje de programación principal</li>
+                            <li><strong>Tkinter</strong> - Framework estándar de Python para interfaces gráficas</li>
+                            <li><strong>ttk (Themed Tkinter)</strong> - Widgets modernos y estilizados</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Herramientas</h3>
+                        <ul>
+                            <li><strong>Requests</strong> - Cliente HTTP integrado con la GUI</li>
+                            <li><strong>JSON</strong> - Persistencia de configuración y tokens</li>
+                            <li><strong>Threading</strong> - Para mantener la responsividad de la interfaz</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Arquitectura del Sistema -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">3. Arquitectura del Sistema</div>
+            <div class="neo-card__content">
+                <p>La aplicación está diseñada con una arquitectura modular que separa las responsabilidades de la interfaz gráfica de la lógica de negocio y las operaciones de red:</p>
+
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Tkinter GUI</div>
+                        <div class="neo-card__content">
+                            <p>Interfaz gráfica principal que maneja todos los eventos del usuario</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Requests Module</div>
+                        <div class="neo-card__content">
+                            <p>Cliente HTTP para comunicación con el microservicio JWT</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">JSON Storage</div>
+                        <div class="neo-card__content">
+                            <p>Persistencia local de configuración y tokens JWT</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagramas integrados aquí -->
+                <h3>Diagrama de Arquitectura</h3>
+                <div class="mermaid-container" id="diagramContainer1">
+                    <div class="mermaid" id="diagram1">
+                        <!-- Contenido se carga desde el script -->
+                    </div>
+                    <div class="controls">
+                        <button id="fullscreenBtn1">⛶</button>
+                    </div>
+                </div>
+
+                <h3>Flujo de Interacción GUI</h3>
+                <div class="mermaid-container" id="diagramContainer2">
+                    <div class="mermaid" id="diagram2">
+                        <!-- Contenido se carga desde el script -->
+                    </div>
+                    <div class="controls">
+                        <button id="fullscreenBtn2">⛶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Prerrequisitos -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">4. Prerrequisitos</div>
+            <div class="neo-card__content">
+                <ul>
+                    <li>Python 3.7 o superior</li>
+                    <li>Tkinter (incluido en la mayoría de instalaciones Python)</li>
+                    <li>Microservicio JWT corriendo (puerto 5000 por defecto)</li>
+                    <li>Puertos disponibles para el microservicio</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. Instalación -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">5. Instalación</div>
+            <div class="neo-card__content">
+                <ol>
+                    <li><strong>Clona el repositorio</strong>
+                        <pre><code>git clone https://github.com/bryramirezp/Cliente-Tkinter-Microservicio-JWT.git
+cd Cliente-Tkinter-Microservicio-JWT</code></pre>
+                    </li>
+                    <li><strong>Instala dependencias</strong>
+                        <pre><code>pip install requests</code></pre>
+                    </li>
+                    <li><strong>Ejecuta la aplicación</strong>
+                        <pre><code>python jwt_gui.py</code></pre>
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <!-- 6. Configuración -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">6. Configuración</div>
+            <div class="neo-card__content">
+                <h3>Archivo de Configuración (jwt_gui_config.json)</h3>
+                <p>La aplicación crea automáticamente un archivo <code>jwt_gui_config.json</code> para almacenar configuración y tokens:</p>
+                <pre><code>{
+  "ip": "localhost",
+  "port": "5000",
+  "endpoints": {
+    "register": "/register",
+    "login": "/login",
+    "refresh": "/refresh",
+    "logout": "/logout",
+    "protected": "/protected",
+    "health": "/health",
+    "users": "/users",
+    "delete_user": "/users/"
+  },
+  "access_token": "",
+  "refresh_token": ""
+}</code></pre>
+
+                <h3>Configuración Inicial</h3>
+                <ul>
+                    <li><strong>IP</strong>: Dirección del microservicio (por defecto: localhost)</li>
+                    <li><strong>Puerto</strong>: Puerto del microservicio (por defecto: 5000)</li>
+                    <li><strong>Endpoints</strong>: URLs de los servicios REST</li>
+                    <li><strong>Tokens</strong>: Almacenamiento automático de tokens JWT</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 7. Uso -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">7. Uso</div>
+            <div class="neo-card__content">
+                <h3>Interfaz de la GUI</h3>
+                <p>La aplicación se divide en secciones organizadas para facilitar la interacción:</p>
+                <ul>
+                    <li><strong>Configuración del Microservicio</strong>: Campos para IP y puerto</li>
+                    <li><strong>Estado del Microservicio</strong>: Semáforo visual con indicador de salud</li>
+                    <li><strong>Registro de Usuario</strong>: Campos para crear nueva cuenta</li>
+                    <li><strong>Inicio de Sesión</strong>: Campos para autenticación</li>
+                    <li><strong>Acciones Autenticadas</strong>: Botones para operaciones con tokens</li>
+                    <li><strong>Gestión de Usuarios</strong>: Ver y eliminar usuarios</li>
+                    <li><strong>Log de Operaciones</strong>: Historial detallado de todas las acciones</li>
+                    <li><strong>Información de Tokens JWT</strong>: Display de tokens actuales</li>
+                </ul>
+
+                <h3>Semáforo de Salud</h3>
+                <ul>
+                    <li>🔴 <strong>Rojo</strong>: Microservicio no funciona</li>
+                    <li>🟠 <strong>Naranja</strong>: Procesando verificación</li>
+                    <li>🟢 <strong>Verde</strong>: Microservicio saludable</li>
+                </ul>
+
+                <h3>Funcionalidades Principales</h3>
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h4>Registro de Usuario</h4>
+                        <ul>
+                            <li>Campos: Usuario, Email, Contraseña</li>
+                            <li>Validación de campos requeridos</li>
+                            <li>Logging de la solicitud y respuesta</li>
+                        </ul>
+
+                        <h4>Login</h4>
+                        <ul>
+                            <li>Campos: Usuario, Contraseña</li>
+                            <li>Almacenamiento automático de tokens</li>
+                            <li>Actualización de labels de tokens</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>Acceso Protegido</h4>
+                        <ul>
+                            <li>Requiere token de acceso válido</li>
+                            <li>Muestra datos protegidos en log</li>
+                        </ul>
+
+                        <h4>Refresh Token</h4>
+                        <ul>
+                            <li>Utiliza refresh token para obtener nuevo access token</li>
+                            <li>Actualiza tokens almacenados</li>
+                        </ul>
+
+                        <h4>Logout</h4>
+                        <ul>
+                            <li>Revoca tokens en el servidor</li>
+                            <li>Limpia tokens locales</li>
+                        </ul>
+
+                        <h4>Gestión de Usuarios</h4>
+                        <ul>
+                            <li>Ver lista completa de usuarios</li>
+                            <li>Eliminar usuarios (solo el propio usuario)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 8. Estructura del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">8. Estructura del Proyecto</div>
+            <div class="neo-card__content">
+                <pre><code>Cliente-Tkinter-Microservicio-JWT/
+├── jwt_gui.py              # Aplicación GUI principal
+├── jwt_gui_config.json     # Configuración persistente (generado)
+└── README_GUI.md          # Documentación de la GUI</code></pre>
+            </div>
+        </div>
+
+        <!-- 9. Tecnologías GUI Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">9. Tecnologías GUI Utilizadas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <ul>
+                            <li><strong>Tkinter</strong>: Framework estándar de Python para interfaces gráficas</li>
+                            <li><strong>ttk (Themed Tkinter)</strong>: Widgets modernos y estilizados</li>
+                            <li><strong>tk.Canvas</strong>: Para dibujar elementos gráficos (semáforo)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul>
+                            <li><strong>scrolledtext.ScrolledText</strong>: Área de texto con scroll para logs</li>
+                            <li><strong>ttk.Treeview</strong>: Widget de tabla para datos estructurados</li>
+                            <li><strong>Threading</strong>: Para mantener la responsividad de la interfaz</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 10. Mejores Prácticas Implementadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">10. Mejores Prácticas Implementadas</div>
+            <div class="neo-card__content">
+                <h3>Código</h3>
+                <ul>
+                    <li><strong>Constantes</strong>: Definición de constantes para valores fijos</li>
+                    <li><strong>Manejo de Errores</strong>: Try-except comprehensivo en todas las operaciones HTTP</li>
+                    <li><strong>Separación de Responsabilidades</strong>: Métodos dedicados para cada funcionalidad</li>
+                    <li><strong>Logging Detallado</strong>: Seguimiento completo de operaciones</li>
+                    <li><strong>Configuración Persistente</strong>: Almacenamiento local de estado</li>
+                </ul>
+
+                <h3>Interfaz</h3>
+                <ul>
+                    <li><strong>Diseño Intuitivo</strong>: Layout organizado con frames lógicos</li>
+                    <li><strong>Feedback Visual</strong>: Semáforo, colores y mensajes de estado</li>
+                    <li><strong>Validación</strong>: Verificación de campos requeridos</li>
+                    <li><strong>Responsividad</strong>: No bloquea la UI durante operaciones</li>
+                </ul>
+
+                <h3>Seguridad</h3>
+                <ul>
+                    <li><strong>Almacenamiento Seguro</strong>: Tokens en archivo local (no en memoria volátil)</li>
+                    <li><strong>Timeouts</strong>: Límites de tiempo para evitar hangs</li>
+                    <li><strong>Validación de Tokens</strong>: Verificación antes de operaciones</li>
+                    <li><strong>Limpieza</strong>: Eliminación de tokens en logout</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 11. Beneficios de Tkinter en la Implementación -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">11. Beneficios de Tkinter en la Implementación</div>
+            <div class="neo-card__content">
+                <h3>Experiencia de Usuario</h3>
+                <ul>
+                    <li><strong>Interfaz Nativa</strong>: Widgets ttk con apariencia nativa del sistema operativo</li>
+                    <li><strong>Navegación Intuitiva</strong>: Frames organizados lógicamente por funcionalidad</li>
+                    <li><strong>Feedback Visual</strong>: Semáforo, colores y estados que cambian dinámicamente</li>
+                    <li><strong>Accesibilidad</strong>: Labels descriptivos y validación de entradas</li>
+                </ul>
+
+                <h3>Desarrollo con Tkinter</h3>
+                <ul>
+                    <li><strong>Sin Dependencias Externas</strong>: Tkinter incluido en Python estándar</li>
+                    <li><strong>Event-Driven Programming</strong>: Arquitectura basada en eventos y callbacks</li>
+                    <li><strong>Threading Integrado</strong>: Mantiene UI responsiva durante operaciones de red</li>
+                    <li><strong>Layout Management</strong>: Sistema de grid flexible y potente</li>
+                </ul>
+
+                <h3>Ventajas Técnicas</h3>
+                <ul>
+                    <li><strong>Modularidad</strong>: Cada frame es un componente independiente</li>
+                    <li><strong>Reutilización</strong>: Widgets configurables para diferentes contextos</li>
+                    <li><strong>Persistencia Visual</strong>: Estado de la interfaz refleja estado de la aplicación</li>
+                    <li><strong>Debugging Visual</strong>: Log integrado permite seguimiento inmediato de operaciones</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 12. Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">12. Conclusión</div>
+            <div class="neo-card__content">
+                <p>El cliente GUI Tkinter está listo para usar! 🚀</p>
+                <h3>Demostración en Video del Cliente Tkinter</h3>
+                <div class="video-wrapper">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/ELPrQIvzH6A" title="Demostración en video del Cliente Tkinter" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="https://github.com/bryramirezp/Cliente-Tkinter-Microservicio-JWT" class="neo-button neo-button--primary" target="_blank">
+                        Ver Código en GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Neo Brutalist -->
+    <footer class="neo-footer">
+        <div class="neo-footer__center">
+            <p class="neo-footer__text">Bryan Ramírez Palacios</p>
+        </div>
+    </footer>
+
+    <!-- Scripts obligatorios - IMPORTANTE: Este orden -->
+    <script src="../../assets/js/app.js"></script>
+
+    <!-- Script for Mermaid diagrams -->
+    <script>
+        // Función para cargar el contenido del diagrama
+        function loadMermaidContent(containerId, content) {
+            const container = document.getElementById(containerId);
+            if (container) {
+                container.textContent = content;
+            }
+        }
+
+        // Initialize Mermaid and D3.js zoom functionality
+        document.addEventListener("DOMContentLoaded", function() {
+            // Contenido del diagrama de arquitectura
+            const architectureDiagram = `graph TB
+    A[Tkinter GUI] --> B[Requests Module]
+    B --> C[Flask Microservice :5000]
+    C --> D[(MariaDB :3306)]
+    C --> E[JWT Tokens]
+    A --> F[(JSON Config File)]`;
+
+            // Contenido del diagrama de flujo GUI
+            const flowDiagram = `stateDiagram-v2
+    [*] --> Inicialización
+    Inicialización --> Configuración: Cargar config local
+    Configuración --> HealthCheck: Iniciar verificación automática
+    HealthCheck --> EsperandoInteracción: Semáforo actualizado
+
+    EsperandoInteracción --> Registro: Click Registrar
+    Registro --> EsperandoInteracción: Usuario registrado
+
+    EsperandoInteracción --> Login: Click Login
+    Login --> Autenticado: Tokens guardados
+
+    Autenticado --> Protegido: Click Acceder Protegido
+    Protegido --> Autenticado: Datos mostrados
+
+    Autenticado --> Refresh: Click Refresh Token
+    Refresh --> Autenticado: Tokens actualizados
+
+    Autenticado --> Logout: Click Logout
+    Logout --> EsperandoInteracción: Tokens limpiados
+
+    Autenticado --> GestionUsuarios: Click Ver Usuarios
+    GestionUsuarios --> Autenticado: Lista actualizada`;
+
+            // Cargar los diagramas
+            loadMermaidContent('diagram1', architectureDiagram);
+            loadMermaidContent('diagram2', flowDiagram);
+
+            // Initialize Mermaid with proper configuration
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: true,
+                    theme: 'base',
+                    themeVariables: {
+                        background: '#ffffff',
+                        primaryColor: '#FFD166',
+                        primaryTextColor: '#073B4C',
+                        primaryBorderColor: '#073B4C',
+                        lineColor: '#073B4C',
+                        secondaryColor: '#F5F5F5',
+                        tertiaryColor: '#FFFFFF'
+                    },
+                    flowchart: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    },
+                    stateDiagram: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    },
+                    sequenceDiagram: {
+                        useMaxWidth: true,
+                        htmlLabels: true
+                    }
+                });
+
+                // Re-initialize mermaid after loading content
+                setTimeout(() => {
+                    mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+
+                    // Apply D3.js drag and zoom to all mermaid SVGs
+                    setTimeout(() => {
+                        applyD3Zoom();
+                    }, 100);
+
+                    // Initialize controls for the diagrams
+                    initializeDiagramControls(1);
+                    initializeDiagramControls(2);
+                }, 100);
+            }
+        });
+
+        // Mapa para guardar los objetos de zoom por diagrama
+        const d3ZoomObjects = {};
+
+        // Apply D3.js drag and zoom to all mermaid SVGs
+        function applyD3Zoom() {
+            const svgs = d3.selectAll(".mermaid svg");
+            svgs.each(function() {
+                const svg = d3.select(this);
+                const container = svg.node().closest('.mermaid-container');
+                const diagramId = container ? container.id : 'default';
+
+                // Envuelve el contenido en un grupo para que el zoom funcione
+                svg.html("<g>" + svg.html() + "</g>");
+                const inner = svg.select("g");
+
+                // Crea el objeto de zoom
+                const zoom = d3.zoom().on("zoom", function(event) {
+                    inner.attr("transform", event.transform);
+                });
+
+                // Aplica el zoom al SVG
+                svg.call(zoom);
+
+                // Guarda el objeto de zoom para su uso posterior
+                d3ZoomObjects[diagramId] = zoom;
+            });
+        }
+
+        // Initialize fullscreen functionality for the diagrams
+        function initializeDiagramControls(diagramNumber) {
+            const diagramContainer = document.getElementById(`diagramContainer${diagramNumber}`);
+            const fullscreenBtn = document.getElementById(`fullscreenBtn${diagramNumber}`);
+
+            if (!diagramContainer || !fullscreenBtn) return;
+
+            // Full-screen Toggle
+            fullscreenBtn.addEventListener('click', () => {
+                if (!document.fullscreenElement) {
+                    diagramContainer.requestFullscreen().catch(err => {
+                        console.error(`Error: ${err.message}`);
+                    });
+                    diagramContainer.classList.add('fullscreen');
+                } else {
+                    document.exitFullscreen();
+                    diagramContainer.classList.remove('fullscreen');
+                }
+            });
+
+            // Handle fullscreen exit events (ESC key, etc.)
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement) {
+                    // Fullscreen was exited - remove the class from all containers
+                    document.querySelectorAll('.mermaid-container.fullscreen').forEach(container => {
+                        container.classList.remove('fullscreen');
+                    });
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

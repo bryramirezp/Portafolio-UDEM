@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcial 1: Sistema de Microservicios para Joyería</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../parciales.html" class="neo-button neo-button--secondary">← Volver a Parciales</a>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Parcial 1</h1>
+            <p class="neo-header__subtitle">Sistema de Microservicios para Joyería</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container" style="padding: 3rem 0;">
+        
+        <!-- Descripción del Proyecto -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Descripción del Proyecto</div>
+            <div class="neo-card__content">
+                <p>Desarrollo de un sistema de microservicios para una joyería que incluye gestión de productos, pedidos y facturación. El sistema está construido con tecnologías modernas y sigue principios de arquitectura de microservicios.</p>
+            </div>
+        </div>
+
+        <!-- Arquitectura del Sistema -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Arquitectura del Sistema</div>
+            <div class="neo-card__content">
+                <p>El sistema está compuesto por los siguientes microservicios:</p>
+                
+                <div class="neo-grid neo-grid--2">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Servicio de Productos</div>
+                        <div class="neo-card__content">
+                            <p>Gestión del catálogo de joyas con información detallada de cada producto.</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Servicio de Pedidos</div>
+                        <div class="neo-card__content">
+                            <p>Procesamiento de órdenes de compra y gestión del estado de pedidos.</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Servicio de Facturación</div>
+                        <div class="neo-card__content">
+                            <p>Generación de facturas y reportes financieros.</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Frontend</div>
+                        <div class="neo-card__content">
+                            <p>Interfaz web para clientes y administradores.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tecnologías Utilizadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Tecnologías Utilizadas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Backend</h3>
+                        <ul>
+                            <li><strong>Python con Flask</strong> - Framework web ligero</li>
+                            <li><strong>Base de datos SQLite</strong> - Almacenamiento local</li>
+                            <li><strong>APIs REST</strong> - Comunicación entre servicios</li>
+                            <li><strong>SQLAlchemy</strong> - ORM para base de datos</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Frontend</h3>
+                        <ul>
+                            <li><strong>HTML5 y CSS3</strong> - Estructura y estilos</li>
+                            <li><strong>JavaScript vanilla</strong> - Interactividad</li>
+                            <li><strong>XSLT</strong> - Transformación de datos</li>
+                            <li><strong>Bootstrap</strong> - Framework CSS</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades Implementadas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Funcionalidades Implementadas</div>
+            <div class="neo-card__content">
+                <h3>Gestión de Productos</h3>
+                <pre><code>@app.route('/products', methods=['GET'])
+def get_products():
+    products = ProductService.get_all_products()
+    return jsonify(products)
+
+@app.route('/products', methods=['POST'])
+def create_product():
+    product_data = request.get_json()
+    product = ProductService.create_product(product_data)
+    return jsonify(product)</code></pre>
+                
+                <h3>Procesamiento de Pedidos</h3>
+                <pre><code>@app.route('/orders', methods=['POST'])
+def create_order():
+    order_data = request.get_json()
+    order = OrderService.create_order(order_data)
+    return jsonify(order)
+
+@app.route('/orders/<order_id>', methods=['GET'])
+def get_order(order_id):
+    order = OrderService.get_order_by_id(order_id)
+    return jsonify(order)</code></pre>
+                
+                <h3>Generación de Facturas</h3>
+                <pre><code>@app.route('/invoices', methods=['POST'])
+def generate_invoice():
+    invoice_data = request.get_json()
+    invoice = InvoiceService.generate_invoice(invoice_data)
+    return jsonify(invoice)</code></pre>
+            </div>
+        </div>
+
+        <!-- Interfaz de Usuario -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Interfaz de Usuario</div>
+            <div class="neo-card__content">
+                <p>La interfaz web permite a los usuarios:</p>
+                
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Funcionalidades Cliente</h3>
+                        <ul>
+                            <li>✅ Explorar el catálogo de productos</li>
+                            <li>✅ Realizar pedidos</li>
+                            <li>✅ Ver el estado de sus órdenes</li>
+                            <li>✅ Descargar facturas</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Funcionalidades Admin</h3>
+                        <ul>
+                            <li>✅ Gestionar productos</li>
+                            <li>✅ Procesar pedidos</li>
+                            <li>✅ Generar reportes</li>
+                            <li>✅ Administrar usuarios</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados Obtenidos -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Resultados Obtenidos</div>
+            <div class="neo-card__content">
+                <p>El sistema demuestra una arquitectura escalable y mantenible que cumple con los requisitos del negocio de joyería, proporcionando una experiencia de usuario fluida y una gestión eficiente de los procesos comerciales.</p>
+                
+                <div class="neo-grid neo-grid--3">
+                    <div class="neo-card">
+                        <div class="neo-card__title">Escalabilidad</div>
+                        <div class="neo-card__content">
+                            <p>Cada microservicio puede escalarse independientemente según la demanda</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Mantenibilidad</div>
+                        <div class="neo-card__content">
+                            <p>Código modular y separación clara de responsabilidades</p>
+                        </div>
+                    </div>
+                    <div class="neo-card">
+                        <div class="neo-card__title">Flexibilidad</div>
+                        <div class="neo-card__content">
+                            <p>Fácil adición de nuevas funcionalidades sin afectar servicios existentes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lecciones Aprendidas -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Lecciones Aprendidas</div>
+            <div class="neo-card__content">
+                <div class="neo-grid neo-grid--2">
+                    <div>
+                        <h3>Beneficios</h3>
+                        <ul>
+                            <li>La separación de responsabilidades mejora la mantenibilidad</li>
+                            <li>Las APIs REST facilitan la integración entre servicios</li>
+                            <li>Una interfaz intuitiva es crucial para la adopción del sistema</li>
+                            <li>La arquitectura de microservicios permite desarrollo paralelo</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Desafíos</h3>
+                        <ul>
+                            <li>Complejidad en la gestión de datos distribuidos</li>
+                            <li>Necesidad de coordinación entre servicios</li>
+                            <li>Testing más complejo debido a la distribución</li>
+                            <li>Monitoreo y debugging distribuido</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Conclusión</div>
+            <div class="neo-card__content">
+                <p>Este proyecto demuestra la efectividad de la arquitectura de microservicios para aplicaciones empresariales complejas. La separación de responsabilidades, la escalabilidad independiente y la facilidad de mantenimiento hacen de esta arquitectura una excelente opción para sistemas de comercio electrónico.</p>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <div class="neo-grid neo-grid--2">
+                        <div class="neo-card">
+                            <div class="neo-card__title">Repositorio</div>
+                            <div class="neo-card__content">
+                                <a href="https://github.com/bryramirezp/Sistema-Ecommerce-con-Microservicios-Python-Flask" class="neo-button neo-button--primary" target="_blank">
+                                    Ver Código en GitHub
+                                </a>
+                            </div>
+                        </div>
+                        <div class="neo-card">
+                            <div class="neo-card__title">Demo</div>
+                            <div class="neo-card__content">
+                                <a href="Frontend/index.html" class="neo-button neo-button--secondary" target="_blank">
+                                    Ver Demo Frontend
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/app.js"></script>
+
+</body>
+
+</html>
