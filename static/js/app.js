@@ -293,7 +293,7 @@ class NeoBrutalistSystem {
       main.style.opacity = '0.7';
     }
     setTimeout(() => {
-      window.location.href = `Integ_aplicaciones_computacion/${folderName}.html`;
+      window.location.href = `templates/${folderName}.html`;
     }, 200);
   }
 
@@ -544,7 +544,7 @@ function openFolder(folderName) {
         window.NeoBrutalist.navigateToFolder(folderName);
     } else {
         // Fallback por si acaso
-        window.location.href = `Integ_aplicaciones_computacion/${folderName}.html`;
+        window.location.href = `templates/${folderName}.html`;
     }
 }
 
