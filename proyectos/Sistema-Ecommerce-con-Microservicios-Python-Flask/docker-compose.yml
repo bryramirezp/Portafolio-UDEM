@@ -1,0 +1,103 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./base_datos
+    container_name: joyeria_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - joyeria_network
+
+  products:
+    build:
+      context: ./microservicios/products
+      dockerfile: Dockerfile
+    container_name: products_service
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB: ${MYSQL_DATABASE}
+    ports:
+      - "5001:5000"
+    depends_on:
+      - db
+    networks:
+      - joyeria_network
+
+  pedidos:
+    build:
+      context: ./microservicios/pedidos
+      dockerfile: Dockerfile
+    container_name: pedidos_service
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB: ${MYSQL_DATABASE}
+    ports:
+      - "5002:5000"
+    depends_on:
+      - db
+    networks:
+      - joyeria_network
+
+  facturas:
+    build:
+      context: ./microservicios/facturas
+      dockerfile: Dockerfile
+    container_name: facturas_service
+    restart: unless-stopped
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DB: ${MYSQL_DATABASE}
+    ports:
+      - "5003:5000"
+    depends_on:
+      - db
+    networks:
+      - joyeria_network
+
+  frontend:
+    build: ./frontend
+    container_name: joyeria_frontend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - products
+      - pedidos
+      - facturas
+    networks:
+      - joyeria_network
+
+  adminer:
+    image: adminer:latest
+    container_name: joyeria_adminer
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    networks:
+      - joyeria_network
+
+volumes:
+  db_data:
+
+networks:
+  joyeria_network:
+    driver: bridge

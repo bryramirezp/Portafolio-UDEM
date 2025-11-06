@@ -1,0 +1,109 @@
+1️⃣ Registro (POST /register)
+
+URL:
+
+http://localhost:5000/register
+
+
+Method: POST
+
+Headers:
+
+Content-Type: application/json
+
+
+Body (raw → JSON):
+
+{
+  "username": "testuser",
+  "email": "test@example.com",
+  "password": "testpass"
+}
+
+2️⃣ Login (POST /login)
+
+URL:
+
+http://localhost:5000/login
+
+
+Method: POST
+
+Headers:
+
+Content-Type: application/json
+
+
+Body (raw → JSON):
+
+{
+  "username": "testuser",
+  "password": "testpass"
+}
+
+
+💡 Postman te devolverá algo como:
+
+{
+  "access_token": "xxx",
+  "refresh_token": "yyy"
+}
+
+
+Guarda esos valores para las siguientes llamadas.
+
+
+
+
+
+3️⃣ Endpoint Protegido (GET /protected)
+
+URL:
+
+http://localhost:5000/protected
+
+
+Method: GET
+
+Headers:
+
+Authorization: Bearer <access_token>
+
+
+Reemplaza <access_token> con el valor obtenido en login.
+
+4️⃣ Refresh Token (POST /refresh)
+
+URL:
+
+http://localhost:5000/refresh
+
+
+Method: POST
+
+Headers:
+
+Content-Type: application/json
+
+
+Body (raw → JSON):
+
+{
+  "refresh_token": "<refresh_token>"
+}
+
+
+Reemplaza <refresh_token> con el valor obtenido en login.
+
+5️⃣ Logout (POST /logout)
+
+URL:
+
+http://localhost:5000/logout
+
+
+Method: POST
+
+Headers:
+
+Authorization: Bearer <access_token>

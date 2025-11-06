@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jwttest.JWTController">
+   <children>
+      <!-- Title -->
+      <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="JWT Microservice Consumer" textAlignment="CENTER">
+         <font>
+            <Font name="Arial" size="16.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+
+      <!-- Configuration Frame -->
+      <TitledPane animated="false" collapsible="false" text="Configuración del Microservicio">
+         <content>
+            <GridPane hgap="5.0" vgap="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="60.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="IP:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <TextField fx:id="ipField" promptText="localhost" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  <Label text="Puerto:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <TextField fx:id="portField" promptText="5000" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="saveConfigButton" mnemonicParsing="false" onAction="#saveConfigButton" text="Guardar Config" GridPane.columnIndex="2" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </GridPane>
+         </content>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+         </VBox.margin>
+      </TitledPane>
+
+      <!-- Health Status Frame -->
+      <TitledPane animated="false" collapsible="false" text="Estado del Microservicio">
+         <content>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <Label fx:id="statusLabel" text="Estado: Desconocido">
+                     <font>
+                        <Font name="Arial" size="10.0" />
+                     </font>
+                  </Label>
+                  <Canvas fx:id="statusCanvas" height="30.0" width="30.0" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </HBox>
+         </content>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+         </VBox.margin>
+      </TitledPane>
+
+      <!-- Register and Login Frames -->
+      <HBox spacing="10.0">
+         <children>
+            <!-- Register Frame -->
+            <TitledPane animated="false" collapsible="false" text="Registro de Usuario">
+               <content>
+                  <GridPane hgap="5.0" vgap="5.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="80.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="regUsernameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <TextField fx:id="regEmailField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                        <PasswordField fx:id="regPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Button fx:id="registerButton" mnemonicParsing="false" onAction="#register" text="Registrar Usuario" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </GridPane>
+               </content>
+            </TitledPane>
+
+            <!-- Login Frame -->
+            <TitledPane animated="false" collapsible="false" text="Inicio de Sesión">
+               <content>
+                  <GridPane hgap="5.0" vgap="5.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="80.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <Label text="Usuario:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                        <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                        <Label text="Contraseña:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                        <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" text="Iniciar Sesión" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </GridPane>
+               </content>
+            </TitledPane>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+         </VBox.margin>
+      </HBox>
+
+      <!-- Actions and User Management -->
+      <HBox spacing="10.0">
+         <children>
+            <!-- Actions Frame -->
+            <TitledPane animated="false" collapsible="false" text="Acciones Autenticadas">
+               <content>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Button fx:id="protectedButton" mnemonicParsing="false" onAction="#accessProtected" text="Acceder Protegido" />
+                        <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshToken" text="Refresh Token" />
+                        <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logout" text="Logout" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+               </content>
+            </TitledPane>
+
+            <!-- User Management Frame -->
+            <TitledPane animated="false" collapsible="false" text="Gestión de Usuarios">
+               <content>
+                  <VBox spacing="5.0">
+                     <children>
+                        <Button fx:id="viewUsersButton" mnemonicParsing="false" onAction="#getUsers" text="Ver Usuarios" />
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                           <children>
+                              <Label text="ID Usuario:" />
+                              <TextField fx:id="deleteUserField" prefWidth="80.0" />
+                           </children>
+                        </HBox>
+                        <Button fx:id="deleteUserButton" mnemonicParsing="false" onAction="#deleteUser" text="Eliminar Usuario" />
+                        <TableView fx:id="usersTable" prefHeight="150.0">
+                          <columns>
+                            <TableColumn fx:id="idColumn" text="ID" />
+                            <TableColumn fx:id="usernameColumn" text="Usuario" />
+                            <TableColumn fx:id="emailColumn" text="Email" />
+                            <TableColumn fx:id="createdColumn" text="Creado" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </VBox>
+               </content>
+            </TitledPane>
+         </children>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+         </VBox.margin>
+      </HBox>
+
+      <!-- Log Frame -->
+      <TitledPane animated="false" collapsible="false" text="Log de Operaciones">
+         <content>
+            <TextArea fx:id="logArea" editable="false" prefHeight="100.0" wrapText="true" />
+         </content>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+         </VBox.margin>
+      </TitledPane>
+
+      <!-- Token Information Frame -->
+      <TitledPane animated="false" collapsible="false" text="Información de Tokens JWT">
+         <content>
+            <GridPane hgap="5.0" vgap="5.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Access Token:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <Label fx:id="accessTokenLabel" text="" textFill="BLUE" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                  <Label text="Refresh Token:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <Label fx:id="refreshTokenLabel" text="" textFill="GREEN" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </GridPane>
+         </content>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="0.0" />
+         </VBox.margin>
+      </TitledPane>
+   </children>
+</VBox>

@@ -1,0 +1,16 @@
+{
+  "access_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE3NjA2NDcwMjQsInR5cGUiOiJhY2Nlc3MiLCJpYXQiOjE3NjA2NDYxMjR9.WVFh9CrVcyTYDDvSYNqYZzBkk13K8YfIghSi4loM74k",
+  "refresh_token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjozLCJleHAiOjE3NjEyNTA5MjQsInR5cGUiOiJyZWZyZXNoIiwiaWF0IjoxNzYwNjQ2MTI0fQ.iVViDmocvg8zRbAOhvzW8GP7Yf8Rn9dx7RBU_Pq7Tgs",
+  "endpoints" : {
+    "register" : "/register",
+    "login" : "/login",
+    "refresh" : "/refresh",
+    "logout" : "/logout",
+    "protected" : "/protected",
+    "health" : "/health",
+    "users" : "/users",
+    "delete_user" : "/users/"
+  },
+  "port" : "5000",
+  "ip" : "localhost"
+}

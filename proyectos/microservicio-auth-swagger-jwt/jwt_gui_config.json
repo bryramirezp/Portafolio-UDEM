@@ -1,0 +1,16 @@
+{
+    "ip": "localhost",
+    "port": "5000",
+    "endpoints": {
+        "register": "/register",
+        "login": "/login",
+        "refresh": "/refresh",
+        "logout": "/logout",
+        "protected": "/protected",
+        "health": "/health",
+        "users": "/users",
+        "delete_user": "/users/"
+    },
+    "access_token": "",
+    "refresh_token": ""
+}

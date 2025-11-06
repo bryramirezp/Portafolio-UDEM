@@ -1,0 +1,34 @@
+FROM mariadb:10.5
+
+# Instalar herramientas útiles para debugging
+RUN apt-get update && apt-get install -y \
+    vim \
+    less \
+    net-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# Configurar MariaDB para mejor compatibilidad
+RUN echo "[mysqld]" >> /etc/mysql/conf.d/custom.cnf && \
+    echo "character-set-server=utf8mb4" >> /etc/mysql/conf.d/custom.cnf && \
+    echo "collation-server=utf8mb4_unicode_ci" >> /etc/mysql/conf.d/custom.cnf && \
+    echo "skip-character-set-client-handshake" >> /etc/mysql/conf.d/custom.cnf && \
+    echo "init-connect='SET NAMES utf8mb4'" >> /etc/mysql/conf.d/custom.cnf && \
+    echo "default-authentication-plugin=mysql_native_password" >> /etc/mysql/conf.d/custom.cnf
+
+# Crear directorio para scripts de inicialización
+RUN mkdir -p /docker-entrypoint-initdb.d
+
+# Copiar el script de inicialización
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Asegurar permisos correctos
+RUN chmod 644 /docker-entrypoint-initdb.d/init.sql && \
+    chown mysql:mysql /docker-entrypoint-initdb.d/init.sql
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD healthcheck.sh --connect --innodb_initialized
+
+EXPOSE 3306
+
+CMD ["mysqld"]
