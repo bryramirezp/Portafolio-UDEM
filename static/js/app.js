@@ -16,7 +16,6 @@ class NeoBrutalistSystem {
    * Inicializar el sistema completo
    */
   init() {
-    console.log('🎨 Neo Brutalist Portfolio System Loading...');
     
     // 1. Cargar tema
     this.loadTheme();
@@ -47,7 +46,6 @@ class NeoBrutalistSystem {
     // 8. Exponer utilidades
     window.PortfolioUtils = this;
 
-    console.log('✅ Neo Brutalist Portfolio System Ready!');
   }
 
   /**
@@ -67,12 +65,6 @@ class NeoBrutalistSystem {
   applyTheme() {
     const root = document.documentElement;
     root.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
-
-    // Actualizar texto del toggle si existe
-    const toggleText = document.querySelector('.neo-toggle__text');
-    if (toggleText) {
-      toggleText.textContent = this.isDarkMode ? 'modo claro' : 'modo oscuro';
-    }
   }
 
   /**
@@ -101,7 +93,6 @@ class NeoBrutalistSystem {
       // Verificar si ya existe un toggle para evitar duplicación
       const existingToggle = header.querySelector('.neo-toggle');
       if (existingToggle) {
-        console.log('🎨 Toggle ya existe, configurando funcionalidad');
         this.setupToggleFunctionality(existingToggle);
         return;
       }
@@ -109,13 +100,18 @@ class NeoBrutalistSystem {
       const toggleContainer = document.createElement('div');
       toggleContainer.className = 'neo-header__theme-toggle';
 
-      toggleContainer.innerHTML = `
-        <label class="neo-toggle">
-          <span class="neo-toggle__text">${this.isDarkMode ? 'modo claro' : 'modo oscuro'}</span>
-          <input type="checkbox" class="neo-toggle__input" ${this.isDarkMode ? 'checked' : ''}>
-          <span class="neo-toggle__slider"></span>
+      const toggleWrapper = document.createElement('div');
+      toggleWrapper.className = 'neo-toggle-wrapper';
+      
+      const toggleId = 'theme-toggle-' + Date.now();
+      toggleWrapper.innerHTML = `
+        <label class="neo-toggle" for="${toggleId}" aria-label="Alternar modo oscuro">
+          <input type="checkbox" class="neo-toggle__input" id="${toggleId}" ${this.isDarkMode ? 'checked' : ''} aria-label="Modo oscuro">
+          <span class="neo-toggle__slider" aria-hidden="true"></span>
         </label>
       `;
+
+      toggleContainer.appendChild(toggleWrapper);
 
       // Insertar en la parte derecha del header
       let rightSection = header.querySelector('.neo-header__right, .header-right');
@@ -124,14 +120,11 @@ class NeoBrutalistSystem {
         rightSection = document.createElement('div');
         rightSection.className = 'neo-header__right';
         header.appendChild(rightSection);
-        console.log('🎨 Sección derecha del header creada');
       }
       
       rightSection.appendChild(toggleContainer);
-      this.setupToggleFunctionality(toggleContainer.querySelector('.neo-toggle'));
-      console.log('🎨 Toggle creado exitosamente en el header');
+      this.setupToggleFunctionality(toggleWrapper.querySelector('.neo-toggle'));
     } else {
-      console.warn('⚠️ No se encontró header para crear el toggle');
     }
   }
 
@@ -150,7 +143,6 @@ class NeoBrutalistSystem {
       this.toggleTheme();
     });
 
-    console.log('🎨 Funcionalidad del toggle configurada');
   }
 
   /**
@@ -254,9 +246,24 @@ class NeoBrutalistSystem {
    * Configurar navegación de carpetas y archivos
    */
   setupNavigation() {
-    // Configurar navegación de carpetas
+    // Configurar navegación de carpetas y soporte de teclado
     const folderCards = document.querySelectorAll('.neo-card[onclick*="openFolder"]');
     folderCards.forEach(card => {
+      // Soporte de teclado para accesibilidad
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const onclick = card.getAttribute('onclick');
+          if (onclick) {
+            const match = onclick.match(/'([^']+)'/);
+            if (match) {
+              this.navigateToFolder(match[1]);
+            }
+          }
+        }
+      });
+
+      // Navegación por clic
       card.addEventListener('click', (e) => {
         e.preventDefault();
         const folderName = card.getAttribute('onclick').match(/'([^']+)'/)[1];
@@ -336,10 +343,21 @@ class NeoBrutalistSystem {
    * Animación de entrada de la página
    */
   animatePageLoad() {
+    // Verificar si el usuario prefiere movimiento reducido
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = window.innerWidth <= 767;
+
+    if (prefersReducedMotion || isMobile) {
+      // No animar en móvil o si el usuario prefiere movimiento reducido
+      document.body.style.opacity = '1';
+      return;
+    }
+
     document.body.style.opacity = '0';
     document.body.style.transform = 'translateY(20px)';
     setTimeout(() => {
-      document.body.style.transition = 'all 0.6s ease';
+      const duration = isMobile ? '0.3s' : '0.6s';
+      document.body.style.transition = `all ${duration} ease`;
       document.body.style.opacity = '1';
       document.body.style.transform = 'translateY(0)';
     }, 100);
@@ -365,6 +383,10 @@ class NeoBrutalistSystem {
    * Configurar efectos hover/click mejorados (reemplaza los genéricos)
    */
   setupEnhancedHoverEffects() {
+    // Solo aplicar efectos hover en dispositivos con mouse (no touch)
+    const hasMouse = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!hasMouse) return;
+
     // Efectos especiales para cards
     const cards = document.querySelectorAll('.neo-card');
     cards.forEach(card => {
@@ -427,7 +449,6 @@ class NeoBrutalistSystem {
    * Trackear evento
    */
   trackEvent(action, category, label) {
-    console.log(`📊 Event tracked: ${action} - ${category} - ${label}`);
     if (typeof gtag !== 'undefined') {
       gtag('event', action, {
         event_category: category,
@@ -440,6 +461,7 @@ class NeoBrutalistSystem {
    * Configurar lazy loading para imágenes
    */
   setupLazyLoading() {
+    // Lazy load para imágenes con data-src
     if ('IntersectionObserver' in window) {
       const images = document.querySelectorAll('img[data-src]');
       const imageObserver = new IntersectionObserver((entries, observer) => {
@@ -448,11 +470,24 @@ class NeoBrutalistSystem {
             const img = entry.target;
             img.src = img.dataset.src;
             img.classList.remove('lazy');
+            img.loading = 'lazy';
             observer.unobserve(img);
           }
         });
+      }, {
+        rootMargin: '50px' // Cargar imágenes 50px antes de que sean visibles
       });
       images.forEach(img => imageObserver.observe(img));
+    }
+
+    // Lazy load nativo para imágenes sin data-src
+    if ('loading' in HTMLImageElement.prototype) {
+      const images = document.querySelectorAll('img[src]:not([data-src])');
+      images.forEach(img => {
+        if (!img.hasAttribute('loading')) {
+          img.loading = 'lazy';
+        }
+      });
     }
   }
 
@@ -461,7 +496,6 @@ class NeoBrutalistSystem {
    */
   setupGlobalErrorHandler() {
     window.addEventListener('error', (e) => {
-      console.error('🚨 Error en Neo Brutalist Portfolio:', e.error);
       if (typeof gtag !== 'undefined') {
         gtag('event', 'exception', {
           description: e.error.message,
@@ -621,9 +655,7 @@ function setupUDEMButton() {
       udemButton.style.transform = '';
       udemButton.style.boxShadow = '';
     });
-    console.log('🍟 UDEM button configured for french fries!');
   } else {
-    console.log('🍟 UDEM button not found or does not contain #UDEM text');
   }
 }
 

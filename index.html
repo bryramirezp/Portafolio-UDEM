@@ -2,17 +2,20 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Portafolio de Tareas - Integración de Aplicaciones Computacionales</title>
+    <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="static/assets/favicon.ico">
+    <link rel="apple-touch-icon" href="static/assets/favicon.ico">
     <link rel="stylesheet" href="static/css/style.css">
     <!-- Fuentes definidas en CSS -->
 </head>
 <body>
     
     <!-- Header Neo Brutalist -->
-    <header class="neo-header">
+    <header class="neo-header" role="banner">
         <div class="neo-header__left">
-            <span class="neo-button neo-button--primary udem-easter-egg">#UDEM</span>
+            <span class="neo-button neo-button--primary udem-easter-egg" role="button" tabindex="0" aria-label="Universidad de Medellín">#UDEM</span>
             <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
         </div>
         <div class="neo-header__center">
@@ -24,57 +27,57 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="neo-container" style="padding: 3rem 0;">
+    <main class="neo-container">
         
         <div class="neo-grid neo-grid--2" style="max-width: 900px; margin: 0 auto;">
             
             <!-- Ejercicios Guiados -->
-            <div class="neo-card" onclick="openFolder('ejercicios-guiados')" style="cursor: pointer;">
+            <div class="neo-card" onclick="openFolder('ejercicios-guiados')" role="button" tabindex="0" aria-label="Abrir Ejercicios Guiados" style="cursor: pointer;">
                 <div class="neo-card__title">Ejercicios Guiados</div>
                 <div class="neo-card__content">
-                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-                        <span style="font-size: 2rem;">🐳</span>
-                        <span style="font-size: 2rem;">💬</span>
-                        <span style="font-size: 2rem;">📚</span>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;" aria-hidden="true">
+                        <span class="neo-emoji">🐳</span>
+                        <span class="neo-emoji">💬</span>
+                        <span class="neo-emoji">📚</span>
                     </div>
                     <p>Explora los ejercicios prácticos de Docker, IA y XML/XSLT</p>
                 </div>
             </div>
 
             <!-- Tareas -->
-            <div class="neo-card" onclick="openFolder('tareas')" style="cursor: pointer;">
+            <div class="neo-card" onclick="openFolder('tareas')" role="button" tabindex="0" aria-label="Abrir Tareas" style="cursor: pointer;">
                 <div class="neo-card__title">Tareas</div>
                 <div class="neo-card__content">
-                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-                        <span style="font-size: 2rem;">📊</span>
-                        <span style="font-size: 2rem;">📝</span>
-                        <span style="font-size: 2rem;">🤖</span>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;" aria-hidden="true">
+                        <span class="neo-emoji">📊</span>
+                        <span class="neo-emoji">📝</span>
+                        <span class="neo-emoji">🤖</span>
                     </div>
                     <p>Mapas conceptuales, ensayos y proyectos de Cloud Computing</p>
                 </div>
             </div>
 
             <!-- Parciales -->
-            <div class="neo-card" onclick="openFolder('parciales')" style="cursor: pointer;">
+            <div class="neo-card" onclick="openFolder('parciales')" role="button" tabindex="0" aria-label="Abrir Parciales" style="cursor: pointer;">
                 <div class="neo-card__title">Parciales</div>
                 <div class="neo-card__content">
-                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-                        <span style="font-size: 2rem;">⚖️</span>
-                        <span style="font-size: 2rem;">🏪</span>
-                        <span style="font-size: 2rem;">🔧</span>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;" aria-hidden="true">
+                        <span class="neo-emoji">⚖️</span>
+                        <span class="neo-emoji">🏪</span>
+                        <span class="neo-emoji">🔧</span>
                     </div>
                     <p>Sistemas de microservicios y arquitecturas escalables</p>
                 </div>
             </div>
 
             <!-- Proyecto Final -->
-            <div class="neo-card" onclick="openFolder('proyecto-final')" style="cursor: pointer;">
+            <div class="neo-card" onclick="openFolder('proyecto-final')" role="button" tabindex="0" aria-label="Abrir Proyecto Final" style="cursor: pointer;">
                 <div class="neo-card__title">Proyecto Final</div>
                 <div class="neo-card__content">
-                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;">
-                        <span style="font-size: 2rem;">🏥</span>
-                        <span style="font-size: 2rem;">📈</span>
-                        <span style="font-size: 2rem;">💊</span>
+                    <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1rem;" aria-hidden="true">
+                        <span class="neo-emoji">🏥</span>
+                        <span class="neo-emoji">📈</span>
+                        <span class="neo-emoji">💊</span>
                     </div>
                     <p>PredictHealth - Plataforma de predicción de riesgos de salud</p>
                 </div>
@@ -84,7 +87,7 @@
     </main>
 
     <!-- Footer Neo Brutalist -->
-    <footer class="neo-footer">
+    <footer class="neo-footer" role="contentinfo">
         <div class="neo-footer__center">
             <p class="neo-footer__text">Bryan Ramírez Palacios - 2025</p>
         </div>

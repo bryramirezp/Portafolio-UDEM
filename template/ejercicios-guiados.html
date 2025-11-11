@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Ejercicios Guiados - Portafolio UDEM</title>
     <link rel="stylesheet" href="../static/css/style.css">
 </head>
@@ -11,7 +11,10 @@
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../index.html" class="neo-button neo-button--secondary">← Volver</a>
+            <a href="../index.html" class="back-btn">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
             <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
         </div>
         <div class="neo-header__center">
@@ -32,7 +35,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 1</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">🐳</span>
+                        <span class="neo-emoji--large">🐳</span>
                     </div>
                     <p><strong>Mi Primer Contenedor</strong></p>
                     <p>Clasificador de Servicios Cloud con IA usando Docker y Python</p>
@@ -44,7 +47,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 2</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">💬</span>
+                        <span class="neo-emoji--large">💬</span>
                     </div>
                     <p><strong>Chat con IA Local</strong></p>
                     <p>Ollama y Apache con Docker para conversaciones inteligentes</p>
@@ -56,7 +59,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 3</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">📚</span>
+                        <span class="neo-emoji--large">📚</span>
                     </div>
                     <p><strong>Catálogo de Libros XML</strong></p>
                     <p>Transformaciones XSLT y CSS para presentación de datos</p>
@@ -68,7 +71,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 4</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">🔐</span>
+                        <span class="neo-emoji--large">🔐</span>
                     </div>
                     <p><strong>Autenticación JWT</strong></p>
                     <p>Microservicio Flask con autenticación segura en microservicios</p>
@@ -80,7 +83,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 5</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">🔑</span>
+                        <span class="neo-emoji--large">🔑</span>
                     </div>
                     <p><strong>Autenticación JWT con Redis</strong></p>
                     <p>Microservicio Flask con Redis para almacenamiento de tokens</p>
@@ -92,7 +95,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 6</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">🖥️</span>
+                        <span class="neo-emoji--large">🖥️</span>
                     </div>
                     <p><strong>Cliente GUI Tkinter</strong></p>
                     <p>Cliente gráfico para microservicio JWT con Tkinter</p>
@@ -104,7 +107,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 7</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">☕</span>
+                        <span class="neo-emoji--large">☕</span>
                     </div>
                     <p><strong>Cliente GUI JavaFX</strong></p>
                     <p>Interfaz JavaFX para microservicio JWT</p>
@@ -116,7 +119,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 8</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">📋</span>
+                        <span class="neo-emoji--large">📋</span>
                     </div>
                     <p><strong>Microservicio JWT con Swagger</strong></p>
                     <p>API REST documentada con autenticación JWT y Redis</p>
@@ -128,7 +131,7 @@
                 <div class="neo-card__title">Ejercicio Guiado 9</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">⚡</span>
+                        <span class="neo-emoji--large">⚡</span>
                     </div>
                     <p><strong>Pruebas de Rendimiento con Locust</strong></p>
                     <p>Evaluación de carga, escalabilidad y resistencia con usuarios reales</p>
@@ -139,8 +142,7 @@
     </main>
 
     <!-- Scripts -->
-    <script src="../assets/js/neo-brutalist.js"></script>
-    <script src="../assets/js/app.js"></script>
+    <script src="../static/js/app.js"></script>
 
 </body>
 </html>

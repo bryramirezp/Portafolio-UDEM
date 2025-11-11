@@ -2,19 +2,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Proyecto Final - Portafolio UDEM</title>
     <link rel="stylesheet" href="../static/css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Roboto+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../index.html" class="neo-button neo-button--secondary">← Volver</a>
+            <a href="../index.html" class="back-btn">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
             <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
         </div>
         <div class="neo-header__center">
@@ -35,7 +35,7 @@
                 <div class="neo-card__title">Primer Avance</div>
                 <div class="neo-card__content">
                     <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
-                        <span style="font-size: 3rem;">🏥</span>
+                        <span class="neo-emoji--large">🏥</span>
                     </div>
                     <p><strong>PredictHealth</strong></p>
                     <p>Plataforma de Predicción de Riesgos de Salud con IA y análisis de datos médicos</p>
@@ -46,8 +46,7 @@
     </main>
 
     <!-- Scripts -->
-    <script src="../assets/js/neo-brutalist.js"></script>
-    <script src="../assets/js/app.js"></script>
+    <script src="../static/js/app.js"></script>
 
 </body>
 </html>

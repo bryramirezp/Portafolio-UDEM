@@ -11,35 +11,37 @@
     <!-- Fuentes definidas en CSS -->
 
     <!-- Mermaid.js para diagramas -->
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="../../static/js/mermaid.min.js"></script>
     <!-- D3.js para drag and zoom -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="../../static/js/d3.v7.min.js"></script>
     <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'base',
-            themeVariables: {
-                background: '#ffffff',
-                primaryColor: '#FFD166',
-                primaryTextColor: '#073B4C',
-                primaryBorderColor: '#073B4C',
-                lineColor: '#073B4C',
-                secondaryColor: '#F5F5F5',
-                tertiaryColor: '#FFFFFF'
-            },
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true
-            },
-            stateDiagram: {
-                useMaxWidth: true,
-                htmlLabels: true
-            },
-            sequenceDiagram: {
-                useMaxWidth: true,
-                htmlLabels: true
-            }
-        });
+        if (typeof mermaid !== 'undefined') {
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'base',
+                themeVariables: {
+                    background: '#ffffff',
+                    primaryColor: '#FFD166',
+                    primaryTextColor: '#073B4C',
+                    primaryBorderColor: '#073B4C',
+                    lineColor: '#073B4C',
+                    secondaryColor: '#F5F5F5',
+                    tertiaryColor: '#FFFFFF'
+                },
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true
+                },
+                stateDiagram: {
+                    useMaxWidth: true,
+                    htmlLabels: true
+                },
+                sequenceDiagram: {
+                    useMaxWidth: true,
+                    htmlLabels: true
+                }
+            });
+        }
     </script>
 
     <style>
@@ -556,7 +558,7 @@ python test_jwt.py</code></pre>
     </footer>
 
     <!-- Scripts obligatorios - IMPORTANTE: Este orden -->
-    <script src="../../assets/js/app.js"></script>
+    <script src="../../static/js/app.js"></script>
 
     <!-- Script for Mermaid diagrams -->
     <script>
