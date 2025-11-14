@@ -375,7 +375,16 @@ p {
 
 main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   padding: 2rem 0;
+}
+
+/* Para páginas con poco contenido (como index.html con un solo grid), centrar verticalmente */
+main:has(> .neo-grid:only-child) {
+  align-items: center;
+  justify-content: center;
 }
 
 /* Desktop: aumentar padding del main */
@@ -383,6 +392,16 @@ main {
   main {
     padding: 3rem 0;
   }
+}
+
+/* Variantes de padding para main */
+.neo-container--spaced {
+  padding: 3rem 0;
+}
+
+.neo-container--flex {
+  padding: 3rem 0;
+  flex: 1;
 }
 
 
@@ -565,14 +584,10 @@ h6 {
   border-color: var(--border-color) !important;
 }
 
-/* Estilo especial para el Easter Egg de UDEM */
-.udem-easter-egg {
-  transition: all var(--transition-speed) var(--transition-easing);
-}
-
 [data-theme="dark"] .udem-easter-egg {
   background-color: var(--bg-secondary) !important;
   color: var(--neo-yellow) !important;
+  border-color: var(--border-color) !important;
 }
 
 .neo-button--secondary {
@@ -674,6 +689,31 @@ h6 {
   .neo-card__title {
     margin-bottom: var(--margin-md);
   }
+}
+
+/* Enlaces que son cards */
+a.neo-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+/* Card con max-width específico */
+.neo-card--max-600 {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.neo-card--max-900 {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contenido interno de cards con padding */
+.neo-card__inner {
+  padding: 32px;
 }
 
 .neo-card__content {
@@ -793,6 +833,7 @@ h6 {
   letter-spacing: 1px;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  text-align: center;
 }
 
 @media (min-width: 992px) {
@@ -864,6 +905,7 @@ h6 {
     transform: translate(-50%, -50%);
     padding: 0;
     flex: 0 0 auto;
+    text-align: center;
   }
 
   .neo-header__left {
@@ -896,7 +938,7 @@ h6 {
   .neo-header {
     padding: var(--padding-xs) var(--padding-sm);
     min-height: auto;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--gap-xs);
     align-items: center;
   }
@@ -910,36 +952,32 @@ h6 {
     word-wrap: break-word;
     overflow-wrap: break-word;
     line-height: 1.2;
+    text-align: center;
   }
 
   .neo-header__subtitle {
     display: none;
   }
 
-  /* Primera fila: Título completo centrado arriba */
-  .neo-header__center {
+  /* Todo en una sola fila: Logo izquierda, Título centro, Icono derecha */
+  .neo-header__left {
     order: 1;
-    flex: 1 1 100%;
-    min-width: 100%;
-    padding: var(--padding-xs) 0;
-    text-align: center;
-    width: 100%;
+    flex: 0 0 auto;
+    min-width: 0;
   }
 
-  /* Segunda fila: Logo UDEM a la izquierda, Toggle a la derecha */
-  .neo-header__left {
+  .neo-header__center {
     order: 2;
-    flex: 0 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0 var(--padding-xs);
+    text-align: center;
   }
 
   .neo-header__right {
-    order: 2;
+    order: 3;
     flex: 0 0 auto;
-    margin-left: auto;
+    min-width: 0;
   }
 
   .neo-header__theme-toggle {
@@ -1078,6 +1116,35 @@ h6 {
   overflow-x: hidden;
 }
 
+/* Centrar contenido cuando hay cards directamente dentro del contenedor (sin grid) */
+.neo-container > .neo-card {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* En desktop, todas las cards tienen el mismo ancho máximo para márgenes iguales */
+@media (min-width: 992px) {
+  /* Si el contenedor tiene cards directamente (no dentro de un grid), aumentar ancho */
+  .neo-container:not(:has(> .neo-grid)) {
+    max-width: 1400px;
+  }
+  
+  /* Todas las cards tienen el mismo max-width en desktop para márgenes iguales */
+  .neo-container > .neo-card,
+  .neo-card--max-600,
+  .neo-card--max-900 {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Para páginas de contenido con múltiples cards */
+.neo-container > .neo-card:not(:first-child) {
+  margin-top: var(--margin-lg);
+}
+
 .neo-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1141,6 +1208,12 @@ h6 {
     gap: var(--gap-xl);
   }
 
+  .neo-grid--2 {
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .neo-grid--3 {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1155,6 +1228,19 @@ h6 {
   .neo-grid--4 {
     grid-template-columns: repeat(4, 1fr);
   }
+}
+
+/* Grids con max-width específico */
+.neo-grid--max-1200 {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.neo-grid--max-800 {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* ========================================
@@ -1192,6 +1278,56 @@ h6 {
   }
 }
 
+/* Contenedor de emojis centrado */
+.neo-emoji-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* ========================================
+   LISTAS NEO BRUTALIST
+   ======================================== */
+.neo-list-unstyled {
+  list-style: none;
+  padding: 0;
+}
+
+.neo-list-unstyled ol {
+  padding-left: 0;
+}
+
+.neo-list-item {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.neo-list-item--small {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+/* ========================================
+   GRID DE DOS COLUMNAS
+   ======================================== */
+.neo-grid-2cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .neo-grid-2cols {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ========================================
    UTILIDADES NEO BRUTALIST
    ======================================== */
@@ -1205,6 +1341,22 @@ h6 {
 
 .neo-text-right {
   text-align: right;
+}
+
+.neo-text-center-italic {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.neo-center-spaced {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.neo-center-top {
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .neo-mb-1 {
@@ -1722,6 +1874,204 @@ pre code {
   font-weight: normal;
 }
 
+/* Variantes de pre/code para diferentes contextos */
+.neo-code-block {
+  background: var(--bg-secondary);
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  overflow-x: auto;
+  font-family: 'Inter', 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+}
+
+.neo-code-inline {
+  background: var(--bg-primary);
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  border-radius: var(--border-radius);
+  font-size: 0.8rem;
+  font-family: 'Inter', 'Courier New', Courier, monospace;
+}
+
+.neo-code-inline:last-child {
+  margin-top: 0;
+}
+
+/* Títulos de contenido */
+.neo-content-title {
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.neo-content-title--spaced {
+  color: var(--text-primary);
+  margin: 2rem 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.neo-content-title--small {
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+/* Divs con estilo de card */
+.neo-card-box {
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.neo-card-box--large {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+/* Grid con auto-fit */
+.neo-grid-auto-fit {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.neo-grid-auto-fit--large {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Párrafos con margin específico */
+.neo-text-margin-small {
+  margin: 0.25rem 0;
+}
+
+.neo-text-margin-top {
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.neo-text-margin-bottom {
+  margin-bottom: 1rem;
+}
+
+.neo-text-italic-secondary {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+/* Títulos H1 centrados grandes */
+.neo-title-large {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+/* Divs con margin específico */
+.neo-mb-3rem {
+  margin-bottom: 3rem;
+}
+
+.neo-mt-2rem {
+  margin-top: 2rem;
+}
+
+.neo-mb-2rem {
+  margin-bottom: 2rem;
+}
+
+/* Imágenes con max-width específico */
+.neo-image-max-600 {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+}
+
+.neo-image-max-800 {
+  max-width: 800px;
+  width: 100%;
+  height: auto;
+}
+
+/* Divs con background y border */
+.neo-info-box {
+  background-color: #f5f5f5;
+  border: 2px solid #073B4C;
+  padding: 16px;
+  border-radius: 4px;
+  margin: 16px 0;
+}
+
+/* Párrafos con estilos específicos */
+.neo-text-small-gray {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Divider con borde amarillo */
+.neo-divider-yellow {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--neo-yellow);
+}
+
+/* SVG con position absolute */
+.neo-svg-absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Footer sticky */
+.neo-footer-sticky {
+  margin-top: auto;
+  position: sticky;
+  bottom: 0;
+}
+
+/* Alertas/Advertencias */
+.neo-alert-warning {
+  padding: 1.5rem;
+  background: #f8d7da;
+  border: 3px solid #721c24;
+  border-radius: var(--border-radius);
+}
+
+.neo-alert-warning p {
+  color: #721c24;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.neo-alert-warning ul {
+  margin-bottom: 1rem;
+  color: #721c24;
+}
+
+.neo-alert-warning p:last-child {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Imágenes centradas con caption */
+.neo-image-container {
+  text-align: center;
+}
+
+.neo-image-caption {
+  margin-top: 1rem;
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
 .image-caption {
   text-align: center;
   font-style: italic;
@@ -1741,6 +2091,12 @@ pre code {
   border: var(--border-width) solid var(--border-color);
   box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
   transition: all var(--transition-speed) var(--transition-easing);
+}
+
+/* Imagen sin estilos adicionales inline - usar solo la clase */
+.article-image--clean {
+  max-width: 100%;
+  height: auto;
 }
 
 .article-image:hover {
@@ -1775,15 +2131,36 @@ pre code {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 32px;
+  padding: 2rem;
+}
+
+.connector-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.line {
+  position: absolute;
+  background-color: #9ca3af;
+  z-index: -1;
+}
+
+.central-node {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .mapa-card {
   background-color: var(--bg-secondary);
-  border-radius: var(--border-radius);
-  padding: 20px;
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
   border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border-radius: var(--border-radius);
+  padding: 24px;
   transition: all var(--transition-speed) var(--transition-easing);
   z-index: 10;
   position: relative;
@@ -1817,7 +2194,7 @@ pre code {
 .modelos-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  gap: 1.5rem;
   position: relative;
 }
 
@@ -1844,6 +2221,25 @@ pre code {
 
 .modelo-faas .modelo-title {
   color: #f97316;
+}
+
+.modelo-section {
+  margin-bottom: 1.5rem;
+}
+
+.modelo-section h4 {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  font-family: 'Archivo Black', sans-serif;
+  letter-spacing: 1px;
+}
+
+.modelo-section p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  font-family: 'Inter', 'Courier New', Courier, monospace;
 }
 
 .control-bar {
@@ -1882,6 +2278,29 @@ pre code {
   width: 25%;
 }
 
+.control-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-align: right;
+  margin-top: 0.25rem;
+}
+
+.control-label--iaas {
+  color: #ef4444;
+}
+
+.control-label--paas {
+  color: #eab308;
+}
+
+.control-label--saas {
+  color: #22c55e;
+}
+
+.control-label--faas {
+  color: #3b82f6;
+}
+
 .ejemplos-list {
   list-style: none;
   padding: 0;
@@ -1908,10 +2327,10 @@ pre code {
    RESPONSIVE DESIGN (OVERRIDES)
    ======================================== */
 
-@media (max-width: 1199px) {
+@media (max-width: 1200px) {
   .modelos-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--gap-lg);
+    gap: 1.5rem;
   }
 }
 
@@ -1934,7 +2353,7 @@ pre code {
 
   .modelos-grid {
     grid-template-columns: 1fr;
-    gap: var(--gap-lg);
+    gap: 1.5rem;
   }
 
   .mapa-container {
@@ -1978,7 +2397,11 @@ pre code {
   }
 
   .mapa-container {
-    padding: var(--padding-sm);
+    padding: 1rem;
+  }
+  
+  .central-title {
+    font-size: 2rem;
   }
 
   .article-content {

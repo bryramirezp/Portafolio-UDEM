@@ -218,7 +218,10 @@
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver</a>
+            <a href="../ejercicios-guiados.html" class="back-btn neo-button neo-button--secondary">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
         </div>
         <div class="neo-header__center">
             <h1 class="neo-header__title">Ejercicio Guiado 8</h1>
@@ -230,7 +233,7 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="neo-container" style="padding: 3rem 0;">
+    <main class="neo-container neo-container--spaced">
 
         <!-- 1. Objetivo del Proyecto -->
         <div class="neo-card neo-mb-4">
@@ -255,7 +258,7 @@
         <div class="neo-card neo-mb-4">
             <div class="neo-card__title">2. Tecnologías Utilizadas</div>
             <div class="neo-card__content">
-                <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="neo-text-center neo-mb-2rem">
                     <span class="badge">Python</span>
                     <span class="badge">Flask</span>
                     <span class="badge">Swagger</span>
@@ -282,7 +285,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="neo-grid neo-grid--2" style="margin-top: 2rem;">
+                <div class="neo-grid neo-grid--2 neo-mt-2rem">
                     <div>
                         <h3>Contenedorización</h3>
                         <ul>
@@ -423,8 +426,8 @@ JWT_REFRESH_TOKEN_EXPIRE_DAYS=7</code></pre>
 
                 <h3>Interfaz Swagger UI</h3>
                 <div class="image-container">
-                    <img src="swagger.png" alt="Interfaz de Swagger UI mostrando la documentación interactiva" style="max-width: 800px;">
-                    <p style="margin-top: 10px; font-size: 14px; color: #666;">Interfaz interactiva de Swagger UI para probar y documentar la API</p>
+                    <img src="swagger.png" alt="Interfaz de Swagger UI mostrando la documentación interactiva" class="neo-image-max-800">
+                    <p class="neo-text-small-gray">Interfaz interactiva de Swagger UI para probar y documentar la API</p>
                 </div>
 
                 <h3>Beneficios de Swagger</h3>
@@ -456,7 +459,7 @@ JWT_REFRESH_TOKEN_EXPIRE_DAYS=7</code></pre>
                     </div>
                 </div>
 
-                <div class="neo-grid neo-grid--2" style="margin-top: 2rem;">
+                <div class="neo-grid neo-grid--2 neo-mt-2rem">
                     <div>
                         <h4>3. Autorización</h4>
                         <p>Usar token en header Authorization:</p>
@@ -582,7 +585,7 @@ JWT_REFRESH_TOKEN_EXPIRE_DAYS=7</code></pre>
             <div class="neo-card__content">
                 <p>El microservicio JWT con Swagger está listo para usar! 🚀</p>
                 <p>Esta implementación demuestra cómo construir APIs REST modernas, seguras y bien documentadas utilizando las mejores prácticas de la industria. La combinación de Flask, JWT, Redis, MariaDB y Swagger/OpenAPI crea una base sólida para sistemas de autenticación escalables.</p>
-                <div style="text-align: center; margin-top: 2rem;">
+                <div class="neo-center-top">
                     <a href="https://github.com/bryramirezp/Portafolio-UDEM/tree/main/proyectos/microservicio-auth-swagger-jwt" class="neo-button neo-button--primary" target="_blank">
                         Ver Código en GitHub
                     </a>

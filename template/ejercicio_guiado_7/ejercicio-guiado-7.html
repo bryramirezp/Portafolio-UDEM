@@ -218,7 +218,10 @@
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver</a>
+            <a href="../ejercicios-guiados.html" class="back-btn neo-button neo-button--secondary">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
         </div>
         <div class="neo-header__center">
             <h1 class="neo-header__title">Ejercicio Guiado 7</h1>
@@ -230,7 +233,7 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="neo-container" style="padding: 3rem 0;">
+    <main class="neo-container neo-container--spaced">
 
         <!-- 1. Objetivo del Proyecto -->
         <div class="neo-card neo-mb-4">
@@ -255,7 +258,7 @@
         <div class="neo-card neo-mb-4">
             <div class="neo-card__title">2. Tecnologías Utilizadas</div>
             <div class="neo-card__content">
-                <div style="text-align: center; margin-bottom: 2rem;">
+                <div class="neo-text-center neo-mb-2rem">
                     <span class="badge">Java</span>
                     <span class="badge">JavaFX</span>
                     <span class="badge">Maven</span>
@@ -386,7 +389,7 @@ cd Cliente-Java-GUI-Microservicio-JWT</code></pre>
 }</code></pre>
 
                 <h3>Nota Importante sobre Tokens</h3>
-                <div style="background-color: #f5f5f5; border: 2px solid #073B4C; padding: 16px; border-radius: 4px; margin: 16px 0;">
+                <div class="neo-info-box">
                     <p><strong>🔒 Los tokens JWT se gestionan únicamente en Redis</strong></p>
                     <p>La aplicación JavaFX no almacena tokens localmente. Todos los tokens se mantienen en el servidor Redis del microservicio, proporcionando mayor seguridad y consistencia.</p>
                 </div>
@@ -564,7 +567,7 @@ cd Cliente-Java-GUI-Microservicio-JWT</code></pre>
 
                 <h3>Vista Previa de la Aplicación</h3>
                 <div class="image-container">
-                    <img src="java-gui.png" alt="Vista previa de la aplicación JavaFX" style="max-width: 600px;">
+                    <img src="java-gui.png" alt="Vista previa de la aplicación JavaFX" class="neo-image-max-600">
                 </div>
 
                 <h3>Demostración en Video del Cliente JavaFX</h3>
@@ -573,7 +576,7 @@ cd Cliente-Java-GUI-Microservicio-JWT</code></pre>
                         <iframe src="https://www.youtube.com/embed/X1I4jXR0V60" title="Demostración en video del Cliente JavaFX" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: 2rem;">
+                <div class="neo-center-top">
                     <a href="https://github.com/bryramirezp/Portafolio-UDEM/tree/main/proyectos/Cliente-Java-GUI-Microservicio-JWT" class="neo-button neo-button--primary" target="_blank">
                         Ver Código en GitHub
                     </a>

@@ -5,192 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarea 1: Mapa Conceptual - Modelos de Cloud Computing</title>
     <link rel="stylesheet" href="../../static/css/style.css">
-    <!-- Fuentes definidas en CSS -->
-    <style>
-        /* Estilos específicos para el mapa conceptual */
-        .mapa-container {
-            position: relative;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .connector-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            overflow: hidden;
-        }
-        
-        .line {
-            position: absolute;
-            background-color: #9ca3af;
-            z-index: -1;
-        }
-        
-        .mapa-card {
-            background-color: var(--bg-secondary);
-            border: var(--border-width) solid var(--border-color);
-            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-            border-radius: var(--border-radius);
-            padding: 24px;
-            transition: all var(--transition-speed) var(--transition-easing);
-            z-index: 10;
-            position: relative;
-            min-height: 400px;
-        }
-        
-        .mapa-card:hover {
-            box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
-            transform: translate(2px, 2px);
-        }
-        
-        .central-node {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-        
-        .central-card {
-            background-color: var(--bg-secondary);
-            border: var(--border-width) solid var(--neo-yellow);
-            box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
-            border-radius: var(--border-radius);
-            padding: 32px 48px;
-            display: inline-block;
-        }
-        
-        .central-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--neo-yellow);
-            margin: 0;
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 2px;
-        }
-        
-        .modelos-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            position: relative;
-        }
-        
-        .modelo-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 2px;
-        }
-        
-        .modelo-iaas .modelo-title { color: #0ea5e9; }
-        .modelo-paas .modelo-title { color: #10b981; }
-        .modelo-saas .modelo-title { color: #8b5cf6; }
-        .modelo-faas .modelo-title { color: #f97316; }
-        
-        .modelo-section {
-            margin-bottom: 1.5rem;
-        }
-        
-        .modelo-section h4 {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 1px;
-        }
-        
-        .modelo-section p {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.4;
-            font-family: 'Roboto Mono', monospace;
-        }
-        
-        .control-bar {
-            width: 100%;
-            background-color: var(--bg-primary);
-            border-radius: 10px;
-            height: 8px;
-            margin: 0.5rem 0;
-            overflow: hidden;
-            border: 2px solid var(--border-color);
-        }
-        
-        .control-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 0.3s ease;
-        }
-        
-        .control-iaas { background-color: #ef4444; width: 90%; }
-        .control-paas { background-color: #eab308; width: 50%; }
-        .control-saas { background-color: #22c55e; width: 15%; }
-        .control-faas { background-color: #3b82f6; width: 25%; }
-        
-        .control-label {
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-align: right;
-            margin-top: 0.25rem;
-        }
-        
-        .ejemplos-list {
-            list-style: none;
-            padding: 0;
-            margin: 0.5rem 0 0 0;
-        }
-        
-        .ejemplos-list li {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            padding: 0.25rem 0;
-            position: relative;
-            padding-left: 1rem;
-            font-family: 'Roboto Mono', monospace;
-        }
-        
-        .ejemplos-list li::before {
-            content: "•";
-            color: var(--neo-yellow);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
-        }
-        
-        @media (max-width: 1200px) {
-            .modelos-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .central-title {
-                font-size: 2rem;
-            }
-            
-            .modelos-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-            
-            .mapa-container {
-                padding: 1rem;
-            }
-        }
-    </style>
 </head>
 <body>
     
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../tareas.html" class="neo-button neo-button--secondary">← Volver a Tareas</a>
+            <a href="../tareas.html" class="back-btn neo-button neo-button--secondary">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
             <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
         </div>
         <div class="neo-header__center">
@@ -203,11 +27,11 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="neo-container" style="padding: 3rem 0;">
+    <main class="neo-container neo-container--spaced">
         <div class="mapa-container">
             <!-- Contenedor del SVG para las líneas -->
             <div class="connector-container">
-                <svg id="connector-svg" width="100%" height="100%" style="position: absolute; top: 0; left: 0; z-index: 1;"></svg>
+                <svg id="connector-svg" width="100%" height="100%" class="neo-svg-absolute"></svg>
             </div>
 
             <!-- Nodo Central -->
@@ -232,7 +56,7 @@
                         <div class="control-bar">
                             <div class="control-fill control-iaas"></div>
                         </div>
-                        <p class="control-label" style="color: #ef4444;">Alto</p>
+                        <p class="control-label control-label--iaas">Alto</p>
                     </div>
                     <div class="modelo-section">
                         <h4>Ejemplos</h4>
@@ -256,7 +80,7 @@
                         <div class="control-bar">
                             <div class="control-fill control-paas"></div>
                         </div>
-                        <p class="control-label" style="color: #eab308;">Medio</p>
+                        <p class="control-label control-label--paas">Medio</p>
                     </div>
                     <div class="modelo-section">
                         <h4>Ejemplos</h4>
@@ -280,7 +104,7 @@
                         <div class="control-bar">
                             <div class="control-fill control-saas"></div>
                         </div>
-                        <p class="control-label" style="color: #22c55e;">Bajo</p>
+                        <p class="control-label control-label--saas">Bajo</p>
                     </div>
                     <div class="modelo-section">
                         <h4>Ejemplos</h4>
@@ -304,7 +128,7 @@
                         <div class="control-bar">
                             <div class="control-fill control-faas"></div>
                         </div>
-                        <p class="control-label" style="color: #3b82f6;">Bajo (enfocado en código)</p>
+                        <p class="control-label control-label--faas">Bajo (enfocado en código)</p>
                     </div>
                     <div class="modelo-section">
                         <h4>Ejemplos</h4>

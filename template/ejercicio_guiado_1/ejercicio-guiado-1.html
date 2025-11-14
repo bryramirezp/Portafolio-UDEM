@@ -11,7 +11,10 @@
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../ejercicios-guiados.html" class="neo-button neo-button--secondary">← Volver a Ejercicios</a>
+            <a href="../ejercicios-guiados.html" class="back-btn neo-button neo-button--secondary">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
             <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
         </div>
         <div class="neo-header__center">
@@ -24,7 +27,7 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="neo-container" style="padding: 3rem 0;">
+    <main class="neo-container neo-container--spaced">
         
         <!-- Objetivo del Proyecto -->
         <div class="neo-card neo-mb-4">
@@ -184,7 +187,7 @@
             <div class="neo-card__content">
                 <p>El proyecto demuestra la efectividad de combinar herramientas CLI tradicionales con inteligencia artificial para resolver problemas de clasificación complejos. La arquitectura modular permite fácil extensión y mantenimiento.</p>
                 
-                <div style="text-align: center; margin-top: 2rem;">
+                <div class="neo-center-top">
                     <a href="https://github.com/usuario/cloud-classifier" class="neo-button neo-button--primary" target="_blank">
                         Ver Código en GitHub
                     </a>

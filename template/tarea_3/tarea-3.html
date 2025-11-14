@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="../../static/css/style.css">
     <!-- Fuentes definidas en CSS -->
 </head>
-<body style="min-height: 100vh; display: flex; flex-direction: column;">
+<body>
     
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../tareas.html" class="neo-button neo-button--secondary">← Volver a Tareas</a>
+            <a href="../tareas.html" class="back-btn neo-button neo-button--secondary">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
             <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
         </div>
         <div class="neo-header__center">
@@ -25,7 +28,7 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="neo-container" style="padding: 3rem 0; flex: 1;">
+    <main class="neo-container neo-container--flex">
         
         <!-- Reflexión Inicial -->
         <div class="neo-card neo-mb-4">
@@ -49,11 +52,11 @@
         <div class="neo-card neo-mb-4">
             <div class="neo-card__title">Diagrama de Arquitectura Híbrida</div>
             <div class="neo-card__content">
-                <p style="text-align: center; margin-bottom: 2rem; font-style: italic;">Diagrama de la arquitectura híbrida para la aplicación de banca móvil</p>
+                <p class="neo-text-center-italic">Diagrama de la arquitectura híbrida para la aplicación de banca móvil</p>
                 
                 <!-- Imagen del diagrama -->
-                <div style="text-align: center; margin: 2rem 0;">
-                    <img src="Diagrama_tarea3.png" alt="Diagrama de Arquitectura Híbrida" class="article-image" style="max-width: 100%; height: auto; border-radius: var(--border-radius); border: var(--border-width) solid var(--border-color); box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);">
+                <div class="neo-center-spaced">
+                    <img src="Diagrama_tarea3.png" alt="Diagrama de Arquitectura Híbrida" class="article-image">
                 </div>
             </div>
         </div>
@@ -123,7 +126,7 @@
         <div class="neo-card neo-mb-4">
             <div class="neo-card__title">Archivos del Proyecto</div>
             <div class="neo-card__content">
-                <a href="./" class="neo-card" style="max-width: 600px; margin: 0 auto; text-decoration: none; color: inherit; display: block;">
+                <a href="./" class="neo-card neo-card--max-600">
                     <div class="neo-card__title">💻 Código del Proyecto</div>
                     <div class="neo-card__content">
                         <p><strong>Acceder al directorio con el código AWS CDK y Lambda functions</strong></p>

@@ -11,7 +11,10 @@
     <!-- Header Neo Brutalist -->
     <header class="neo-header">
         <div class="neo-header__left">
-            <a href="../parciales.html" class="neo-button neo-button--secondary">← Volver a Parciales</a>
+            <a href="../parciales.html" class="back-btn neo-button neo-button--secondary">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
             <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
         </div>
         <div class="neo-header__center">
@@ -24,7 +27,7 @@
     </header>
 
     <!-- Contenido principal -->
-    <main class="neo-container" style="padding: 3rem 0;">
+    <main class="neo-container neo-container--spaced">
         
         <!-- Descripción del Proyecto -->
         <div class="neo-card neo-mb-4">
@@ -224,7 +227,7 @@ def generate_invoice():
             <div class="neo-card__content">
                 <p>Este proyecto demuestra la efectividad de la arquitectura de microservicios para aplicaciones empresariales complejas. La separación de responsabilidades, la escalabilidad independiente y la facilidad de mantenimiento hacen de esta arquitectura una excelente opción para sistemas de comercio electrónico.</p>
                 
-                <div style="text-align: center; margin-top: 2rem;">
+                <div class="neo-center-top">
                     <div class="neo-grid neo-grid--2">
                         <div class="neo-card">
                             <div class="neo-card__title">Repositorio</div>
