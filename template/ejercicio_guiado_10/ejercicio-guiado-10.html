@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Guiado 10: S3 File Manager Lab - Portafolio UDEM</title>
+    <link rel="stylesheet" href="../../static/css/style.css">
+</head>
+<body>
+    
+    <!-- Header Neo Brutalist -->
+    <header class="neo-header">
+        <div class="neo-header__left">
+            <a href="../ejercicios-guiados.html" class="back-btn neo-button neo-button--secondary">
+                <span class="back-btn__icon">←</span>
+                <span class="back-btn__text">Volver</span>
+            </a>
+            <!-- El toggle de modo oscuro se agregará automáticamente por JavaScript -->
+        </div>
+        <div class="neo-header__center">
+            <h1 class="neo-header__title">Ejercicio Guiado 10</h1>
+            <p class="neo-header__subtitle">S3 File Manager Lab</p>
+        </div>
+        <div class="neo-header__right">
+            <!-- Espacio para elementos adicionales -->
+        </div>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="neo-container neo-container--spaced">
+        
+        <!-- Introducción -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Introducción</div>
+            <div class="neo-card__content">
+                <p>Este laboratorio muestra cómo crear una aplicación web sencilla con <strong>Flask</strong> que permite a un usuario autenticado subir y visualizar su foto de perfil usando <strong>Amazon S3</strong>. Se emplea <strong>JWT</strong> para la autenticación y se persiste la referencia del archivo en un archivo JSON (<code>user_profiles.json</code>). El objetivo es comprender la generación de URLs firmadas (presigned URLs), la gestión de CORS y la interacción cliente‑servidor mediante <strong>fetch API</strong>.</p>
+                
+                <div class="neo-text-center neo-mb-2rem">
+                    <span class="badge">Flask 2.2.5</span>
+                    <span class="badge">Python 3.11+</span>
+                    <span class="badge">AWS S3 1.28.0</span>
+                    <span class="badge">JWT Auth</span>
+                </div>
+
+                <div class="image-container">
+                    <img src="../../proyectos/bucket-tarea/fotos/User_Profile.png" alt="User Profile" class="article-image">
+                </div>
+            </div>
+        </div>
+
+        <!-- Desarrollo del ejercicio -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Desarrollo del ejercicio</div>
+            <div class="neo-card__content">
+                
+                <!-- 1. Configuración del entorno -->
+                <h3>1. Configuración del entorno</h3>
+                <ul>
+                    <li><code>python -m venv venv && .\venv\Scripts\activate</code></li>
+                    <li><code>pip install -r requirements.txt</code></li>
+                    <li>Variables de entorno en <code>.env</code> (<code>AWS_ACCESS_KEY_ID</code>, <code>AWS_SECRET_ACCESS_KEY</code>, <code>BUCKET_NAME</code>, <code>SECRET_KEY</code>).</li>
+                </ul>
+
+                <!-- 2. Backend -->
+                <h3>2. Backend (app.py)</h3>
+                <ul>
+                    <li>Ruta <code>/login</code> genera un <strong>JWT</strong> y lo devuelve al cliente.</li>
+                    <li>Ruta <code>/api/upload-url</code> crea una URL presigned <strong>PUT</strong> para subir la foto a <code>user-profile-images/&lt;user&gt;/&lt;filename&gt;</code>.</li>
+                    <li>Ruta <code>/api/read-url</code> genera una URL presigned <strong>GET</strong> para leer la foto.</li>
+                    <li>Ruta <code>/api/save-profile</code> guarda la clave del archivo en <code>user_profiles.json</code>.</li>
+                    <li>Ruta <code>/api/me</code> devuelve el <code>fileKey</code> asociado al usuario.</li>
+                    <li>Al iniciar la aplicación se aplica la política <strong>CORS</strong> al bucket.</li>
+                </ul>
+
+                <!-- 3. Frontend -->
+                <h3>3. Frontend (static/script.js)</h3>
+                <ul>
+                    <li>Al cargar la página se verifica el token en <code>localStorage</code>.</li>
+                    <li>Se llama a <code>/api/me</code> para obtener la <code>fileKey</code> y, si existe, se solicita la URL de lectura y se muestra la foto.</li>
+                    <li>El proceso de subida incluye:
+                        <ol>
+                            <li>Obtener la URL presigned.</li>
+                            <li>Subir el archivo a S3.</li>
+                            <li>Obtener la URL de lectura.</li>
+                            <li>Guardar la clave en el backend.</li>
+                            <li>Actualizar la UI.</li>
+                        </ol>
+                    </li>
+                    <li>El token se almacena en <strong>LocalStorage</strong>:</li>
+                </ul>
+
+                <div class="image-container">
+                    <img src="../../proyectos/bucket-tarea/fotos/JWT_LocalStorage.png" alt="JWT in LocalStorage" class="article-image">
+                </div>
+
+                <!-- 4. Persistencia -->
+                <h3>4. Persistencia</h3>
+                <ul>
+                    <li><code>user_profiles.json</code> mantiene la relación <code>username → fileKey</code>.</li>
+                    <li>Al recargar la página la foto se recupera automáticamente.</li>
+                </ul>
+
+                <div class="image-container">
+                    <img src="../../proyectos/bucket-tarea/fotos/User_profile_update.png" alt="User profile updated" class="article-image">
+                </div>
+
+                <!-- 5. Resultado en S3 -->
+                <h3>5. Resultado en S3</h3>
+                <ul>
+                    <li>La foto se almacena en el bucket bajo la ruta <code>user-profile-images/...</code> y se puede verificar en la consola de AWS.</li>
+                </ul>
+
+                <div class="image-container">
+                    <img src="../../proyectos/bucket-tarea/fotos/S3_update.png" alt="S3 update" class="article-image">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="neo-card neo-mb-4">
+            <div class="neo-card__title">Conclusión</div>
+            <div class="neo-card__content">
+                <ul>
+                    <li><strong>Presigned URLs</strong> permiten que el cliente suba y descargue archivos directamente a S3 sin exponer credenciales.</li>
+                    <li><strong>JWT + LocalStorage</strong> brinda una autenticación sin estado que el frontend puede reutilizar en cada petición.</li>
+                    <li>Persistir la referencia del archivo en un JSON sencillo es suficiente para un laboratorio, pero en producción se usaría una base de datos.</li>
+                    <li>Configurar <strong>CORS</strong> en el bucket es esencial para evitar bloqueos del navegador.</li>
+                    <li>La arquitectura separa claramente la lógica de negocio (Flask) de la UI (HTML/JS), facilitando pruebas y mantenimiento.</li>
+                </ul>
+                
+                <p class="neo-text-italic-secondary"><em>Este proyecto es una base para ampliar funcionalidades como manejo de múltiples usuarios, versiones de imágenes o integración con bases de datos reales.</em></p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="../../static/js/app.js"></script>
+
+    <style>
+        /* Badge styling */
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            background-color: #FFD166;
+            color: #073B4C;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+            font-family: 'Inter', 'Courier New', Courier, monospace;
+        }
+
+        /* Image container styling */
+        .image-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #073B4C;
+            border-radius: 4px;
+            box-shadow: 8px 8px 0 #073B4C;
+        }
+    </style>
+
+</body>
+</html>
+

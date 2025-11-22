@@ -135,27 +135,27 @@
 
 /* Modo Oscuro */
 [data-theme="dark"] {
-  --bg-primary: #0F0F0F;
-  --bg-secondary: #1A1A1A;
-  --text-primary: #FFFFFF;
-  --text-secondary: #CCCCCC;
-  --border-color: #333333;
-  --shadow-color: #FFD166;
+  --bg-primary: #2A2A2A;
+  --bg-secondary: #3A3A3A;
+  --text-primary: #E0E0E0;
+  --text-secondary: #C0C0C0;
+  --border-color: #555555;
+  --shadow-color: #1A1A1A;
 }
 
 /* Optimizar contraste en móvil para dark mode */
 @media (max-width: 767px) {
   [data-theme="dark"] {
-    --bg-primary: #000000;
-    --bg-secondary: #1A1A1A;
-    --text-primary: #FFFFFF;
-    --text-secondary: #E0E0E0;
-    --border-color: #444444;
+    --bg-primary: #2A2A2A;
+    --bg-secondary: #3A3A3A;
+    --text-primary: #E0E0E0;
+    --text-secondary: #C0C0C0;
+    --border-color: #555555;
   }
 
   /* Mejorar legibilidad en pantallas OLED */
   [data-theme="dark"] body {
-    background-color: #000000;
+    background-color: #2A2A2A;
   }
 }
 
@@ -256,24 +256,24 @@
 
 /* Estilos específicos para modo oscuro */
 [data-theme="dark"] code {
-  background-color: #2A2A2A;
-  color: #FFD166;
+  background-color: #3A3A3A;
+  color: #E0E0E0;
   font-family: 'Inter', 'Courier New', Courier, monospace;
   padding: 2px 6px;
   border-radius: var(--border-radius);
   font-weight: 400;
-  border: 1px solid #444444;
+  border: 1px solid #555555;
 }
 
 [data-theme="dark"] pre {
-  background-color: #1A1A1A;
-  border: 2px solid #333333;
-  color: #CCCCCC;
+  background-color: #3A3A3A;
+  border: 2px solid #555555;
+  color: #E0E0E0;
 }
 
 [data-theme="dark"] pre code {
   background-color: transparent;
-  color: #FFD166;
+  color: #E0E0E0;
   border: none;
 }
 
@@ -305,6 +305,14 @@
 html {
   overflow-x: hidden;
   width: 100%;
+  /* Ocultar scrollbar pero mantener funcionalidad de scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+}
+
+/* Ocultar scrollbar en Chrome, Safari y Opera */
+html::-webkit-scrollbar {
+  display: none;
 }
 
 img,
@@ -334,6 +342,16 @@ body {
   /* Mejorar scroll en móvil */
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  /* Asegurar que el body crezca con el contenido */
+  height: auto;
+  /* Ocultar scrollbar pero mantener funcionalidad de scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+}
+
+/* Ocultar scrollbar en Chrome, Safari y Opera */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Optimizar scroll en móvil */
@@ -374,11 +392,20 @@ p {
 }
 
 main {
-  flex: 1;
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   padding: 2rem 0;
+  min-height: 0;
+  /* Ocultar scrollbar pero mantener funcionalidad de scroll */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+}
+
+/* Ocultar scrollbar en Chrome, Safari y Opera */
+main::-webkit-scrollbar {
+  display: none;
 }
 
 /* Para páginas con poco contenido (como index.html con un solo grid), centrar verticalmente */
@@ -396,12 +423,95 @@ main:has(> .neo-grid:only-child) {
 
 /* Variantes de padding para main */
 .neo-container--spaced {
-  padding: 3rem 0;
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem;
+}
+
+/* Eliminar margin-bottom del último elemento para evitar espacios extra */
+.neo-container--spaced > *:last-child {
+  margin-bottom: 0;
+}
+
+/* Aumentar espacio superior cuando hay cards directamente */
+.neo-container--spaced:has(> .neo-card.neo-mb-4) {
+  padding-top: 3rem;
+}
+
+@media (min-width: 768px) {
+  .neo-container--spaced {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+  
+  .neo-container--spaced:has(> .neo-card.neo-mb-4) {
+    padding-top: 3.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .neo-container--spaced {
+    padding-top: 3.5rem;
+    padding-bottom: 2rem;
+  }
+  
+  .neo-container--spaced:has(> .neo-card.neo-mb-4) {
+    padding-top: 4rem;
+  }
 }
 
 .neo-container--flex {
   padding: 3rem 0;
   flex: 1;
+}
+
+/* Espacio adicional para el primer card dentro del contenedor */
+.neo-container > .neo-card.neo-mb-4:first-child {
+  margin-top: 0;
+}
+
+/* Cards hermanos con la misma altura */
+.neo-container > .neo-card.neo-mb-4 {
+  display: flex;
+  flex-direction: column;
+}
+
+.neo-container > .neo-card.neo-mb-4 > .neo-card__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop: usar grid para igualar altura de cards hermanos */
+@media (min-width: 768px) {
+  /* Cuando el contenedor tiene cards directamente (sin grid intermedio), usar grid implícito */
+  .neo-container:has(> .neo-card.neo-mb-4) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--margin-lg);
+    align-items: stretch;
+  }
+  
+  .neo-container:has(> .neo-card.neo-mb-4) > .neo-card.neo-mb-4 {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .neo-container:has(> .neo-card.neo-mb-4) > .neo-card.neo-mb-4 > .neo-card__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Asegurar que el contenido interno de los cards (grids) se extienda */
+  .neo-container > .neo-card.neo-mb-4 > .neo-card__content > .neo-grid {
+    flex: 1;
+  }
+  
+  .neo-container > .neo-card.neo-mb-4 > .neo-card__content > .neo-grid > div {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 
@@ -1123,6 +1233,21 @@ a.neo-card {
   margin-right: auto;
 }
 
+/* Desktop: usar grid para igualar altura de cards hermanos cuando están directamente en el contenedor */
+@media (min-width: 768px) {
+  .neo-container:has(> .neo-card.neo-mb-4) {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--margin-lg);
+  }
+  
+  .neo-container:has(> .neo-card.neo-mb-4) > .neo-card.neo-mb-4 {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
 /* En desktop, todas las cards tienen el mismo ancho máximo para márgenes iguales */
 @media (min-width: 992px) {
   /* Si el contenedor tiene cards directamente (no dentro de un grid), aumentar ancho */
@@ -1373,6 +1498,14 @@ a.neo-card {
 
 .neo-mb-4 {
   margin-bottom: var(--margin-lg);
+}
+
+/* Eliminar margin-bottom del último elemento en contenedores para evitar espacios extra */
+.neo-container > .neo-mb-4:last-child,
+.neo-container--spaced > .neo-mb-4:last-child,
+main > .neo-container > .neo-mb-4:last-child,
+main > .neo-container--spaced > .neo-mb-4:last-child {
+  margin-bottom: 0;
 }
 
 .neo-mt-1 {
@@ -2414,17 +2547,25 @@ pre code {
   }
 
   .neo-toggle {
-    width: 44px;
+    width: 52px;
     height: 24px;
+  }
+
+  .neo-toggle__slider {
+    border-width: 2px;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
   }
 
   .neo-toggle__slider:before {
-    height: 24px;
-    width: 24px;
+    height: 20px;
+    width: 20px;
+    border-width: 2px;
+    background-size: 12px 12px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.8);
   }
 
   .neo-toggle__input:checked + .neo-toggle__slider:before {
-    transform: translateX(20px);
+    transform: translateX(28px);
   }
 }
 
@@ -2523,9 +2664,11 @@ pre code {
   margin-top: auto; /* Se pega al fondo gracias al flex-direction: column del body */
   position: relative;
   z-index: 100;
-  display: flex; /* Añadido para centrar */
-  justify-content: center; /* Añadido para centrar */
-  align-items: center; /* Añadido para centrar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* Evita que el footer se comprima */
+  width: 100%;
 }
 
 /* Desktop: aumentar padding del footer */
@@ -2568,8 +2711,8 @@ pre code {
 .neo-toggle {
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 20px;
+  width: 60px;
+  height: 28px;
   cursor: pointer;
   user-select: none;
   flex-shrink: 0;
@@ -2606,16 +2749,16 @@ pre code {
 
 .neo-toggle__slider {
   box-sizing: border-box;
-  border-radius: var(--border-radius);
-  border: var(--border-width) solid var(--border-color);
-  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--shadow-color);
+  border-radius: 6px;
+  border: 3px solid #000000;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.8);
   position: absolute;
   cursor: pointer;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--bg-secondary);
+  background-color: #E8E8E8;
   transition: all var(--transition-speed) var(--transition-easing);
 }
 
@@ -2623,36 +2766,40 @@ pre code {
   box-sizing: border-box;
   position: absolute;
   content: "";
-  height: 20px;
-  width: 20px;
-  border: var(--border-width) solid var(--border-color);
-  border-radius: var(--border-radius);
-  left: -2px;
-  bottom: -2px;
-  background-color: var(--bg-primary);
-  box-shadow: 0 var(--shadow-offset) 0 var(--shadow-color);
+  height: 24px;
+  width: 24px;
+  border: 3px solid #000000;
+  border-radius: 4px;
+  left: -3px;
+  bottom: -3px;
+  background-color: #E8E8E8;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='5'/%3E%3Cline x1='12' y1='1' x2='12' y2='3'/%3E%3Cline x1='12' y1='21' x2='12' y2='23'/%3E%3Cline x1='4.22' y1='4.22' x2='5.64' y2='5.64'/%3E%3Cline x1='18.36' y1='18.36' x2='19.78' y2='19.78'/%3E%3Cline x1='1' y1='12' x2='3' y2='12'/%3E%3Cline x1='21' y1='12' x2='23' y2='12'/%3E%3Cline x1='4.22' y1='19.78' x2='5.64' y2='18.36'/%3E%3Cline x1='18.36' y1='5.64' x2='19.78' y2='4.22'/%3E%3C/svg%3E");
+  background-size: 14px 14px;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.8);
   transition: all var(--transition-speed) var(--transition-easing);
 }
 
 /* Hover solo en dispositivos con mouse */
 @media (hover: hover) and (pointer: fine) {
   .neo-toggle:hover .neo-toggle__slider {
-    box-shadow: var(--shadow-offset-hover) var(--shadow-offset-hover) 0 var(--shadow-color);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
     transform: translate(1px, 1px);
   }
 
   .neo-toggle:hover .neo-toggle__slider:before {
-    box-shadow: 0 calc(var(--shadow-offset-hover) - 1px) 0 var(--shadow-color);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.8);
   }
 }
 
 .neo-toggle:active .neo-toggle__slider {
   transform: translate(0, 0);
-  box-shadow: 2px 2px 0 var(--shadow-color);
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8);
 }
 
 .neo-toggle:active .neo-toggle__slider:before {
-  box-shadow: 0 2px 0 var(--shadow-color);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.8);
 }
 
 /* Touch devices: mejorar feedback */
@@ -2663,30 +2810,37 @@ pre code {
 
   .neo-toggle:active .neo-toggle__slider {
     transform: translate(1px, 1px);
-    box-shadow: 4px 4px 0 var(--shadow-color);
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
   }
 
   .neo-toggle:active .neo-toggle__slider:before {
-    box-shadow: 0 4px 0 var(--shadow-color);
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.8);
   }
 }
 
 /* Estado activo: modo oscuro activado (checked) */
 .neo-toggle__input:checked + .neo-toggle__slider {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-color);
+  background-color: #2A2A2A;
+  border-color: #FFD700;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
 }
 
 [data-theme="dark"] .neo-toggle__input:checked + .neo-toggle__slider {
-  background-color: var(--bg-secondary);
-  border-color: var(--border-color);
+  background-color: #2A2A2A;
+  border-color: #FFD700;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.9);
 }
 
 .neo-toggle__input:checked + .neo-toggle__slider:before {
-  transform: translateX(30px);
-  background-color: var(--bg-primary);
+  transform: translateX(32px);
+  background-color: #2A2A2A;
+  border-color: #FFD700;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.9);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23FFD700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
 }
 
 [data-theme="dark"] .neo-toggle__input:checked + .neo-toggle__slider:before {
-  background-color: var(--bg-primary);
+  background-color: #2A2A2A;
+  border-color: #FFD700;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23FFD700' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z'/%3E%3C/svg%3E");
 }

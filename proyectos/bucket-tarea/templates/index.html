@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 Workspace</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Inter Font for UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,500;0,600;1,400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- Login View -->
+        <div id="login-view" class="view active">
+            <div class="login-card">
+                <div class="icon-header">🔐</div>
+                <h1>Welcome back</h1>
+                <p class="subtitle">Please sign in to access your workspace.</p>
+
+                <form id="login-form">
+                    <div class="input-group">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" placeholder="admin" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" placeholder="password123" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Log in</button>
+                    <p id="login-error" class="error-msg"></p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="view hidden">
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="icon">📂</span>
+                    <span>Workspace</span>
+                    <span class="divider">/</span>
+                    <span class="current">Profile</span>
+                </div>
+                <button id="logout-btn" class="btn-text">Log out</button>
+            </header>
+
+            <main class="content-area">
+                <div class="cover-image"></div>
+
+                <div class="profile-header">
+                    <div class="profile-pic-container" id="profile-trigger">
+                        {% if file_key %}
+                        <img id="profile-img" data-file-key="{{ file_key }}" src="" alt="Profile">
+                        {% else %}
+                        <img id="profile-img"
+                            src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People/Person.png"
+                            alt="Profile">
+                        {% endif %}
+                        <div class="overlay">
+                            <span>Change</span>
+                        </div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 class="editable-title">User Profile</h1>
+                        <div class="meta-row">
+                            <span class="tag">Status: Active</span>
+                            <span class="tag">Role: Admin</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-body">
+                    <h2>Files</h2>
+                    <p class="empty-state-text">Your uploaded files will appear here.</p>
+
+                    <!-- Hidden File Input -->
+                    <input type="file" id="file-input" accept="image/*" style="display: none;">
+
+                    <div id="upload-status" class="status-indicator hidden">
+                        <span class="spinner"></span>
+                        <span id="status-text">Uploading...</span>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modal-img" src="" alt="Full size">
+            <div class="modal-actions">
+                <button id="change-photo-btn" class="btn-secondary">Change Photo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+
+</html>
